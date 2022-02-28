@@ -3,4 +3,13 @@
     <string name="logo_uad">Logo UAD</string>
     <string name="mpuska">mPuska</string>
     <string name="informatics_ahmad_dahlan">Informatics Ahmad Dahlan</string>
+    <string name="home">Home</string>
+    <string name="selamat_datang">Selamat Datang,</string>
+    <string name="semangat_untuk_hari_ini">Semangat untuk hari ini</string>
+    <string name="notification">1 Notifikasi</string>
+    <string name="catatan">1 Catatan Tersedia</string>
+    <string name="program">Program</string>
+    <string name="program_name">Program Name</string>
+    <string name="informasi_mbkm">Informasi MBKM</string>
+    <string name="lihat_semua">Lihat Semua</string>
 </resources>
