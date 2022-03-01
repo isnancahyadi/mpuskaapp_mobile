@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/CusTheme">
         <activity
+            android:name=".SplashScreen"
+            android:exported="false" />
+        <activity
             android:name=".activity.SignUp"
             android:exported="false" />
         <activity
@@ -19,7 +22,7 @@
             android:name=".activity.user.lecture.LectureDashboard"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".activity.user.lecture.LectureProfile"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -38,4 +38,16 @@
         <item name="colorControlActivated">#000000</item>
         <item name="backgroundTint">#00FFFFFF</item>
     </style>
+
+    <!-- Circle Image -->
+    <style name="circleImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Text Input Layout Style -->
+    <style name="cusTxtInLayTransparentWhite" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="backgroundTint">#00FFFFFF</item>
+    </style>
 </resources>
