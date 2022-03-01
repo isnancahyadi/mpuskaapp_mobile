@@ -32,4 +32,10 @@
         <item name="colorControlActivated">#000000</item>
         <item name="backgroundTint">#FFFFFF</item>
     </style>
+
+    <!-- Text Input Layout Style -->
+    <style name="cusTxtInLayTransparentBlack" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlActivated">#000000</item>
+        <item name="backgroundTint">#00FFFFFF</item>
+    </style>
 </resources>
