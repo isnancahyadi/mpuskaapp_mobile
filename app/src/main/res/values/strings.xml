@@ -1,15 +1,24 @@
 <resources>
-    <string name="app_name">mpuskaapp_mobile</string>
-    <string name="logo_uad">Logo UAD</string>
-    <string name="mpuska">mPuska</string>
-    <string name="informatics_ahmad_dahlan">Informatics Ahmad Dahlan</string>
     <string name="home">Home</string>
-    <string name="selamat_datang">Selamat Datang,</string>
-    <string name="semangat_untuk_hari_ini">Semangat untuk hari ini</string>
-    <string name="notification">1 Notifikasi</string>
-    <string name="catatan">1 Catatan Tersedia</string>
+    <string name="klik">Klik</string>
+    <string name="masuk">Masuk</string>
+    <string name="mpuska">mPuska</string>
+    <string name="disini">Disini</string>
     <string name="program">Program</string>
-    <string name="program_name">Program Name</string>
-    <string name="informasi_mbkm">Informasi MBKM</string>
+    <string name="sign_in">Sign In</string>
+    <string name="niy_nim">NIY/NIM</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="logo_uad">Logo UAD</string>
+    <string name="password">Password</string>
     <string name="lihat_semua">Lihat Semua</string>
+    <string name="app_name">mpuskaapp_mobile</string>
+    <string name="notification">1 Notifikasi</string>
+    <string name="program_name">Program Name</string>
+    <string name="catatan">1 Catatan Tersedia</string>
+    <string name="informasi_mbkm">Informasi MBKM</string>
+    <string name="selamat_datang">Selamat Datang,</string>
+    <string name="lupa_password_klik">Lupa Password ? Klik</string>
+    <string name="untuk_mendapatkan_akun">untuk mendapatkan akun</string>
+    <string name="semangat_untuk_hari_ini">Semangat untuk hari ini</string>
+    <string name="informatics_ahmad_dahlan">Informatics Ahmad Dahlan</string>
 </resources>

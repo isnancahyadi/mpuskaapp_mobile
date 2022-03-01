@@ -26,4 +26,10 @@
     <style name="PopupMenu" parent="Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">#FFFFFF</item>
     </style>
+
+    <!-- Text Input Layout Style -->
+    <style name="cusTxtInLay" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlActivated">#000000</item>
+        <item name="backgroundTint">#FFFFFF</item>
+    </style>
 </resources>

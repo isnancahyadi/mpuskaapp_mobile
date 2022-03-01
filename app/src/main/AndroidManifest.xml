@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/CusTheme">
         <activity
+            android:name=".activity.Login"
+            android:exported="false" />
+        <activity
             android:name=".activity.user.lecture.LectureDashboard"
             android:exported="false" />
         <activity
