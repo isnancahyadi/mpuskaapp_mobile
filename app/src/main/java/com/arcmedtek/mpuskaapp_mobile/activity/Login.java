@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 
 public class Login extends AppCompatActivity {
 
+    TextView _btnSignUp;
     ImageView _web, _telegram, _instagram, _twitter, _youtube;
 
     @Override
@@ -18,11 +20,17 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        _btnSignUp =findViewById(R.id.btn_sign_up);
         _web = findViewById(R.id.btn_web);
         _telegram = findViewById(R.id.btn_telegram);
         _instagram = findViewById(R.id.btn_instagram);
         _twitter = findViewById(R.id.btn_twitter);
         _youtube = findViewById(R.id.btn_youtube);
+
+        _btnSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, SignUp.class);
+            startActivity(intent);
+        });
 
         _socmed();
     }

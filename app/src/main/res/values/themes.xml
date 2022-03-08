@@ -16,8 +16,9 @@
 
     <!-- Custom Theme -->
     <style name="CusTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1"> shortEdges</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
