@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/confirm_404_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/notfound_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#FFFFFF"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <TextView
+                android:id="@+id/notfound_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/not_found_message"
+                android:textSize="19sp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="11dp"
+        android:src="@drawable/ic_notfound"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/notfound_container"
+        app:layout_constraintEnd_toEndOf="@id/notfound_container"
+        app:layout_constraintTop_toTopOf="@id/notfound_container"
+        tools:ignore="ContentDescription" />
+
+    <Button
+        android:id="@+id/btn_confirm_404"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="22dp"
+        android:backgroundTint="#DD636E"
+        android:elevation="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/oke"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="19sp"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/notfound_container"
+        app:layout_constraintEnd_toEndOf="@id/notfound_container"
+        app:layout_constraintStart_toStartOf="@id/notfound_container"
+        app:rippleColor="#DF7680" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

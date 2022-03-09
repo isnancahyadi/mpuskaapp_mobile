@@ -1,4 +1,5 @@
 <resources>
+    <string name="oke">oke</string>
     <string name="home">Home</string>
     <string name="klik">Klik</string>
     <string name="ubah">Ubah</string>
@@ -30,6 +31,8 @@
     <string name="selamat_datang">Selamat Datang,</string>
     <string name="xxxxx_xxxxx_xxx">xxxxx@xxxxx.xxx</string>
     <string name="pengaturan_akun">Pengaturan Akun</string>
+    <string name="warning_message">Warning message</string>
+    <string name="not_found_message">Not found message</string>
     <string name="xxxxx_dd_mmmm_yyyy">xxxxx, dd mmmm yyyy</string>
     <string name="lupa_password_klik">Lupa Password ? Klik</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>
