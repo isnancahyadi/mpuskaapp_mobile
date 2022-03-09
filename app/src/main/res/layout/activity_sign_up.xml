@@ -63,7 +63,7 @@
                     app:contentPaddingTop="15dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txt_inlay_nip_sign_up"
+                        android:id="@+id/txt_inlay_niy_sign_up"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_black"
@@ -76,7 +76,7 @@
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inet_nip_sign_up"
+                            android:id="@+id/txt_inet_niy_sign_up"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/basic"
