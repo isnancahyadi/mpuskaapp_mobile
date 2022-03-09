@@ -39,8 +39,8 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void saveAccount() {
-        String username = Objects.requireNonNull(_niy.getText()).toString();
-        String password = Objects.requireNonNull(_password.getText()).toString();
+        String username = String.valueOf(_niy.getText());
+        String password = String.valueOf(_password.getText());
 
         _mpuskaDataService.signUp(username, password, new MPuskaDataService.SignUpListener() {
             @Override
