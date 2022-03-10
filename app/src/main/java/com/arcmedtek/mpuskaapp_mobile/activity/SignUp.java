@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
@@ -49,7 +49,28 @@ public class SignUp extends AppCompatActivity {
         _mpuskaDataService.signUp(username, password, new MPuskaDataService.SignUpListener() {
             @Override
             public void onResponse(String message) {
-                Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this, R.style.AlertDialogStyle);
+                View doneDialog = LayoutInflater.from(SignUp.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
+                builder.setView(doneDialog);
+
+                TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                txtMessage.setText(message);
+
+                final AlertDialog alertDialog = builder.create();
+
+                doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> {
+                    alertDialog.dismiss();
+
+                    Intent intent = new Intent(SignUp.this, Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                });
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
             }
 
             @SuppressLint("SetTextI18n")

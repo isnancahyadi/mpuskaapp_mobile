@@ -23,6 +23,7 @@
     <string name="app_name">mpuskaapp_mobile</string>
     <string name="notification">1 Notifikasi</string>
     <string name="program_name">Program Name</string>
+    <string name="done_message">Done message</string>
     <string name="catatan">1 Catatan Tersedia</string>
     <string name="no_handphone">No. Handphone</string>
     <string name="ubah_password">Ubah Password</string>

@@ -13,6 +13,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_calendar.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_checked.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_cross.xml" value="0.1525" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_done.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_gear.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_home.xml" value="0.1" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_menu.xml" value="0.1525" />
@@ -28,6 +29,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_setting_account_lecture.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_sign_up.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_404_dialog.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_done_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_error_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_warning_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/splash_screen.xml" value="0.23981481481481481" />
