@@ -7,8 +7,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,9 +26,14 @@ import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.Login;
+import com.arcmedtek.mpuskaapp_mobile.adapter.VariantProgramAdapter;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
+import com.arcmedtek.mpuskaapp_mobile.model.VariantProgramModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LectureDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,7 +42,9 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
     MPuskaDataService mPuskaDataService;
     TextClock dateTime;
 
-    TextView _lectureNameSideMenu, _lectureNiySideMenu;
+    VariantProgramAdapter _variantProgramAdapter;
+    ViewPager2 _variantProgram;
+    TextView _programName, _lectureNameSideMenu, _lectureNiySideMenu;
     DrawerLayout _drawerLayout;
     NavigationView _navigationView;
     ImageView _btnSideMenu, _btnSideMenuBack1, _btnSideMenuBack2;
@@ -47,6 +58,8 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
         mPuskaDataService = new MPuskaDataService(LectureDashboard.this);
         dateTime = findViewById(R.id.date_time_lecture_dashboard);
 
+        _variantProgram = findViewById(R.id.variant_program);
+        _programName = findViewById(R.id.program_name);
         _drawerLayout = findViewById(R.id.drawer_layout_side_menu_lecture);
         _navigationView = findViewById(R.id.nav_view_side_menu_lecture);
         _btnSideMenu = findViewById(R.id.btn_side_menu_lecture_dashboard);
@@ -60,7 +73,47 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
         Typeface tf = ResourcesCompat.getFont(LectureDashboard.this, R.font.roboto_black);
         dateTime.setTypeface(tf);
 
+        sliderProgramMenu();
         navDrawerSideMenu();
+    }
+
+    private void sliderProgramMenu() {
+        List<VariantProgramModel> variantProgramModelList = new ArrayList<>();
+        variantProgramModelList.add(new VariantProgramModel(R.drawable.ic_magang, "#25B8FF", "Magang"));
+        variantProgramModelList.add(new VariantProgramModel(R.drawable.ic_pertukaran_pelajar, "#43E02D", "Pertukaran Pelajar"));
+        variantProgramModelList.add(new VariantProgramModel(R.drawable.ic_studi_proyek_independen, "#039CE5", "Studi Proyek Independen"));
+        variantProgramModelList.add(new VariantProgramModel(R.drawable.ic_kampus_mengajar, "#FF9131", "Kampus Mengajar"));
+        variantProgramModelList.add(new VariantProgramModel(R.drawable.ic_kkn_tematik, "#F6DB0D", "KKN Tematik"));
+
+        _variantProgramAdapter = new VariantProgramAdapter(variantProgramModelList, _variantProgram);
+
+        _variantProgram.setAdapter(_variantProgramAdapter);
+
+        _variantProgram.setClipToPadding(false);
+        _variantProgram.setClipChildren(false);
+        _variantProgram.setOffscreenPageLimit(3);
+        _variantProgram.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer((page, position) -> {
+            float r = 1 - Math.abs(position);
+            page.setScaleY(0.85f + r * 0.15f);
+        });
+
+        _variantProgram.setPageTransformer(compositePageTransformer);
+
+        _variantProgram.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                setProgramName(variantProgramModelList.get(position));
+            }
+
+            private void setProgramName(VariantProgramModel model) {
+                _programName.setText(model.get_programName());
+                _programName.setTextColor(Color.parseColor(model.get_color()));
+            }
+        });
     }
 
     private void navDrawerSideMenu() {

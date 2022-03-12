@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_program"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="#039CE5"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/img_item_program"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:src="@drawable/ic_studi_proyek_independen"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
