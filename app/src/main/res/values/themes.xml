@@ -23,6 +23,14 @@
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
 
+    <!-- Navigation Theme -->
+    <style name="navTheme">
+        <!-- Background color when selected -->
+        <item name="colorControlHighlight">#68C0EDF3</item>
+        <item name="android:listDivider">@color/white</item>
+        <item name="android:fontFamily">@font/basic</item>
+    </style>
+
     <!-- Popup Menu Style -->
     <style name="PopupMenu" parent="Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">#FFFFFF</item>

@@ -22,6 +22,7 @@ import java.util.Map;
 public class MPuskaDataService {
     public static final String QUERY_FOR_CREATE_ACCOUNT = "http://100.100.1.10/mpuska-server-side/mpuska-server/public/restapi/akun";
     public static final String QUERY_FOR_LOGIN = "http://100.100.1.10/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://100.100.1.10/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
 
     Context context;
     SessionManager _sessionManager;
@@ -88,6 +89,26 @@ public class MPuskaDataService {
                 return params;
             }
         };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface LogoutListener {
+        void onResponse(String message);
+        void onError(String message);
+    }
+
+    public void logout(LogoutListener logoutListener) {
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_LOGOUT, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                logoutListener.onResponse("Berhasil logout");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                logoutListener.onError("Gagal logout");
+            }
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

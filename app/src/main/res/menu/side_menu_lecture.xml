@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/main_menu_lecture">
+        <item
+            android:id="@+id/nav_my_profile_lecture"
+            android:icon="@drawable/ic_id_card"
+            android:title="@string/my_profile"/>
+        <item
+            android:id="@+id/nav_notification_lecture"
+            android:icon="@drawable/ic_bell_solid"
+            android:title="@string/notifikasi" />
+        <item
+            android:id="@+id/nav_note_lecture"
+            android:icon="@drawable/ic_note_solid"
+            android:title="@string/catatan_menu" />
+        <item
+            android:id="@+id/nav_account_setting_lecture"
+            android:icon="@drawable/ic_account_setting_solid"
+            android:title="@string/pengaturan_akun" />
+    </group>
+
+    <item
+        android:id="@+id/nav_about_app_lecture"
+        android:icon="@drawable/ic_info_solid"
+        android:title="@string/tentang_aplikasi" />
+    <item
+        android:id="@+id/nav_logout_lecture"
+        android:icon="@drawable/ic_logout"
+        android:title="@string/logout" />
+
+</menu>

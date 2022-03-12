@@ -41,4 +41,16 @@
     <string name="untuk_mendapatkan_akun">untuk mendapatkan akun</string>
     <string name="semangat_untuk_hari_ini">Semangat untuk hari ini</string>
     <string name="informatics_ahmad_dahlan">Informatics Ahmad Dahlan</string>
+    <string name="fulan_bin_fulin">Fulan bin Fulin</string>
+    <string name="niy_nim_xxxxx">NIY/NIM. xxxxx</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="catatan_menu">Catatan</string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="logout">Logout</string>
+    <string name="version">Beta Version</string>
+    <string name="informatika">Informatika</string>
+    <string name="universitas_ahmad_dahlan">Universitas Ahmad Dahlan</string>
+    <string name="apakah_anda_yakin_ingin_keluar">Apakah anda yakin ingin keluar ?</string>
+    <string name="keluar">Keluar</string>
+    <string name="batal">Batal</string>
 </resources>
