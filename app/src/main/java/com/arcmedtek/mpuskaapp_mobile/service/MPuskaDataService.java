@@ -78,7 +78,7 @@ public class MPuskaDataService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                loginListener.onError(String.valueOf(error.networkResponse.statusCode));
             }
         }) {
             @Override

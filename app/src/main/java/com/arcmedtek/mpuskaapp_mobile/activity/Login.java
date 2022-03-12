@@ -1,10 +1,14 @@
 package com.arcmedtek.mpuskaapp_mobile.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -83,11 +87,46 @@ public class Login extends AppCompatActivity {
                 if (privilege.equals("1")) {
                     moveToLectureDashboard();
                 }
+                _loading.setVisibility(View.GONE);
+                _containerSecondContent.setVisibility(View.VISIBLE);
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onError(String message) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Login.this, R.style.AlertDialogStyle);
+                View warningDialog = LayoutInflater.from(Login.this).inflate(R.layout.custom_warning_dialog, findViewById(R.id.confirm_warning_dialog));
+                View notFoundDialog = LayoutInflater.from(Login.this).inflate(R.layout.custom_404_dialog, findViewById(R.id.confirm_404_dialog));
 
+                TextView txtMessage;
+
+                switch (message) {
+                    case "400":
+                        builder.setView(warningDialog);
+                        txtMessage = warningDialog.findViewById(R.id.warning_message);
+                        txtMessage.setText("NIY/NIM atau password salah");
+                        break;
+                    case "404":
+                        builder.setView(notFoundDialog);
+                        txtMessage = notFoundDialog.findViewById(R.id.notfound_message);
+                        txtMessage.setText("NIY/NIM tidak ditemukan");
+                        break;
+                }
+
+                final AlertDialog alertDialog = builder.create();
+
+                warningDialog.findViewById(R.id.btn_confirm_warning).setOnClickListener(v -> alertDialog.dismiss());
+
+                notFoundDialog.findViewById(R.id.btn_confirm_404).setOnClickListener(v -> alertDialog.dismiss());
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
+
+                _loading.setVisibility(View.GONE);
+                _containerSecondContent.setVisibility(View.VISIBLE);
             }
         });
     }
