@@ -7,6 +7,8 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -42,8 +46,10 @@ public class LectureProfile extends AppCompatActivity {
     TextView _name, _niy, _birth, _phoneNumber, _email, _fullAddress;
     String _firstName, _middleName, _lastName, _birthPlace, _birthDate, _finalBirthDate, _address, _subDistrict, _district, _province, _postalCode;
 
-    TextInputLayout _inlayBirthPlace, _inlayBirthDate, _inlayName, _inlayPhoneNumber, _inlayEmail, _inlayAddress;
-    TextInputEditText _inetBirthPlace, _inetBirthDate, _inetName, _inetPhoneNumber, _inetEmail, _inetAddress;
+    GridLayout _containerName, _containerAddress;
+
+    TextInputLayout _inlayBirthPlace, _inlayBirthDate, _inlayPhoneNumber, _inlayEmail;
+    TextInputEditText _inetBirthPlace, _inetBirthDate, _inetFirstName, _inetMiddleName, _inetLastName, _inetPhoneNumber, _inetEmail, _inetAddress, _inetSubDistrict, _inetDistrict, _inetProvince, _inetPostalCode;
 
     MenuBuilder _menuBuilder;
 
@@ -66,19 +72,26 @@ public class LectureProfile extends AppCompatActivity {
         _btnSaveUpdate = findViewById(R.id.btn_save_update_lecture_profile);
         _btnCancelUpdate = findViewById(R.id.btn_cancel_update_lecture_profile);
 
+        _containerName = findViewById(R.id.container_lecture_profile_name);
+        _containerAddress = findViewById(R.id.container_lecture_profile_address);
+
         _inlayBirthPlace = findViewById(R.id.txt_inlay_update_lecture_profile_birth_place);
         _inlayBirthDate = findViewById(R.id.txt_inlay_update_lecture_profile_birth_date);
-        _inlayName = findViewById(R.id.txt_inlay_update_lecture_profile_name);
         _inlayPhoneNumber = findViewById(R.id.txt_inlay_update_lecture_profile_phone_number);
         _inlayEmail = findViewById(R.id.txt_inlay_update_lecture_profile_email);
-        _inlayAddress = findViewById(R.id.txt_inlay_update_lecture_profile_address);
 
         _inetBirthPlace = findViewById(R.id.txt_inet_update_lecture_profile_birth_place);
         _inetBirthDate = findViewById(R.id.txt_inet_update_lecture_profile_birth_date);
-        _inetName = findViewById(R.id.txt_inet_update_lecture_profile_name);
+        _inetFirstName = findViewById(R.id.txt_inet_update_lecture_profile_firstname);
+        _inetMiddleName = findViewById(R.id.txt_inet_update_lecture_profile_middlename);
+        _inetLastName = findViewById(R.id.txt_inet_update_lecture_profile_lastname);
         _inetPhoneNumber = findViewById(R.id.txt_inet_update_lecture_profile_phone_number);
         _inetEmail = findViewById(R.id.txt_inet_update_lecture_profile_email);
         _inetAddress = findViewById(R.id.txt_inet_update_lecture_profile_address);
+        _inetSubDistrict = findViewById(R.id.txt_inet_update_lecture_profile_subdistrict);
+        _inetDistrict = findViewById(R.id.txt_inet_update_lecture_profile_district);
+        _inetProvince = findViewById(R.id.txt_inet_update_lecture_profile_province);
+        _inetPostalCode = findViewById(R.id.txt_inet_update_lecture_profile_postalcode);
 
         _mPuskaDataService = new MPuskaDataService(LectureProfile.this);
         _menuBuilder = new MenuBuilder(this);
@@ -153,6 +166,90 @@ public class LectureProfile extends AppCompatActivity {
     }
 
     private void editProfile() {
+        _btnSetting.setVisibility(View.GONE);
+        _birth.setVisibility(View.GONE);
+        _name.setVisibility(View.GONE);
+        _phoneNumber.setVisibility(View.GONE);
+        _email.setVisibility(View.GONE);
+        _fullAddress.setVisibility(View.GONE);
+
+        _btnSaveUpdate.setVisibility(View.VISIBLE);
+        _btnCancelUpdate.setVisibility(View.VISIBLE);
+
+        _inlayBirthPlace.setVisibility(View.VISIBLE);
+        _inlayBirthDate.setVisibility(View.VISIBLE);
+        _containerName.setVisibility(View.VISIBLE);
+        _inlayPhoneNumber.setVisibility(View.VISIBLE);
+        _inlayEmail.setVisibility(View.VISIBLE);
+        _containerAddress.setVisibility(View.VISIBLE);
+
+        _inetBirthPlace.setText(_birthPlace);
+        _inetBirthDate.setText(_finalBirthDate);
+        _inetFirstName.setText(_firstName);
+        _inetMiddleName.setText(_middleName);
+        _inetLastName.setText(_lastName);
+        _inetPhoneNumber.setText(_phoneNumber.getText());
+        _inetEmail.setText(_email.getText());
+        _inetAddress.setText(_address);
+        _inetSubDistrict.setText(_subDistrict);
+        _inetDistrict.setText(_district);
+        _inetProvince.setText(_province);
+        _inetPostalCode.setText(_postalCode);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd LLLL yyyy", new Locale("id", "ID"));
+        Calendar nCal = Calendar.getInstance();
+
+        _inetBirthDate.setOnFocusChangeListener((view, b) -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(LectureProfile.this, R.style.cusCalendarStyle, (view1, year, month, dayOfMonth) -> {
+                Calendar nDate = Calendar.getInstance();
+                nDate.set(year, month, dayOfMonth);
+                _inetBirthDate.setText(sdf.format(nDate.getTime()));
+            }, nCal.get(Calendar.YEAR), nCal.get(Calendar.MONTH), nCal.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+        });
+
+        _btnSaveUpdate.setOnClickListener(v -> saveUpdateProfile());
+        _btnCancelUpdate.setOnClickListener(v -> refreshActivity());
+    }
+
+    private void refreshActivity() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    private void saveUpdateProfile() {
+        final String firstName = String.valueOf(_inetFirstName.getText());
+        final String middleName = String.valueOf(_inetMiddleName.getText());
+        final String lastName = String.valueOf(_inetLastName.getText());
+        final String birthPlace = String.valueOf(_inetBirthPlace.getText());
+        final String birthDate = String.valueOf(_inetBirthDate.getText());
+        final String phoneNum = String.valueOf(_inetPhoneNumber.getText());
+        final String email = String.valueOf(_inetEmail.getText());
+        final String address = String.valueOf(_inetAddress.getText());
+        final String subDistrict = String.valueOf(_inetSubDistrict.getText());
+        final String district = String.valueOf(_inetDistrict.getText());
+        final String province = String.valueOf(_inetProvince.getText());
+        final String postalCode = String.valueOf(_inetPostalCode.getText());
+
+        final String cvtBirthDateToDBFormat = convertBirthDateToDBFormat(birthDate);
+
+        _mPuskaDataService.updateProfileLecture(firstName, middleName, lastName, birthPlace, cvtBirthDateToDBFormat, phoneNum, email, address, subDistrict, district, province, postalCode, new MPuskaDataService.UpdateProfileLectureListener() {
+            @Override
+            public void onResponse(String message) {
+                refreshActivity();
+
+                Toast.makeText(LectureProfile.this, message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String message) {
+                refreshActivity();
+
+                Toast.makeText(LectureProfile.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getProfileLecture() {
@@ -171,7 +268,7 @@ public class LectureProfile extends AppCompatActivity {
                 _postalCode = lectureProfileModels.get(0).get_postalCode();
 
                 String fullname;
-                if (_middleName == null) {
+                if (_middleName.equals("")) {
                     fullname = _firstName + " " + _lastName;
                 } else {
                     fullname = _firstName + " " + _middleName + " " + _lastName;

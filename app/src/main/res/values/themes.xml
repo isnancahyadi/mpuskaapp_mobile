@@ -64,4 +64,14 @@
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
+
+    <!-- Calendar Style -->
+    <style name="cusCalendarStyle" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/FF039CE5</item> <!-- header background -->
+        <item name="colorPrimary">@color/FF039CE5</item> <!-- button color -->
+        <item name="android:windowBackground">@color/white</item> <!-- calendar background -->
+        <item name="android:colorControlActivated">@color/FF25B8FF</item> <!-- selected day -->
+        <item name="android:textColorPrimary">@color/black</item> <!-- calendar text -->
+        <item name="android:textColorSecondary">@color/FF25B8FF</item> <!-- week text -->
+    </style>
 </resources>

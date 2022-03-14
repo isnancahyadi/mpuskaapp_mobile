@@ -145,33 +145,95 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_inlay_update_lecture_profile_name"
+                <GridLayout
+                    android:id="@+id/container_lecture_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/basic"
-                    android:theme="@style/cusTxtInLayTransparentWhite"
+                    android:rowCount="1"
+                    android:columnCount="3"
                     android:visibility="gone"
-                    app:boxBackgroundMode="filled"
-                    app:boxStrokeColor="#FFFFFF"
-                    app:hintAnimationEnabled="false"
-                    app:hintEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/lecture_profile_niy"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txt_inet_update_lecture_profile_name"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_inlay_update_lecture_profile_firstname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/basic"
-                        android:inputType="textPersonName"
-                        android:padding="2dp"
-                        android:textColor="#FFFFFF"
-                        android:textColorHighlight="#000000"
-                        android:textSize="24sp" />
+                        android:layout_marginEnd="5dp"
+                        android:theme="@style/cusTxtInLayTransparentWhite"
+                        app:boxBackgroundMode="filled"
+                        app:boxStrokeColor="#FFFFFF"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inet_update_lecture_profile_firstname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:inputType="textPersonName"
+                            android:padding="2dp"
+                            android:textColor="#FFFFFF"
+                            android:textColorHighlight="#000000"
+                            android:textSize="24sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_inlay_update_lecture_profile_middlename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/basic"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:theme="@style/cusTxtInLayTransparentWhite"
+                        app:boxBackgroundMode="filled"
+                        app:boxStrokeColor="#FFFFFF"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inet_update_lecture_profile_middlename"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:inputType="textPersonName"
+                            android:padding="2dp"
+                            android:textColor="#FFFFFF"
+                            android:textColorHighlight="#000000"
+                            android:textSize="24sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_inlay_update_lecture_profile_lastname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/basic"
+                        android:layout_marginStart="5dp"
+                        android:theme="@style/cusTxtInLayTransparentWhite"
+                        app:boxBackgroundMode="filled"
+                        app:boxStrokeColor="#FFFFFF"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inet_update_lecture_profile_lastname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:inputType="textPersonName"
+                            android:padding="2dp"
+                            android:textColor="#FFFFFF"
+                            android:textColorHighlight="#000000"
+                            android:textSize="24sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </GridLayout>
 
                 <TextView
                     android:id="@+id/lecture_profile_niy"
@@ -184,7 +246,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txt_inlay_update_lecture_profile_name" />
+                    app:layout_constraintTop_toBottomOf="@id/container_lecture_profile_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -465,34 +527,215 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txt_inlay_update_lecture_profile_address"
+                    <GridLayout
+                        android:id="@+id/container_lecture_profile_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="7dp"
+                        android:rowCount="5"
+                        android:columnCount="3"
                         android:layout_marginTop="2dp"
-                        android:fontFamily="@font/basic"
-                        android:theme="@style/cusTxtInLayTransparentWhite"
                         android:visibility="gone"
-                        app:boxBackgroundMode="filled"
-                        app:boxStrokeColor="#FFFFFF"
-                        app:hintAnimationEnabled="false"
-                        app:hintEnabled="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/txt_lecture_profile_address">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inet_update_lecture_profile_address"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/basic"
-                            android:padding="2dp"
-                            android:textColor="#FFFFFF"
-                            android:textColorHighlight="#000000"
-                            android:textSize="16sp" />
+                            android:text="@string/alamat"
+                            android:textColor="#FFFFFF"/>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/colon"
+                            android:textColor="#FFFFFF"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txt_inlay_update_lecture_profile_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="@font/basic"
+                            android:theme="@style/cusTxtInLayTransparentWhite"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeColor="#FFFFFF"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inet_update_lecture_profile_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/basic"
+                                android:padding="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textColorHighlight="#000000"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:text="@string/kecamatan"
+                            android:textColor="#FFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/colon"
+                            android:textColor="#FFFFFF"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txt_inlay_update_lecture_profile_subdistrict"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="@font/basic"
+                            android:theme="@style/cusTxtInLayTransparentWhite"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeColor="#FFFFFF"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inet_update_lecture_profile_subdistrict"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/basic"
+                                android:padding="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textColorHighlight="#000000"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:text="@string/kabupaten"
+                            android:textColor="#FFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/colon"
+                            android:textColor="#FFFFFF"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txt_inlay_update_lecture_profile_district"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="@font/basic"
+                            android:theme="@style/cusTxtInLayTransparentWhite"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeColor="#FFFFFF"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inet_update_lecture_profile_district"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/basic"
+                                android:padding="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textColorHighlight="#000000"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:text="@string/provinsi"
+                            android:textColor="#FFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/colon"
+                            android:textColor="#FFFFFF"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txt_inlay_update_lecture_profile_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="@font/basic"
+                            android:theme="@style/cusTxtInLayTransparentWhite"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeColor="#FFFFFF"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inet_update_lecture_profile_province"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/basic"
+                                android:padding="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textColorHighlight="#000000"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:text="@string/kode_pos"
+                            android:textColor="#FFFFFF"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/basic"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/colon"
+                            android:textColor="#FFFFFF"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txt_inlay_update_lecture_profile_postalcode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:fontFamily="@font/basic"
+                            android:theme="@style/cusTxtInLayTransparentWhite"
+                            app:boxBackgroundMode="filled"
+                            app:boxStrokeColor="#FFFFFF"
+                            app:hintAnimationEnabled="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inet_update_lecture_profile_postalcode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/basic"
+                                android:padding="2dp"
+                                android:textColor="#FFFFFF"
+                                android:textColorHighlight="#000000"
+                                android:textSize="16sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </GridLayout>
 
                     <TextView
                         android:id="@+id/lecture_profile_address"
