@@ -134,7 +134,7 @@
 
                 <TextView
                     android:id="@+id/lecture_profile_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/basic"
                     android:text="@string/xxxxx"
@@ -175,7 +175,7 @@
 
                 <TextView
                     android:id="@+id/lecture_profile_niy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/basic"
                     android:text="@string/niy_xxx"
@@ -274,7 +274,7 @@
 
                     <TextView
                         android:id="@+id/lecture_profile_birth"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="23dp"
                         android:layout_marginTop="2dp"
@@ -349,7 +349,7 @@
 
                     <TextView
                         android:id="@+id/lecture_profile_phone_number"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="23dp"
                         android:layout_marginTop="2dp"
@@ -423,7 +423,7 @@
 
                     <TextView
                         android:id="@+id/lecture_profile_email"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="23dp"
                         android:layout_marginTop="2dp"
@@ -496,7 +496,7 @@
 
                     <TextView
                         android:id="@+id/lecture_profile_address"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="23dp"
                         android:layout_marginTop="2dp"

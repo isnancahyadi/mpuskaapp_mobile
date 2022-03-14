@@ -28,6 +28,7 @@ import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.Login;
 import com.arcmedtek.mpuskaapp_mobile.adapter.VariantProgramAdapter;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
+import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.model.VariantProgramModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.google.android.material.navigation.NavigationView;
@@ -72,6 +73,24 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
 
         Typeface tf = ResourcesCompat.getFont(LectureDashboard.this, R.font.roboto_black);
         dateTime.setTypeface(tf);
+
+        mPuskaDataService.getProfileLecture(new MPuskaDataService.ProfileLectureListener() {
+            @Override
+            public void onResponse(List<LectureProfileModel> lectureProfileModels) {
+                String fullName = "";
+                if (lectureProfileModels.get(0).get_middleName() == null) {
+                    fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_lastName();
+                } else if (lectureProfileModels.get(0).get_middleName() != null) {
+                    fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_middleName()+" "+lectureProfileModels.get(0).get_lastName();
+                }
+                _lectureNiySideMenu.setText(lectureProfileModels.get(0).get_niy());
+                _lectureNameSideMenu.setText(fullName);
+            }
+            @Override
+            public void onError(String message) {
+
+            }
+        });
 
         sliderProgramMenu();
         navDrawerSideMenu();
