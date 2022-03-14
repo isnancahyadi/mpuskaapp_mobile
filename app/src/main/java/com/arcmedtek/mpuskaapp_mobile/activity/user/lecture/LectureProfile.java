@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.Login;
+import com.arcmedtek.mpuskaapp_mobile.activity.SignUp;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
@@ -238,9 +239,22 @@ public class LectureProfile extends AppCompatActivity {
         _mPuskaDataService.updateProfileLecture(firstName, middleName, lastName, birthPlace, cvtBirthDateToDBFormat, phoneNum, email, address, subDistrict, district, province, postalCode, new MPuskaDataService.UpdateProfileLectureListener() {
             @Override
             public void onResponse(String message) {
-                refreshActivity();
+                AlertDialog.Builder builder = new AlertDialog.Builder(LectureProfile.this, R.style.AlertDialogStyle);
+                View doneDialog = LayoutInflater.from(LectureProfile.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
+                builder.setView(doneDialog);
 
-                Toast.makeText(LectureProfile.this, message, Toast.LENGTH_SHORT).show();
+                TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                txtMessage.setText(message);
+
+                final AlertDialog alertDialog = builder.create();
+
+                doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> refreshActivity());
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
             }
 
             @Override
