@@ -77,10 +77,10 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
         mPuskaDataService.getProfileLecture(new MPuskaDataService.ProfileLectureListener() {
             @Override
             public void onResponse(List<LectureProfileModel> lectureProfileModels) {
-                String fullName = "";
-                if (lectureProfileModels.get(0).get_middleName() == null) {
+                String fullName;
+                if (lectureProfileModels.get(0).get_middleName().equals("")) {
                     fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_lastName();
-                } else if (lectureProfileModels.get(0).get_middleName() != null) {
+                } else {
                     fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_middleName()+" "+lectureProfileModels.get(0).get_lastName();
                 }
                 _lectureNiySideMenu.setText(lectureProfileModels.get(0).get_niy());

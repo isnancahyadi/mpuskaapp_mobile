@@ -29,6 +29,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_LOGOUT = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
     public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/dosen/";
     public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/akun/";
 
     Context context;
     SessionManager _sessionManager;
@@ -200,6 +201,33 @@ public class MPuskaDataService {
                 params.put("kabupaten", district);
                 params.put("provinsi", province);
                 params.put("kode_pos", postalCode);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface UpdatePassLecture {
+        void onResponse(String message);
+        void onError(String message);
+    }
+
+    public void updatePassLecture(String pass, UpdatePassLecture updatePassLecture) {
+        StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_PASS_LECTURE + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                updatePassLecture.onResponse("Data berhasil diupdate");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                updatePassLecture.onError("Error");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("confirm_password", pass);
                 return params;
             }
         };
