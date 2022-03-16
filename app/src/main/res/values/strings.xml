@@ -4,6 +4,7 @@
     <string name="home">Home</string>
     <string name="klik">Klik</string>
     <string name="ubah">Ubah</string>
+    <string name="cari">Cari</string>
     <string name="masuk">Masuk</string>
     <string name="xxxxx">xxxxx</string>
     <string name="batal">Batal</string>
@@ -37,6 +38,7 @@
     <string name="notification">1 Notifikasi</string>
     <string name="program_name">Program Name</string>
     <string name="done_message">Done message</string>
+    <string name="tahun_ajaran">Tahun Ajaran</string>
     <string name="catatan">1 Catatan Tersedia</string>
     <string name="no_handphone">No. Handphone</string>
     <string name="ubah_password">Ubah Password</string>

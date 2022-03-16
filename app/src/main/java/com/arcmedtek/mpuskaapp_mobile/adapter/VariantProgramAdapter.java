@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.KampusMengajarActivity;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.KknTematikActivity;
+import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.ListMatkul;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.MagangActivity;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.PertukaranPelajarActivity;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.StudiProyekIndependenActivity;
@@ -46,7 +47,7 @@ public class VariantProgramAdapter extends RecyclerView.Adapter<VariantProgramAd
             } else if (position == 1) {
                 v.getContext().startActivity(new Intent(v.getContext(), PertukaranPelajarActivity.class));
             } else if (position == 2) {
-                v.getContext().startActivity(new Intent(v.getContext(), StudiProyekIndependenActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), ListMatkul.class));
             } else if (position == 3) {
                 v.getContext().startActivity(new Intent(v.getContext(), KampusMengajarActivity.class));
             } else if (position == 4) {

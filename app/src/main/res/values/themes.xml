@@ -59,6 +59,11 @@
         <item name="colorControlActivated">#FFFFFF</item>
         <item name="backgroundTint">#00FFFFFF</item>
     </style>
+
+    <style name="cusTxtInLayTransparentBlue" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlActivated">#5FB2FF</item>
+        <item name="backgroundTint">#00FFFFFF</item>
+    </style>
     
     <!-- Alert Dialog Style -->
     <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
