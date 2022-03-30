@@ -34,11 +34,14 @@
     <string name="notifikasi">Notifikasi</string>
     <string name="lihat_semua">Lihat Semua</string>
     <string name="informatika">Informatika</string>
+    <string name="nama_matkul">Nama Matkul</string>
+    <string name="kode_matkul">Kode Matkul</string>
     <string name="app_name">mpuskaapp_mobile</string>
     <string name="notification">1 Notifikasi</string>
     <string name="program_name">Program Name</string>
     <string name="done_message">Done message</string>
     <string name="tahun_ajaran">Tahun Ajaran</string>
+    <string name="lihat_detail">Lihat Detail</string>
     <string name="catatan">1 Catatan Tersedia</string>
     <string name="no_handphone">No. Handphone</string>
     <string name="ubah_password">Ubah Password</string>

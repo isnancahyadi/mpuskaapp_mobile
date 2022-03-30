@@ -9,10 +9,12 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.config.SingletonReq;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
+import com.arcmedtek.mpuskaapp_mobile.model.TeacherModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,12 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/akun";
+    public static final String QUERY_FOR_LOGIN = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
 
     Context context;
     SessionManager _sessionManager;
@@ -45,6 +48,7 @@ public class MPuskaDataService {
 
     public interface SignUpListener {
         void onResponse(String message);
+
         void onError(String message);
     }
 
@@ -63,6 +67,7 @@ public class MPuskaDataService {
 
     public interface LoginListener {
         void onResponse(String privilege);
+
         void onError(String message);
     }
 
@@ -101,6 +106,7 @@ public class MPuskaDataService {
 
     public interface LogoutListener {
         void onResponse(String message);
+
         void onError(String message);
     }
 
@@ -121,6 +127,7 @@ public class MPuskaDataService {
 
     public interface ProfileLectureListener {
         void onResponse(List<LectureProfileModel> lectureProfileModels);
+
         void onError(String message);
     }
 
@@ -170,6 +177,7 @@ public class MPuskaDataService {
 
     public interface UpdateProfileLectureListener {
         void onResponse(String message);
+
         void onError(String message);
     }
 
@@ -209,6 +217,7 @@ public class MPuskaDataService {
 
     public interface UpdatePassLecture {
         void onResponse(String message);
+
         void onError(String message);
     }
 
@@ -231,6 +240,52 @@ public class MPuskaDataService {
                 return params;
             }
         };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface TeacherListCourseListener {
+        void onResponse(ArrayList<TeacherModel> teacherModels);
+
+        void onError(String message);
+    }
+
+    public void getTeacherListCourse(TeacherListCourseListener teacherListCourseListener) {
+        ArrayList<TeacherModel> models = new ArrayList<>();
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_GET_TEACHER_LIST_COURSE + _userKey.get(SessionManager.USERNAME), null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        //JSONArray jsonArray = new JSONArray(response);
+                        JSONObject data = response.getJSONObject(i);
+
+                        String courseName = data.getString("nama");
+                        String courseCode = data.getString("kode_matkul");
+                        String semester = data.getString("semester");
+                        String major = data.getString("prodi");
+                        String firstName = data.getString("nama_depan");
+                        String middleName = data.getString("nama_tengah");
+                        String lastName = data.getString("nama_belakang");
+                        String classRoom = data.getString("kelas");
+                        String collegeYear = data.getString("thn_ajaran");
+                        int sks = data.getInt("sks");
+
+                        models.add(new TeacherModel(courseName, courseCode, semester, major, firstName, middleName, lastName, classRoom, collegeYear, sks));
+
+                        teacherListCourseListener.onResponse(models);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                teacherListCourseListener.onError("Terjadi kesalahan sistem");
+            }
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

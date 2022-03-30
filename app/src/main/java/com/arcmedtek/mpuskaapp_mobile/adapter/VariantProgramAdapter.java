@@ -43,15 +43,15 @@ public class VariantProgramAdapter extends RecyclerView.Adapter<VariantProgramAd
         holder.setDataItem(_variantProgramModels.get(position));
         holder._itemProgram.setOnClickListener(v -> {
             if (position == 0) {
-                v.getContext().startActivity(new Intent(v.getContext(), MagangActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), MagangActivity.class).putExtra("magang", _variantProgramModels.get(0).get_programName()));
             } else if (position == 1) {
-                v.getContext().startActivity(new Intent(v.getContext(), PertukaranPelajarActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), PertukaranPelajarActivity.class).putExtra("pertukaran_pelajar", _variantProgramModels.get(1).get_programName()));
             } else if (position == 2) {
-                v.getContext().startActivity(new Intent(v.getContext(), ListMatkul.class));
+                v.getContext().startActivity(new Intent(v.getContext(), ListMatkul.class).putExtra("spi", _variantProgramModels.get(2).get_programName()));
             } else if (position == 3) {
-                v.getContext().startActivity(new Intent(v.getContext(), KampusMengajarActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), KampusMengajarActivity.class).putExtra("kampus_mengajar", _variantProgramModels.get(3).get_programName()));
             } else if (position == 4) {
-                v.getContext().startActivity(new Intent(v.getContext(), KknTematikActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), KknTematikActivity.class).putExtra("kkn", _variantProgramModels.get(4).get_programName()));
             }
         });
     }
