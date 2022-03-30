@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.user.lecture.ListMatkul"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".activity.user.lecture.KknTematikActivity"

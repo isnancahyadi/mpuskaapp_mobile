@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +26,12 @@ public class ListMatkul extends AppCompatActivity {
     TextView _teacherProgramName;
     TextInputEditText _txtInetSearchStudyYear;
     Button _btnSearchStudyYear;
+    ImageView _imgNotFound;
 
     RecyclerView _courseRecycler;
     TeacherAdapter _teacherAdapter;
     MPuskaDataService _mPuskaDataService;
+    //CharSequence search = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class ListMatkul extends AppCompatActivity {
         _txtInetSearchStudyYear = findViewById(R.id.txt_inet_search_study_year);
         _btnSearchStudyYear = findViewById(R.id.btn_search_study_year);
         _courseRecycler = findViewById(R.id.list_matkul);
+        _imgNotFound = findViewById(R.id.img_teacher_course_not_found);
 
         _mPuskaDataService = new MPuskaDataService(ListMatkul.this);
 
@@ -56,19 +61,13 @@ public class ListMatkul extends AppCompatActivity {
                 Toast.makeText(ListMatkul.this, message, Toast.LENGTH_SHORT).show();
             }
         });
-        
-        _btnSearchStudyYear.setOnClickListener(v -> searchCourse());
     }
 
     private void setCourseRecycler(ArrayList<TeacherModel> courseList) {
-        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         _teacherAdapter = new TeacherAdapter(courseList, ListMatkul.this);
         _courseRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _courseRecycler.setAdapter(_teacherAdapter);
-    }
-
-    private void searchCourse() {
     }
 
     private final TextWatcher searchStudyYearTextWatcher = new TextWatcher() {
@@ -82,6 +81,17 @@ public class ListMatkul extends AppCompatActivity {
             String searchStudyYearInput = String.valueOf(_txtInetSearchStudyYear.getText());
 
             _btnSearchStudyYear.setEnabled(!searchStudyYearInput.isEmpty());
+
+            _btnSearchStudyYear.setOnClickListener(v -> {
+                _teacherAdapter.getFilter().filter(s, count1 -> {
+                    if (count1 == 0) {
+                        _imgNotFound.setVisibility(View.VISIBLE);
+                    } else {
+                        _imgNotFound.setVisibility(View.GONE);
+                    }
+                });
+                //search = s;
+            });
         }
 
         @Override

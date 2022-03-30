@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,14 +15,15 @@ import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.model.TeacherModel;
 
 import java.util.ArrayList;
-
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherHolder> {
 
     ArrayList<TeacherModel> _teacherModels;
+    ArrayList<TeacherModel> _filteredTeacherModels;
     Context _context;
 
     public TeacherAdapter(ArrayList<TeacherModel> _teacherModels, Context _context) {
         this._teacherModels = _teacherModels;
+        this._filteredTeacherModels = _teacherModels;
         this._context = _context;
     }
 
@@ -43,7 +45,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
 
     @Override
     public int getItemCount() {
-        return _teacherModels.size();
+        return _filteredTeacherModels.size();
     }
 
     public static class TeacherHolder extends RecyclerView.ViewHolder {
@@ -56,5 +58,39 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
             _nameCourse = itemView.findViewById(R.id.name_course);
             _courseCode = itemView.findViewById(R.id.course_code);
         }
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String key = charSequence.toString();
+
+                ArrayList<TeacherModel> listFiltered = new ArrayList<>();
+
+                if (key.isEmpty()) {
+                    _filteredTeacherModels = _teacherModels;
+                } else {
+                    for (TeacherModel row: _teacherModels) {
+                        if (row.get_collegeYear().toLowerCase().contains(key.toLowerCase())) {
+                            listFiltered.add(row);
+                        }
+                    }
+                    _filteredTeacherModels = listFiltered;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = _filteredTeacherModels;
+                filterResults.count = listFiltered.size();
+
+                return filterResults;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                _filteredTeacherModels = (ArrayList<TeacherModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }
