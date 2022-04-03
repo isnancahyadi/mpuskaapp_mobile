@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/nama_matkul"
                     android:fontFamily="@font/basic"
-                    android:textSize="19sp"/>
+                    android:textSize="17sp"/>
 
                 <TextView
                     android:id="@+id/course_code"
@@ -68,11 +68,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lihat_detail"
                     android:textColor="#8DC9F3"
-                    android:textSize="12sp"/>
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="11dp"
+                    android:layout_width="9dp"
+                    android:layout_height="10dp"
                     android:src="@drawable/ic_play_right"
                     android:layout_marginStart="5dp"
                     app:tint="#8DC9F3"

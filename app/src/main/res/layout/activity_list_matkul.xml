@@ -106,7 +106,8 @@
                 android:src="@drawable/maskot_cat_not_found"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/list_matkul_container"
-                app:layout_constraintTop_toBottomOf="@id/search_year_container" />
+                app:layout_constraintTop_toBottomOf="@id/search_year_container"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/list_matkul_container"
