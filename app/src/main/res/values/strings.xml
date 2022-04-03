@@ -36,6 +36,9 @@
     <string name="informatika">Informatika</string>
     <string name="nama_matkul">Nama Matkul</string>
     <string name="kode_matkul">Kode Matkul</string>
+    <string name="atur_jadwal">Atur Jadwal</string>
+    <string name="input_nilai">Input Nilai</string>
+    <string name="print_nilai">Print Nilai</string>
     <string name="app_name">mpuskaapp_mobile</string>
     <string name="notification">1 Notifikasi</string>
     <string name="program_name">Program Name</string>
@@ -44,10 +47,13 @@
     <string name="lihat_detail">Lihat Detail</string>
     <string name="catatan">1 Catatan Tersedia</string>
     <string name="no_handphone">No. Handphone</string>
+    <string name="ta_xxxx_xxxx">TA. xxxx/xxxx</string>
     <string name="ubah_password">Ubah Password</string>
     <string name="password_baru">Password Baru</string>
     <string name="niy_nim_xxxxx">NIY/NIM. xxxxx</string>
     <string name="informasi_mbkm">Informasi MBKM</string>
+    <string name="komponen_nilai">Komponen Nilai</string>
+    <string name="list_mahasiswa">List Mahasiswa</string>
     <string name="selamat_datang">Selamat Datang,</string>
     <string name="xxxxx_xxxxx_xxx">xxxxx@xxxxx.xxx</string>
     <string name="pengaturan_akun">Pengaturan Akun</string>
@@ -55,6 +61,7 @@
     <string name="fulan_bin_fulin">Fulan bin Fulin</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="not_found_message">Not found message</string>
+    <string name="detail_matakuliah">Detail Matakuliah</string>
     <string name="xxxxx_dd_mmmm_yyyy">xxxxx, dd mmmm yyyy</string>
     <string name="lupa_password_klik">Lupa Password ? Klik</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>

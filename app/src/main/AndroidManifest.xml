@@ -14,9 +14,12 @@
         android:theme="@style/CusTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.user.lecture.ListMatkul"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".activity.user.lecture.Course"
             android:exported="false" />
+        <activity
+            android:name=".activity.user.lecture.ListMatkul"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.user.lecture.KknTematikActivity"
             android:exported="false" />

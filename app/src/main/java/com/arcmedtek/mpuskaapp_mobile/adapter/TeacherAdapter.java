@@ -2,6 +2,7 @@ package com.arcmedtek.mpuskaapp_mobile.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.Course;
 import com.arcmedtek.mpuskaapp_mobile.model.TeacherModel;
 
 import java.util.ArrayList;
@@ -41,6 +43,15 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
         TeacherModel model = _teacherModels.get(position);
         holder._courseCode.setText(model.get_courseCode() + " (Thn. " + model.get_collegeYear() + ")");
         holder._nameCourse.setText(model.get_courseName() + " (" + model.get_classRoom() + ")");
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(_context, Course.class);
+            intent.putExtra("course_code", model.get_courseCode());
+            intent.putExtra("course_name", model.get_courseName());
+            intent.putExtra("college_year", model.get_collegeYear());
+            intent.putExtra("classroom", model.get_classRoom());
+            _context.startActivity(intent);
+        });
     }
 
     @Override
