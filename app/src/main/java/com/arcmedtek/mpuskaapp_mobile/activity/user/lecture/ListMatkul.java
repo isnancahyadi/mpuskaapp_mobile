@@ -26,7 +26,7 @@ public class ListMatkul extends AppCompatActivity {
     TextView _teacherProgramName;
     TextInputEditText _txtInetSearchStudyYear;
     Button _btnSearchStudyYear;
-    ImageView _imgNotFound;
+    ImageView _imgNotFound, _btnBack;
 
     RecyclerView _courseRecycler;
     TeacherAdapter _teacherAdapter;
@@ -43,6 +43,7 @@ public class ListMatkul extends AppCompatActivity {
         _btnSearchStudyYear = findViewById(R.id.btn_search_study_year);
         _courseRecycler = findViewById(R.id.list_matkul);
         _imgNotFound = findViewById(R.id.img_teacher_course_not_found);
+        _btnBack = findViewById(R.id.btn_back_list_course);
 
         _mPuskaDataService = new MPuskaDataService(ListMatkul.this);
 
@@ -61,6 +62,8 @@ public class ListMatkul extends AppCompatActivity {
                 Toast.makeText(ListMatkul.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+
+        _btnBack.setOnClickListener(v -> onBackPressed());
     }
 
     private void setCourseRecycler(ArrayList<TeacherModel> courseList) {

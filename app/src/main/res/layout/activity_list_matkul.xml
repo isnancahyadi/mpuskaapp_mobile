@@ -37,15 +37,31 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0">
 
-                <TextView
-                    android:id="@+id/teacher_program_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/roboto_black"
-                    android:text="@string/program_name"
-                    android:textColor="#4F4F4F"
-                    android:textSize="18sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/btn_back_list_course"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/ic_play_left"
+                        app:tint="#000000"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/teacher_program_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_black"
+                        android:gravity="center"
+                        android:text="@string/program_name"
+                        android:textColor="#4F4F4F"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_inlay_search_study_year"
