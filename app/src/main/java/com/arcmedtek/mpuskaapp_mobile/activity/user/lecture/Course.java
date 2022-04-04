@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Course extends AppCompatActivity {
 
-    TextView _collegeYear, _nameCourse, _codeCourse;
+    TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     ImageView _btnBack;
 
     @SuppressLint("SetTextI18n")
@@ -27,10 +27,12 @@ public class Course extends AppCompatActivity {
         _collegeYear = findViewById(R.id.txt_college_year_course);
         _nameCourse = findViewById(R.id.txt_name_course);
         _codeCourse = findViewById(R.id.txt_code_course);
+        _classroom = findViewById(R.id.txt_classroom);
         _btnBack = findViewById(R.id.btn_back_course);
 
         _collegeYear.setText("TA. " + getIntent().getStringExtra("college_year"));
-        _nameCourse.setText(getIntent().getStringExtra("course_name") + " (" + getIntent().getStringExtra("classroom") + ")");
+        _nameCourse.setText(String.valueOf(getIntent().getStringExtra("course_name")));
+        _classroom.setText(String.valueOf(getIntent().getStringExtra("classroom")));
         _codeCourse.setText(String.valueOf(getIntent().getStringExtra("course_code")));
 
         _btnBack.setOnClickListener(v -> onBackPressed());

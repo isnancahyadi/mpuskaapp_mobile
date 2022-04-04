@@ -74,24 +74,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_container_course">
 
-        <TextView
-            android:id="@+id/txt_name_course"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/nama_matkul"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_code_course"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/kode_matkul"
-            android:textColor="#FFFFFF"
-            android:textSize="23sp" />
+            <LinearLayout
+                android:id="@+id/course_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/classroom_container"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_name_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/nama_matkul"
+                    android:textColor="#FFFFFF"
+                    android:textSize="23sp" />
+
+                <TextView
+                    android:id="@+id/txt_code_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/kode_matkul"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/classroom_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:background="@drawable/bg_rounded_white_transparent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Kelas"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/txt_classroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="X"
+                    android:textColor="#FFFFFF"
+                    android:textSize="29sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -175,10 +229,10 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingTop="50dp"
-        android:paddingBottom="25dp"
         android:paddingStart="15dp"
+        android:paddingTop="50dp"
         android:paddingEnd="15dp"
+        android:paddingBottom="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -190,9 +244,9 @@
             android:layout_gravity="center"
             android:clipChildren="false"
             android:clipToPadding="false"
+            app:alignContent="stretch"
             app:flexWrap="wrap"
-            app:justifyContent="space_around"
-            app:alignContent="stretch">
+            app:justifyContent="space_around">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
