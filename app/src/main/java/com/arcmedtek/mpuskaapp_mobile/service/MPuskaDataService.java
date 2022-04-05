@@ -158,6 +158,7 @@ public class MPuskaDataService {
                         lectureProfileModel.set_district(data.getString("kabupaten"));
                         lectureProfileModel.set_province(data.getString("provinsi"));
                         lectureProfileModel.set_postalCode(data.getString("kode_pos"));
+                        lectureProfileModel.set_photo(data.getString("foto"));
 
                         models.add(lectureProfileModel);
                     }

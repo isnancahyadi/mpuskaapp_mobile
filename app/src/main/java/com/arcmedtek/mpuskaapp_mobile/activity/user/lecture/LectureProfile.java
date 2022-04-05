@@ -27,6 +27,7 @@ import com.arcmedtek.mpuskaapp_mobile.activity.SignUp;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -281,6 +282,8 @@ public class LectureProfile extends AppCompatActivity {
                 _province = lectureProfileModels.get(0).get_province();
                 _postalCode = lectureProfileModels.get(0).get_postalCode();
 
+                String gender = lectureProfileModels.get(0).get_gender();
+
                 String fullname;
                 if (_middleName.equals("")) {
                     fullname = _firstName + " " + _lastName;
@@ -299,6 +302,13 @@ public class LectureProfile extends AppCompatActivity {
                 _phoneNumber.setText(lectureProfileModels.get(0).get_phoneNumber());
                 _email.setText(lectureProfileModels.get(0).get_email());
                 _fullAddress.setText(fullAddress);
+                Glide.with(LectureProfile.this).load(lectureProfileModels.get(0).get_photo()).into(_profilePict);
+
+                if (gender.equals("0")) {
+                    _gender.setImageResource(R.drawable.ic_gender_female);
+                } else if (gender.equals("1")) {
+                    _gender.setImageResource(R.drawable.ic_gender_male);
+                }
             }
             @Override
             public void onError(String message) {

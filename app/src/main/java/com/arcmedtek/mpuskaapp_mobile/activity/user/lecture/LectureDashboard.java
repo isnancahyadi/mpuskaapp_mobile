@@ -31,6 +31,8 @@ import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.model.VariantProgramModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -51,6 +53,8 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
     ImageView _btnSideMenu, _btnSideMenuBack1, _btnSideMenuBack2;
     ConstraintLayout _mainContent;
 
+    ShapeableImageView _profilePicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +69,13 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
         _navigationView = findViewById(R.id.nav_view_side_menu_lecture);
         _btnSideMenu = findViewById(R.id.btn_side_menu_lecture_dashboard);
         _mainContent = findViewById(R.id.main_content_lecture_dashboard);
+        _profilePicture = findViewById(R.id.profile_picture_side_menu_lecture);
 
         _lectureNameSideMenu = _navigationView.getHeaderView(0).findViewById(R.id.name_side_menu_lecture);
         _lectureNiySideMenu = _navigationView.getHeaderView(0).findViewById(R.id.niy_side_menu_lecture);
         _btnSideMenuBack1 = _navigationView.getHeaderView(0).findViewById(R.id.btn_side_menu_back_lecture_1);
         _btnSideMenuBack2 = _navigationView.getHeaderView(0).findViewById(R.id.btn_side_menu_back_lecture_2);
+        _profilePicture = _navigationView.getHeaderView(0).findViewById(R.id.profile_picture_side_menu_lecture);
 
         Typeface tf = ResourcesCompat.getFont(LectureDashboard.this, R.font.roboto_black);
         dateTime.setTypeface(tf);
@@ -85,6 +91,7 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
                 }
                 _lectureNiySideMenu.setText(lectureProfileModels.get(0).get_niy());
                 _lectureNameSideMenu.setText(fullName);
+                Glide.with(LectureDashboard.this).load(lectureProfileModels.get(0).get_photo()).into(_profilePicture);
             }
             @Override
             public void onError(String message) {

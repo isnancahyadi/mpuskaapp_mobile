@@ -1,12 +1,12 @@
 package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class LectureProfileModel {
-    String _niy, _firstName, _middleName, _lastName, _gender, _birthPlace, _birthDate, _phoneNumber, _email, _address, _subDistrict, _district, _province, _postalCode;
+    String _niy, _firstName, _middleName, _lastName, _gender, _birthPlace, _birthDate, _phoneNumber, _email, _address, _subDistrict, _district, _province, _postalCode, _photo;
 
     public LectureProfileModel() {
     }
 
-    public LectureProfileModel(String _niy, String _firstName, String _middleName, String _lastName, String _gender, String _birthPlace, String _birthDate, String _phoneNumber, String _email, String _address, String _subDistrict, String _district, String _province, String _postalCode) {
+    public LectureProfileModel(String _niy, String _firstName, String _middleName, String _lastName, String _gender, String _birthPlace, String _birthDate, String _phoneNumber, String _email, String _address, String _subDistrict, String _district, String _province, String _postalCode, String _photo) {
         this._niy = _niy;
         this._firstName = _firstName;
         this._middleName = _middleName;
@@ -21,6 +21,7 @@ public class LectureProfileModel {
         this._district = _district;
         this._province = _province;
         this._postalCode = _postalCode;
+        this._photo = _photo;
     }
 
     public String get_niy() {
@@ -133,5 +134,13 @@ public class LectureProfileModel {
 
     public void set_postalCode(String _postalCode) {
         this._postalCode = _postalCode;
+    }
+
+    public String get_photo() {
+        return _photo;
+    }
+
+    public void set_photo(String _photo) {
+        this._photo = _photo;
     }
 }
