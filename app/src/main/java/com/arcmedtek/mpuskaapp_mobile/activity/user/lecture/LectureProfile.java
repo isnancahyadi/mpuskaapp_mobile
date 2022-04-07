@@ -8,7 +8,6 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,14 +15,16 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.Login;
-import com.arcmedtek.mpuskaapp_mobile.activity.SignUp;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
@@ -46,7 +47,8 @@ public class LectureProfile extends AppCompatActivity {
     ShapeableImageView _profilePict;
     ImageView _gender, _btnBack, _btnSetting, _btnSaveUpdate, _btnCancelUpdate;
     TextView _name, _niy, _birth, _phoneNumber, _email, _fullAddress;
-    String _firstName, _middleName, _lastName, _birthPlace, _birthDate, _finalBirthDate, _address, _subDistrict, _district, _province, _postalCode;
+    String _firstName, _middleName, _lastName, _birthPlace, _birthDate, _finalBirthDate, _address, _subDistrict, _district, _province, _postalCode, _txtGender, jk;
+    RelativeLayout _btnChangePhotoProfile, _btnChangeGender, _containerChangePhotoProfile, _containerChangeGender;
 
     GridLayout _containerName, _containerAddress;
 
@@ -73,9 +75,13 @@ public class LectureProfile extends AppCompatActivity {
         _btnSetting = findViewById(R.id.btn_setting_lecture_profile);
         _btnSaveUpdate = findViewById(R.id.btn_save_update_lecture_profile);
         _btnCancelUpdate = findViewById(R.id.btn_cancel_update_lecture_profile);
+        _btnChangePhotoProfile = findViewById(R.id.btn_update_lecture_photo_profile);
+        _btnChangeGender = findViewById(R.id.btn_change_gender);
 
         _containerName = findViewById(R.id.container_lecture_profile_name);
         _containerAddress = findViewById(R.id.container_lecture_profile_address);
+        _containerChangePhotoProfile = findViewById(R.id.change_photo_profile);
+        _containerChangeGender = findViewById(R.id.change_gender);
 
         _inlayBirthPlace = findViewById(R.id.txt_inlay_update_lecture_profile_birth_place);
         _inlayBirthDate = findViewById(R.id.txt_inlay_update_lecture_profile_birth_date);
@@ -177,6 +183,8 @@ public class LectureProfile extends AppCompatActivity {
 
         _btnSaveUpdate.setVisibility(View.VISIBLE);
         _btnCancelUpdate.setVisibility(View.VISIBLE);
+        _containerChangePhotoProfile.setVisibility(View.VISIBLE);
+        _containerChangeGender.setVisibility(View.VISIBLE);
 
         _inlayBirthPlace.setVisibility(View.VISIBLE);
         _inlayBirthDate.setVisibility(View.VISIBLE);
@@ -210,6 +218,45 @@ public class LectureProfile extends AppCompatActivity {
             datePickerDialog.show();
         });
 
+        _btnChangeGender.setOnClickListener(v -> {
+            final AlertDialog.Builder alert = new AlertDialog.Builder(LectureProfile.this, R.style.AlertDialogStyle);
+            View mView = LayoutInflater.from(LectureProfile.this).inflate(R.layout.dialog_change_gender, findViewById(R.id.dialog_change_gender));
+
+            RadioGroup rGroupGender = mView.findViewById(R.id.rgroup_gender);
+
+            alert.setView(mView);
+
+            final AlertDialog alertDialog = alert.create();
+
+            rGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @SuppressLint("NonConstantResourceId")
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    switch (checkedId) {
+                        case R.id.rbtn_male:
+                            jk = "1";
+                            break;
+                        case R.id.rbtn_female:
+                            jk = "0";
+                            break;
+                    }
+                }
+            });
+
+            mView.findViewById(R.id.btn_save_change_gender).setOnClickListener(v1 -> {
+                _txtGender = jk;
+                alertDialog.dismiss();
+            });
+
+            mView.findViewById(R.id.btn_cancel_change_gender).setOnClickListener(v1 -> alertDialog.dismiss());
+
+            if (alertDialog.getWindow() != null) {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+
+            alertDialog.show();
+        });
+
         _btnSaveUpdate.setOnClickListener(v -> saveUpdateProfile());
         _btnCancelUpdate.setOnClickListener(v -> refreshActivity());
     }
@@ -234,10 +281,11 @@ public class LectureProfile extends AppCompatActivity {
         final String district = String.valueOf(_inetDistrict.getText());
         final String province = String.valueOf(_inetProvince.getText());
         final String postalCode = String.valueOf(_inetPostalCode.getText());
+        final String gender = _txtGender;
 
         final String cvtBirthDateToDBFormat = convertBirthDateToDBFormat(birthDate);
 
-        _mPuskaDataService.updateProfileLecture(firstName, middleName, lastName, birthPlace, cvtBirthDateToDBFormat, phoneNum, email, address, subDistrict, district, province, postalCode, new MPuskaDataService.UpdateProfileLectureListener() {
+        _mPuskaDataService.updateProfileLecture(firstName, middleName, lastName, birthPlace, cvtBirthDateToDBFormat, phoneNum, email, address, subDistrict, district, province, postalCode, gender, new MPuskaDataService.UpdateProfileLectureListener() {
             @Override
             public void onResponse(String message) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LectureProfile.this, R.style.AlertDialogStyle);
@@ -281,8 +329,7 @@ public class LectureProfile extends AppCompatActivity {
                 _district = lectureProfileModels.get(0).get_district();
                 _province = lectureProfileModels.get(0).get_province();
                 _postalCode = lectureProfileModels.get(0).get_postalCode();
-
-                String gender = lectureProfileModels.get(0).get_gender();
+                _txtGender = lectureProfileModels.get(0).get_gender();
 
                 String fullname;
                 if (_middleName.equals("")) {
@@ -304,9 +351,9 @@ public class LectureProfile extends AppCompatActivity {
                 _fullAddress.setText(fullAddress);
                 Glide.with(LectureProfile.this).load(lectureProfileModels.get(0).get_photo()).into(_profilePict);
 
-                if (gender.equals("0")) {
+                if (_txtGender.equals("0")) {
                     _gender.setImageResource(R.drawable.ic_gender_female);
-                } else if (gender.equals("1")) {
+                } else if (_txtGender.equals("1")) {
                     _gender.setImageResource(R.drawable.ic_gender_male);
                 }
             }

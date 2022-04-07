@@ -26,13 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/akun/";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://100.100.1.7/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
+    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/akun";
+    public static final String QUERY_FOR_LOGIN = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://100.100.1.15/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
 
     Context context;
     SessionManager _sessionManager;
@@ -182,7 +182,7 @@ public class MPuskaDataService {
         void onError(String message);
     }
 
-    public void updateProfileLecture(String firstName, String middleName, String lastName, String birthPlace, String birthDate, String phoneNum, String email, String address, String subDistrict, String district, String province, String postalCode, UpdateProfileLectureListener updateProfileLectureListener) {
+    public void updateProfileLecture(String firstName, String middleName, String lastName, String birthPlace, String birthDate, String phoneNum, String email, String address, String subDistrict, String district, String province, String postalCode, String gender, UpdateProfileLectureListener updateProfileLectureListener) {
         StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_PROFILE_LECTURE + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -210,6 +210,7 @@ public class MPuskaDataService {
                 params.put("kabupaten", district);
                 params.put("provinsi", province);
                 params.put("kode_pos", postalCode);
+                params.put("gender", gender);
                 return params;
             }
         };

@@ -90,7 +90,6 @@
                     android:layout_height="170dp"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_white_circle"
-                    android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -100,18 +99,45 @@
                         android:id="@+id/lecture_profile_picture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_margin="8dp"
                         android:scaleType="centerCrop"
                         app:shapeAppearance="@style/circleImage"
                         app:srcCompat="@drawable/ic_profile" />
 
+                    <RelativeLayout
+                        android:id="@+id/change_photo_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:background="@drawable/bg_black_circle_transparant"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:id="@+id/btn_update_lecture_photo_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="50dp"
+                            android:padding="15dp"
+                            android:background="@drawable/bg_white_circle">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_pencil"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/container_lecture_profile_gender"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:background="@drawable/bg_white_circle"
                     android:elevation="2dp"
-                    android:padding="11dp"
                     app:layout_constraintBottom_toBottomOf="@id/container_lecture_profile_picture"
                     app:layout_constraintEnd_toEndOf="@id/container_lecture_profile_picture">
 
@@ -119,8 +145,38 @@
                         android:id="@+id/lecture_profile_gender"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="11dp"
+                        android:layout_marginBottom="11dp"
                         android:src="@drawable/ic_gender"
                         tools:ignore="ContentDescription" />
+
+                    <RelativeLayout
+                        android:id="@+id/change_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:background="@drawable/bg_black_circle_transparant"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:id="@+id/btn_change_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="11dp"
+                            android:padding="10dp"
+                            android:background="@drawable/bg_white_circle">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_pencil"
+                                tools:ignore="ContentDescription" />
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
