@@ -62,6 +62,7 @@
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="not_found_message">Not found message</string>
     <string name="detail_matakuliah">Detail Matakuliah</string>
+    <string name="forbidden_message">Forbidden message</string>
     <string name="xxxxx_dd_mmmm_yyyy">xxxxx, dd mmmm yyyy</string>
     <string name="lupa_password_klik">Lupa Password ? Klik</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>

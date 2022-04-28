@@ -79,6 +79,7 @@ public class SignUp extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this, R.style.AlertDialogStyle);
                 View warningDialog = LayoutInflater.from(SignUp.this).inflate(R.layout.custom_warning_dialog, findViewById(R.id.confirm_warning_dialog));
                 View notFoundDialog = LayoutInflater.from(SignUp.this).inflate(R.layout.custom_404_dialog, findViewById(R.id.confirm_404_dialog));
+                View forbiddenDialog = LayoutInflater.from(SignUp.this).inflate(R.layout.custom_forbidden_dialog, findViewById(R.id.confirm_forbidden_dialog));
 
                 TextView txtMessage;
 
@@ -87,6 +88,11 @@ public class SignUp extends AppCompatActivity {
                         builder.setView(warningDialog);
                         txtMessage = warningDialog.findViewById(R.id.warning_message);
                         txtMessage.setText("Username tidak boleh kosong");
+                        break;
+                    case "403":
+                        builder.setView(forbiddenDialog);
+                        txtMessage = forbiddenDialog.findViewById(R.id.forbidden_message);
+                        txtMessage.setText("Status anda tidak aktif di MBKM. Silahkan hubungi admin.");
                         break;
                     case "404":
                         builder.setView(notFoundDialog);
@@ -105,6 +111,8 @@ public class SignUp extends AppCompatActivity {
                 warningDialog.findViewById(R.id.btn_confirm_warning).setOnClickListener(v -> alertDialog.dismiss());
 
                 notFoundDialog.findViewById(R.id.btn_confirm_404).setOnClickListener(v -> alertDialog.dismiss());
+
+                forbiddenDialog.findViewById(R.id.btn_confirm_forbidden).setOnClickListener(v -> alertDialog.dismiss());
 
                 if (alertDialog.getWindow() != null) {
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));

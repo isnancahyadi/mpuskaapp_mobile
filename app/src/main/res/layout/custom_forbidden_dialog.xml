@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/confirm_warning_dialog"
+    android:id="@+id/confirm_forbidden_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/warning_container"
+        android:id="@+id/forbidden_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="50dp"
             android:backgroundTint="#FFFFFF"
             app:contentPadding="15dp"
@@ -27,13 +27,13 @@
             app:cardElevation="10dp">
 
             <TextView
-                android:id="@+id/warning_message"
+                android:id="@+id/forbidden_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:fontFamily="@font/roboto_black"
-                android:text="@string/warning_message"
+                android:text="@string/forbidden_message"
                 android:textSize="19sp" />
 
         </androidx.cardview.widget.CardView>
@@ -44,15 +44,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
-        android:src="@drawable/ic_warning"
+        android:src="@drawable/ic_forbidden"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@id/warning_container"
-        app:layout_constraintEnd_toEndOf="@id/warning_container"
-        app:layout_constraintTop_toTopOf="@id/warning_container"
+        app:layout_constraintStart_toStartOf="@id/forbidden_container"
+        app:layout_constraintEnd_toEndOf="@id/forbidden_container"
+        app:layout_constraintTop_toTopOf="@id/forbidden_container"
         tools:ignore="ContentDescription" />
 
     <Button
-        android:id="@+id/btn_confirm_warning"
+        android:id="@+id/btn_confirm_forbidden"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -67,9 +67,9 @@
         android:textColor="#FFFFFF"
         android:textSize="19sp"
         app:cornerRadius="15dp"
-        app:layout_constraintBottom_toBottomOf="@id/warning_container"
-        app:layout_constraintEnd_toEndOf="@id/warning_container"
-        app:layout_constraintStart_toStartOf="@id/warning_container"
+        app:layout_constraintBottom_toBottomOf="@id/forbidden_container"
+        app:layout_constraintEnd_toEndOf="@id/forbidden_container"
+        app:layout_constraintStart_toStartOf="@id/forbidden_container"
         app:rippleColor="#DF7680" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

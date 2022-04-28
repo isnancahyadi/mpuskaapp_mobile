@@ -27,14 +27,14 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/akun/";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
-    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.2.2/mpuska-server-side/mpuska-server/public/restapi/mahasiswa";
+    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/akun";
+    public static final String QUERY_FOR_LOGIN = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/mahasiswa";
 
     Context context;
     SessionManager _sessionManager;
