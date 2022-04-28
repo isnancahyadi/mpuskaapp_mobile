@@ -147,19 +147,14 @@ public class MPuskaDataService {
                         JSONObject data = jsonArray.getJSONObject(i);
 
                         lectureProfileModel.set_niy(data.getString("niy"));
+                        lectureProfileModel.set_frontDegree(data.getString("gelar_depan"));
                         lectureProfileModel.set_firstName(data.getString("nama_depan"));
                         lectureProfileModel.set_middleName(data.getString("nama_tengah"));
                         lectureProfileModel.set_lastName(data.getString("nama_belakang"));
+                        lectureProfileModel.set_backDegree(data.getString("gelar_belakang"));
                         lectureProfileModel.set_gender(data.getString("gender"));
-                        lectureProfileModel.set_birthPlace(data.getString("tempat_lahir"));
-                        lectureProfileModel.set_birthDate(data.getString("tgl_lahir"));
                         lectureProfileModel.set_phoneNumber(data.getString("no_hp"));
                         lectureProfileModel.set_email(data.getString("email"));
-                        lectureProfileModel.set_address(data.getString("alamat"));
-                        lectureProfileModel.set_subDistrict(data.getString("kecamatan"));
-                        lectureProfileModel.set_district(data.getString("kabupaten"));
-                        lectureProfileModel.set_province(data.getString("provinsi"));
-                        lectureProfileModel.set_postalCode(data.getString("kode_pos"));
                         lectureProfileModel.set_photo(data.getString("foto"));
 
                         models.add(lectureProfileModel);
@@ -184,7 +179,7 @@ public class MPuskaDataService {
         void onError(String message);
     }
 
-    public void updateProfileLecture(String firstName, String middleName, String lastName, String birthPlace, String birthDate, String phoneNum, String email, String address, String subDistrict, String district, String province, String postalCode, String gender, UpdateProfileLectureListener updateProfileLectureListener) {
+    public void updateProfileLecture(String firstName, String middleName, String lastName, String phoneNum, String email, String gender, UpdateProfileLectureListener updateProfileLectureListener) {
         StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_PROFILE_LECTURE + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -203,15 +198,8 @@ public class MPuskaDataService {
                 params.put("nama_depan", firstName);
                 params.put("nama_tengah", middleName);
                 params.put("nama_belakang", lastName);
-                params.put("tempat_lahir", birthPlace);
-                params.put("tgl_lahir", birthDate);
                 params.put("no_hp", phoneNum);
                 params.put("email", email);
-                params.put("alamat", address);
-                params.put("kecamatan", subDistrict);
-                params.put("kabupaten", district);
-                params.put("provinsi", province);
-                params.put("kode_pos", postalCode);
                 params.put("gender", gender);
                 return params;
             }
