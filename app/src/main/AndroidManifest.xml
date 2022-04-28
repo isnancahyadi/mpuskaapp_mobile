@@ -14,6 +14,9 @@
         android:theme="@style/CusTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.user.lecture.StudentList"
+            android:exported="false" />
+        <activity
             android:name=".activity.user.lecture.Course"
             android:exported="false" />
         <activity

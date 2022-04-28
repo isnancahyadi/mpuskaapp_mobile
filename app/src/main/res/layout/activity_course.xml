@@ -115,12 +115,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
                 android:background="@drawable/bg_rounded_white_transparent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="15dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -325,11 +325,13 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_student_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"
                 android:clipChildren="false"
                 android:clipToPadding="false"
+                app:rippleColor="#4193D8EF"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="3dp"
                 app:contentPadding="20dp"
