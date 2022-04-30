@@ -84,10 +84,18 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
             @Override
             public void onResponse(List<LectureProfileModel> lectureProfileModels) {
                 String fullName;
-                if (lectureProfileModels.get(0).get_middleName().equals("")) {
-                    fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_lastName();
+                if (lectureProfileModels.get(0).get_frontDegree().equals("")) {
+                    if (lectureProfileModels.get(0).get_middleName().equals("")) {
+                        fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_lastName()+" "+lectureProfileModels.get(0).get_backDegree();
+                    } else {
+                        fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_middleName()+" "+lectureProfileModels.get(0).get_lastName()+" "+lectureProfileModels.get(0).get_backDegree();
+                    }
                 } else {
-                    fullName = lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_middleName()+" "+lectureProfileModels.get(0).get_lastName();
+                    if (lectureProfileModels.get(0).get_middleName().equals("")) {
+                        fullName = lectureProfileModels.get(0).get_frontDegree()+" "+lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_lastName()+" "+lectureProfileModels.get(0).get_backDegree();
+                    } else {
+                        fullName = lectureProfileModels.get(0).get_frontDegree()+" "+lectureProfileModels.get(0).get_firstName()+" "+lectureProfileModels.get(0).get_middleName()+" "+lectureProfileModels.get(0).get_lastName()+" "+lectureProfileModels.get(0).get_backDegree();
+                    }
                 }
                 _lectureNiySideMenu.setText(lectureProfileModels.get(0).get_niy());
                 _lectureNameSideMenu.setText(fullName);

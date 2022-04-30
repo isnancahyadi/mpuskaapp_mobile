@@ -146,7 +146,7 @@ public class MPuskaDataService {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject data = jsonArray.getJSONObject(i);
 
-                        lectureProfileModel.set_niy(data.getString("niy"));
+                        lectureProfileModel.set_niy(data.getString("niy_nip"));
                         lectureProfileModel.set_frontDegree(data.getString("gelar_depan"));
                         lectureProfileModel.set_firstName(data.getString("nama_depan"));
                         lectureProfileModel.set_middleName(data.getString("nama_tengah"));
@@ -161,7 +161,8 @@ public class MPuskaDataService {
                     }
                     profileLectureListener.onResponse(models);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -194,7 +195,7 @@ public class MPuskaDataService {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("niy", _userKey.get(SessionManager.USERNAME));
+                params.put("niy_nip", _userKey.get(SessionManager.USERNAME));
                 params.put("nama_depan", firstName);
                 params.put("nama_tengah", middleName);
                 params.put("nama_belakang", lastName);
