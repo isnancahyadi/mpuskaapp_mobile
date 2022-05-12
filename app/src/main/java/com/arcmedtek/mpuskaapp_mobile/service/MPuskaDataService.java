@@ -1,6 +1,9 @@
 package com.arcmedtek.mpuskaapp_mobile.service;
 
+import static com.android.volley.VolleyLog.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,8 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.config.SingletonReq;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
-import com.arcmedtek.mpuskaapp_mobile.model.StudentModel;
-import com.arcmedtek.mpuskaapp_mobile.model.TeacherModel;
+import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,14 +29,14 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/akun/";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
-    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.61/mpuska-server-side/mpuska-server/public/restapi/mahasiswa";
+    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/akun";
+    public static final String QUERY_FOR_LOGIN = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
 
     Context context;
     SessionManager _sessionManager;
@@ -237,13 +239,13 @@ public class MPuskaDataService {
     }
 
     public interface TeacherListCourseListener {
-        void onResponse(ArrayList<TeacherModel> teacherModels);
+        void onResponse(ArrayList<KhsModel> khsModels);
 
         void onError(String message);
     }
 
     public void getTeacherListCourse(TeacherListCourseListener teacherListCourseListener) {
-        ArrayList<TeacherModel> models = new ArrayList<>();
+        ArrayList<KhsModel> models = new ArrayList<>();
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_GET_TEACHER_LIST_COURSE + _userKey.get(SessionManager.USERNAME), null, new Response.Listener<JSONArray>() {
             @Override
@@ -251,21 +253,16 @@ public class MPuskaDataService {
 
                 for (int i = 0; i < response.length(); i++) {
                     try {
+                        KhsModel khsModel = new KhsModel();
                         //JSONArray jsonArray = new JSONArray(response);
                         JSONObject data = response.getJSONObject(i);
 
-                        String courseName = data.getString("nama");
-                        String courseCode = data.getString("kode_matkul");
-                        String semester = data.getString("semester");
-                        String major = data.getString("prodi");
-                        String firstName = data.getString("nama_depan");
-                        String middleName = data.getString("nama_tengah");
-                        String lastName = data.getString("nama_belakang");
-                        String classRoom = data.getString("kelas");
-                        String collegeYear = data.getString("thn_ajaran");
-                        int sks = data.getInt("sks");
+                        khsModel.set_courseName(data.getString("nama"));
+                        khsModel.set_courseCode(data.getString("kode_matkul"));
+                        khsModel.set_classRoom(data.getString("kelas"));
+                        khsModel.set_collegeYear(data.getString("thn_ajaran"));
 
-                        models.add(new TeacherModel(courseName, courseCode, semester, major, firstName, middleName, lastName, classRoom, collegeYear, sks));
+                        models.add(khsModel);
 
                         teacherListCourseListener.onResponse(models);
                     } catch (JSONException e) {
@@ -280,5 +277,97 @@ public class MPuskaDataService {
             }
         });
         SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface StudentListListener {
+        void onResponse(List<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getStudentList(String courseCode, String classRoom, String collegeYear, StudentListListener studentListListener) {
+        List<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_LIST + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    KhsModel khsModel = new KhsModel();
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        khsModel.set_nim(data.getString("nim"));
+                        khsModel.set_studentFirstName(data.getString("nama_depan"));
+                        khsModel.set_studentMiddleName(data.getString("nama_tengah"));
+                        khsModel.set_studentLastName(data.getString("nama_belakang"));
+                        khsModel.set_foto(data.getString("foto"));
+
+                        models.add(khsModel);
+                    }
+                    studentListListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                studentListListener.onError("Terjadi kesalahan sistem");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("kode_matkul", courseCode);
+                params.put("kelas", classRoom);
+                params.put("thn_ajaran", collegeYear);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+
+//        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_LIST + _userKey.get(SessionManager.USERNAME), null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//                for (int i = 0; i < response.length(); i++) {
+//                    try {
+//                        KhsModel khsModel = new KhsModel();
+//
+//                        JSONObject data = response.getJSONObject(i);
+//
+//                        khsModel.set_nim(data.getString("nim"));
+//                        khsModel.set_studentFirstName(data.getString("nama_depan"));
+//                        khsModel.set_studentMiddleName(data.getString("nama_tengah"));
+//                        khsModel.set_studentLastName(data.getString("nama_belakang"));
+//                        khsModel.set_foto(data.getString("foto"));
+//
+//                        models.add(khsModel);
+//
+//                        studentListListener.onResponse(models);
+//                    } catch (Exception e) {
+//                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                //studentListListener.onError(error.printStackTrace());
+//                error.printStackTrace();
+////                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<>();
+//                params.put("kode_matkul", courseCode);
+//                params.put("kelas", classRoom);
+//                params.put("thn_ajaran", collegeYear);
+//                return params;
+//            }
+//        };
+//        SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

@@ -10,10 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
-import com.arcmedtek.mpuskaapp_mobile.model.TeacherModel;
-import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
-
-import java.util.ArrayList;
 
 public class Course extends AppCompatActivity {
 
