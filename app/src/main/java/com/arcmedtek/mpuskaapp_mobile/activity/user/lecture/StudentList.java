@@ -53,9 +53,9 @@ public class StudentList extends AppCompatActivity {
         _codeCourse.setText(_strCodeCourse);
         _classroom.setText(_strClassroom);
 
-        _mPuskaDataService.getStudentList("211860120", "C", "2021/2022", new MPuskaDataService.StudentListListener() {
+        _mPuskaDataService.getStudentList(_strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentListListener() {
             @Override
-            public void onResponse(List<KhsModel> khsModels) {
+            public void onResponse(ArrayList<KhsModel> khsModels) {
                 setStudentRecycler(khsModels);
             }
 
@@ -68,7 +68,7 @@ public class StudentList extends AppCompatActivity {
         _btnBack.setOnClickListener(v -> onBackPressed());
     }
 
-    private void setStudentRecycler(List<KhsModel> studentList) {
+    private void setStudentRecycler(ArrayList<KhsModel> studentList) {
         _studentListAdapter = new StudentListAdapter(studentList, StudentList.this);
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

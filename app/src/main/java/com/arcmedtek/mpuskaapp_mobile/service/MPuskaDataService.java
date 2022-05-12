@@ -280,22 +280,22 @@ public class MPuskaDataService {
     }
 
     public interface StudentListListener {
-        void onResponse(List<KhsModel> khsModels);
+        void onResponse(ArrayList<KhsModel> khsModels);
 
         void onError(String message);
     }
 
     public void getStudentList(String courseCode, String classRoom, String collegeYear, StudentListListener studentListListener) {
-        List<KhsModel> models = new ArrayList<>();
+        ArrayList<KhsModel> models = new ArrayList<>();
 
         StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_LIST + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    KhsModel khsModel = new KhsModel();
                     JSONArray jsonArray = new JSONArray(response);
 
                     for (int i = 0; i < jsonArray.length(); i++) {
+                        KhsModel khsModel = new KhsModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
                         khsModel.set_nim(data.getString("nim"));

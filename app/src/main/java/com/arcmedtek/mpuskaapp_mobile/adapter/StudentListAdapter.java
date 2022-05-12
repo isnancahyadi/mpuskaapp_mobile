@@ -18,10 +18,10 @@ import java.util.List;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentListHolder> {
 
-    List<KhsModel> _khsModels;
+    ArrayList<KhsModel> _khsModels;
     Context _context;
 
-    public StudentListAdapter(List<KhsModel> _khsModels, Context _context) {
+    public StudentListAdapter(ArrayList<KhsModel> _khsModels, Context _context) {
         this._khsModels = _khsModels;
         this._context = _context;
     }
