@@ -249,11 +249,13 @@
             app:justifyContent="space_around">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_input_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#FFFFFF"
                 android:clipChildren="false"
                 android:clipToPadding="false"
+                app:rippleColor="#4193D8EF"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="3dp"
                 app:contentPadding="20dp"

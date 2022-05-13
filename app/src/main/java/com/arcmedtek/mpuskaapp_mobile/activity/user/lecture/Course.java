@@ -17,7 +17,7 @@ public class Course extends AppCompatActivity {
     ImageView _btnBack;
     String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
 
-    CardView _btnStudentList;
+    CardView _btnStudentList, _btnInputValue;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -36,6 +36,7 @@ public class Course extends AppCompatActivity {
         _classroom = findViewById(R.id.txt_classroom);
         _btnBack = findViewById(R.id.btn_back_course);
         _btnStudentList = findViewById(R.id.btn_student_list);
+        _btnInputValue = findViewById(R.id.btn_input_value);
 
         _collegeYear.setText("TA. " + _strCollegeYear);
         _nameCourse.setText(_strNameCourse);
@@ -44,6 +45,15 @@ public class Course extends AppCompatActivity {
 
         _btnStudentList.setOnClickListener(v -> {
             Intent intent = new Intent(Course.this, StudentList.class);
+            intent.putExtra("college_year", _strCollegeYear);
+            intent.putExtra("course_name", _strNameCourse);
+            intent.putExtra("classroom", _strClassroom);
+            intent.putExtra("course_code", _strCodeCourse);
+            startActivity(intent);
+        });
+
+        _btnInputValue.setOnClickListener(v -> {
+            Intent intent = new Intent(Course.this, InputValue.class);
             intent.putExtra("college_year", _strCollegeYear);
             intent.putExtra("course_name", _strNameCourse);
             intent.putExtra("classroom", _strClassroom);

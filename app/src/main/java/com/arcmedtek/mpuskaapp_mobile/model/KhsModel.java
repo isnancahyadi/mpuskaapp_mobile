@@ -2,12 +2,12 @@ package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class KhsModel {
     String _idKhs, _nim, _studentFirstName, _studentMiddleName, _studentLastName, _courseCode, _courseName, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _semester, _department, _classRoom, _collegeYear, _assessment, _foto;
-    int _sks, _score;
+    int _sks, _score, _percent;
 
     public KhsModel() {
     }
 
-    public KhsModel(String _idKhs, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, int _sks, int _score) {
+    public KhsModel(String _idKhs, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, int _sks, int _score, int _percent) {
         this._idKhs = _idKhs;
         this._nim = _nim;
         this._studentFirstName = _studentFirstName;
@@ -28,6 +28,7 @@ public class KhsModel {
         this._foto = _foto;
         this._sks = _sks;
         this._score = _score;
+        this._percent = _percent;
     }
 
     public String get_idKhs() {
@@ -188,5 +189,13 @@ public class KhsModel {
 
     public void set_score(int _score) {
         this._score = _score;
+    }
+
+    public int get_percent() {
+        return _percent;
+    }
+
+    public void set_percent(int _percent) {
+        this._percent = _percent;
     }
 }

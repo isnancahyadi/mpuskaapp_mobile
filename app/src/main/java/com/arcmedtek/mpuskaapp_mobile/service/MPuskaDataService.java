@@ -303,6 +303,9 @@ public class MPuskaDataService {
                         khsModel.set_studentMiddleName(data.getString("nama_tengah"));
                         khsModel.set_studentLastName(data.getString("nama_belakang"));
                         khsModel.set_foto(data.getString("foto"));
+                        khsModel.set_assessment(data.getString("nama"));
+                        khsModel.set_percent(data.getInt("bobot"));
+                        khsModel.set_score(data.getInt("nilai"));
 
                         models.add(khsModel);
                     }
