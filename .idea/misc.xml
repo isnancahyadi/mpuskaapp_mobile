@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_banner.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_black_circle_transparant.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_cyan_rounded_bottom.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_cyan_rounded_top.xml" value="0.1525" />
@@ -15,6 +16,8 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_rounded_blue_sky.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_rounded_blue_transparant.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_rounded_blue_transparant_2.xml" value="0.1525" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_rounded_white.xml" value="0.1525" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_rounded_white_stroke_shadow.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_rounded_white_transparent.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_white_circle.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/bg_white_rounded_top.xml" value="0.1525" />
@@ -25,6 +28,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_bell_solid.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_calendar.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_checked.xml" value="0.1525" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_close.xml" value="0.1" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_cross.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_done.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_gear.xml" value="0.1525" />
@@ -67,13 +71,14 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_student_list.xml" value="0.13055555555555556" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_studi_proyek_independen.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/confirm_logout_dialog.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_404_dialog.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_404_dialog.xml" value="0.10092592592592593" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_done_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_error_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_forbidden_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_warning_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/dialog_change_gender.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/header_side_menu_lecture.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/input_score.xml" value="0.234375" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/input_value_row_item.xml" value="0.234375" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/item_container_program.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/splash_screen.xml" value="0.23981481481481481" />

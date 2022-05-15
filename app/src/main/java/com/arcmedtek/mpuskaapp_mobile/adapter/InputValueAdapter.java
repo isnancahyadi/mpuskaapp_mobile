@@ -1,7 +1,10 @@
 package com.arcmedtek.mpuskaapp_mobile.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +42,14 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
         KhsModel model = _khsModels.get(position);
         holder._nim.setText(model.get_nim());
         holder._studentName.setText(model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
+
+        holder.itemView.setOnClickListener(v -> {
+            Dialog dialogInput = new Dialog(v.getContext());
+            dialogInput.setContentView(R.layout.input_score);
+
+            dialogInput.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialogInput.show();
+        });
     }
 
     @Override
