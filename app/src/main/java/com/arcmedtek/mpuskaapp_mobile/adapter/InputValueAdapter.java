@@ -8,13 +8,17 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
+import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 
 import java.util.ArrayList;
 
@@ -23,9 +27,14 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
     ArrayList<KhsModel> _khsModels;
     Context _context;
 
-    public InputValueAdapter(ArrayList<KhsModel> _khsModels, Context _context) {
+    String _strCodeCourse, _strClassroom, _strCollegeYear;
+
+    public InputValueAdapter(ArrayList<KhsModel> _khsModels, Context _context, String _strCodeCourse, String _strClassroom, String _strCollegeYear) {
         this._khsModels = _khsModels;
         this._context = _context;
+        this._strCodeCourse = _strCodeCourse;
+        this._strClassroom = _strClassroom;
+        this._strCollegeYear = _strCollegeYear;
     }
 
     @NonNull
@@ -46,6 +55,43 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
         holder.itemView.setOnClickListener(v -> {
             Dialog dialogInput = new Dialog(v.getContext());
             dialogInput.setContentView(R.layout.input_score);
+
+            TextView nim, name, teamName;
+            ImageView btnClose;
+            RecyclerView assessmentScoreRecycler;
+            MPuskaDataService mPuskaDataService;
+
+            mPuskaDataService = new MPuskaDataService(_context);
+
+            nim = dialogInput.findViewById(R.id.txt_nim_input_score);
+            name = dialogInput.findViewById(R.id.txt_name_input_score);
+            teamName = dialogInput.findViewById(R.id.txt_team_name_input_score);
+            btnClose = dialogInput.findViewById(R.id.btn_close_input);
+            assessmentScoreRecycler = dialogInput.findViewById(R.id.assessment_score_list);
+
+            nim.setText(model.get_nim());
+            name.setText(model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
+            teamName.setText(model.get_teamName());
+
+            mPuskaDataService.getStudentScore(model.get_nim(), _strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentScoreListener() {
+                @Override
+                public void onResponse(ArrayList<KhsModel> khsModels) {
+                    AssessmentScoreListAdapter assessmentScoreListAdapter;
+                    assessmentScoreListAdapter = new AssessmentScoreListAdapter(khsModels, _context);
+                    assessmentScoreRecycler.setLayoutManager(new LinearLayoutManager(_context.getApplicationContext()));
+
+                    assessmentScoreRecycler.setAdapter(assessmentScoreListAdapter);
+                }
+
+                @Override
+                public void onError(String message) {
+
+                }
+            });
+
+            btnClose.setOnClickListener(v2 -> {
+                dialogInput.dismiss();
+            });
 
             dialogInput.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialogInput.show();

@@ -37,6 +37,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/akun/";
     public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
     public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
+    public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
 
     Context context;
     SessionManager _sessionManager;
@@ -303,9 +304,7 @@ public class MPuskaDataService {
                         khsModel.set_studentMiddleName(data.getString("nama_tengah"));
                         khsModel.set_studentLastName(data.getString("nama_belakang"));
                         khsModel.set_foto(data.getString("foto"));
-                        khsModel.set_assessment(data.getString("nama"));
-                        khsModel.set_percent(data.getInt("bobot"));
-                        khsModel.set_score(data.getInt("nilai"));
+                        khsModel.set_teamName(data.getString("nama_tim"));
 
                         models.add(khsModel);
                     }
@@ -330,47 +329,53 @@ public class MPuskaDataService {
             }
         };
         SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
 
-//        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_LIST + _userKey.get(SessionManager.USERNAME), null, new Response.Listener<JSONArray>() {
-//            @Override
-//            public void onResponse(JSONArray response) {
-//                for (int i = 0; i < response.length(); i++) {
-//                    try {
-//                        KhsModel khsModel = new KhsModel();
-//
-//                        JSONObject data = response.getJSONObject(i);
-//
-//                        khsModel.set_nim(data.getString("nim"));
-//                        khsModel.set_studentFirstName(data.getString("nama_depan"));
-//                        khsModel.set_studentMiddleName(data.getString("nama_tengah"));
-//                        khsModel.set_studentLastName(data.getString("nama_belakang"));
-//                        khsModel.set_foto(data.getString("foto"));
-//
-//                        models.add(khsModel);
-//
-//                        studentListListener.onResponse(models);
-//                    } catch (Exception e) {
-//                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                //studentListListener.onError(error.printStackTrace());
-//                error.printStackTrace();
-////                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        }) {
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("kode_matkul", courseCode);
-//                params.put("kelas", classRoom);
-//                params.put("thn_ajaran", collegeYear);
-//                return params;
-//            }
-//        };
-//        SingletonReq.getInstance(context).addToRequestQueue(request);
+    public interface StudentScoreListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getStudentScore(String nim, String courseCode, String classRoom, String collegeYear, StudentScoreListener studentScoreListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_SCORE + nim, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        KhsModel khsModel = new KhsModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        khsModel.set_assessment(data.getString("nama"));
+                        khsModel.set_percent(data.getInt("bobot"));
+                        khsModel.set_score(data.getInt("nilai"));
+
+                        models.add(khsModel);
+                    }
+                    studentScoreListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                studentScoreListener.onError("Terjadi kesalahan sistem");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("kode_matkul", courseCode);
+                params.put("kelas", classRoom);
+                params.put("thn_ajaran", collegeYear);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

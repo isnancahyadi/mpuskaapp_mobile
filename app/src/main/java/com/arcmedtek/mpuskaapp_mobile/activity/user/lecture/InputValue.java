@@ -68,7 +68,7 @@ public class InputValue extends AppCompatActivity {
     }
 
     private void setStudentRecycler(ArrayList<KhsModel> khsModels) {
-        _inputValueAdapter = new InputValueAdapter(khsModels, InputValue.this);
+        _inputValueAdapter = new InputValueAdapter(khsModels, InputValue.this, _strCodeCourse, _strClassroom, _strCollegeYear);
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _studentRecycler.setAdapter(_inputValueAdapter);
