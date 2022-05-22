@@ -1,13 +1,13 @@
 package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class KhsModel {
-    String _idKhs, _nim, _studentFirstName, _studentMiddleName, _studentLastName, _courseCode, _courseName, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _semester, _department, _classRoom, _collegeYear, _assessment, _foto, _teamName;
+    String _idKhs, _nim, _studentFirstName, _studentMiddleName, _studentLastName, _courseCode, _courseName, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _semester, _department, _classRoom, _collegeYear, _assessment, _foto, _teamName, _cpl, _cpmk;
     int _sks, _score, _percent;
 
     public KhsModel() {
     }
 
-    public KhsModel(String _idKhs, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, String _teamName, int _sks, int _score, int _percent) {
+    public KhsModel(String _idKhs, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, String _teamName, String _cpl, String _cpmk, int _sks, int _score, int _percent) {
         this._idKhs = _idKhs;
         this._nim = _nim;
         this._studentFirstName = _studentFirstName;
@@ -27,6 +27,8 @@ public class KhsModel {
         this._assessment = _assessment;
         this._foto = _foto;
         this._teamName = _teamName;
+        this._cpl = _cpl;
+        this._cpmk = _cpmk;
         this._sks = _sks;
         this._score = _score;
         this._percent = _percent;
@@ -182,6 +184,22 @@ public class KhsModel {
 
     public void set_teamName(String _teamName) {
         this._teamName = _teamName;
+    }
+
+    public String get_cpl() {
+        return _cpl;
+    }
+
+    public void set_cpl(String _cpl) {
+        this._cpl = _cpl;
+    }
+
+    public String get_cpmk() {
+        return _cpmk;
+    }
+
+    public void set_cpmk(String _cpmk) {
+        this._cpmk = _cpmk;
     }
 
     public int get_sks() {

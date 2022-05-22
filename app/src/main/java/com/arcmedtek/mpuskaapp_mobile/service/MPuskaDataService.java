@@ -39,6 +39,8 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
     public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
     public static final String QUERY_FOR_GET_ASSESSMENTS = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
+    public static final String QUERY_FOR_GET_CPL = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
+    public static final String QUERY_FOR_GET_CPMK = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
 
     Context context;
     SessionManager _sessionManager;
@@ -424,6 +426,80 @@ public class MPuskaDataService {
                 return params;
             }
         };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface CplListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getCpl(String courseCode, CplListener cplListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_CPL + courseCode, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        KhsModel khsModel = new KhsModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        khsModel.set_cpl(data.getString("cpl"));
+
+                        models.add(khsModel);
+                    }
+                    cplListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                cplListener.onError("Terjadi kesalahan sistem");
+            }
+        });
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface CpmkListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getCpmk(String courseCode, CpmkListener cpmkListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_CPMK + courseCode, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        KhsModel khsModel = new KhsModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        khsModel.set_cpmk(data.getString("cpmk"));
+
+                        models.add(khsModel);
+                    }
+                    cpmkListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                cpmkListener.onError("Terjadi kesalahan sistem");
+            }
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

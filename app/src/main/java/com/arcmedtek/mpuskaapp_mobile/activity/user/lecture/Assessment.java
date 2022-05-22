@@ -2,6 +2,8 @@ package com.arcmedtek.mpuskaapp_mobile.activity.user.lecture;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.adapter.CplListAdapter;
+import com.arcmedtek.mpuskaapp_mobile.adapter.CpmkListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.github.mikephil.charting.charts.PieChart;
@@ -36,9 +40,12 @@ public class Assessment extends AppCompatActivity {
     ArrayList<PieEntry> _assessment;
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
+    RecyclerView _cplRecycler, _cpmkRecycler;
 
     MPuskaDataService _mPuskaDataService;
     Typeface _robotoBold, _roboto;
+    CplListAdapter _cplListAdapter;
+    CpmkListAdapter _cpmkListAdapter;
 
     @SuppressLint({"NewApi", "SetTextI18n"})
     @Override
@@ -56,6 +63,8 @@ public class Assessment extends AppCompatActivity {
         _nameCourse = findViewById(R.id.txt_name_course);
         _codeCourse = findViewById(R.id.txt_code_course);
         _classroom = findViewById(R.id.txt_classroom);
+        _cplRecycler = findViewById(R.id.list_cpl);
+        _cpmkRecycler = findViewById(R.id.list_cpmk);
 
         _collegeYear.setText("TA. " + _strCollegeYear);
         _nameCourse.setText(_strNameCourse);
@@ -68,6 +77,44 @@ public class Assessment extends AppCompatActivity {
         _mPuskaDataService = new MPuskaDataService(Assessment.this);
 
         assessmentsChart();
+
+        _mPuskaDataService.getCpl(_strCodeCourse, new MPuskaDataService.CplListener() {
+            @Override
+            public void onResponse(ArrayList<KhsModel> khsModels) {
+                setCplRecycler(khsModels);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+        
+        _mPuskaDataService.getCpmk(_strCodeCourse, new MPuskaDataService.CpmkListener() {
+            @Override
+            public void onResponse(ArrayList<KhsModel> khsModels) {
+                setCpmkRecycler(khsModels);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
+
+    private void setCpmkRecycler(ArrayList<KhsModel> khsModels) {
+        _cpmkListAdapter = new CpmkListAdapter(khsModels, Assessment.this);
+        _cpmkRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        _cpmkRecycler.setAdapter(_cpmkListAdapter);
+    }
+
+    private void setCplRecycler(ArrayList<KhsModel> khsModels) {
+        _cplListAdapter = new CplListAdapter(khsModels, Assessment.this);
+        _cplRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        _cplRecycler.setAdapter(_cplListAdapter);
     }
 
     private void assessmentsChart() {

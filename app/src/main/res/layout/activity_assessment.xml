@@ -214,9 +214,13 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_rounded_white"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_cpl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -228,9 +232,13 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_rounded_white"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:paddingTop="15dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_cpmk"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
