@@ -38,6 +38,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
     public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
     public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_ASSESSMENTS = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
 
     Context context;
     SessionManager _sessionManager;
@@ -365,6 +366,53 @@ public class MPuskaDataService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 studentScoreListener.onError("Terjadi kesalahan sistem");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("kode_matkul", courseCode);
+                params.put("kelas", classRoom);
+                params.put("thn_ajaran", collegeYear);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface AssessmentsListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getAssessments(String courseCode, String classRoom, String collegeYear, AssessmentsListener assessmentsListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_ASSESSMENTS + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        KhsModel khsModel = new KhsModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        khsModel.set_assessment(data.getString("nama"));
+                        khsModel.set_percent(data.getInt("bobot"));
+
+                        models.add(khsModel);
+                    }
+                    assessmentsListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                assessmentsListener.onError("Terjadi kesalahan sistem");
             }
         }) {
             @Override
