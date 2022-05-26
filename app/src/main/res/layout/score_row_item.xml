@@ -46,9 +46,9 @@
                 android:id="@+id/grade"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="15dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/ic_grade_e" />
 
         </RelativeLayout>
