@@ -29,18 +29,20 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/akun/";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
-    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
-    public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
-    public static final String QUERY_FOR_GET_ASSESSMENTS = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
-    public static final String QUERY_FOR_GET_CPL = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
-    public static final String QUERY_FOR_GET_CPMK = "http://192.168.100.3/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
+    public static final String IPCONF = "100.100.1.15";
+
+    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/akun";
+    public static final String QUERY_FOR_LOGIN = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
+    public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_ASSESSMENTS = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
+    public static final String QUERY_FOR_GET_CPL = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
+    public static final String QUERY_FOR_GET_CPMK = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
 
     Context context;
     SessionManager _sessionManager;
