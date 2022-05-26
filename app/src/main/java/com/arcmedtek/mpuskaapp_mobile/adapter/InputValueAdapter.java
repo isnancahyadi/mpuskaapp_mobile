@@ -3,12 +3,14 @@ package com.arcmedtek.mpuskaapp_mobile.adapter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.ChangeScore;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 
@@ -101,6 +104,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
 
             TextView nim, name, teamName;
             ImageView btnClose;
+            Button btnChangeScore;
             RecyclerView assessmentScoreRecycler;
             MPuskaDataService mPuskaDataService;
 
@@ -110,6 +114,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
             name = dialogInput.findViewById(R.id.txt_name_input_score);
             teamName = dialogInput.findViewById(R.id.txt_team_name_input_score);
             btnClose = dialogInput.findViewById(R.id.btn_close_input);
+            btnChangeScore = dialogInput.findViewById(R.id.btn_change_score);
             assessmentScoreRecycler = dialogInput.findViewById(R.id.assessment_score_list);
 
             nim.setText(model.get_nim());
@@ -130,6 +135,11 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
                 public void onError(String message) {
 
                 }
+            });
+
+            btnChangeScore.setOnClickListener(v1 -> {
+                Intent intent = new Intent(_context, ChangeScore.class);
+                _context.startActivity(intent);
             });
 
             btnClose.setOnClickListener(v2 -> {
