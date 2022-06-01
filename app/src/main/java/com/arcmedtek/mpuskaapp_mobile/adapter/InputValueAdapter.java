@@ -139,6 +139,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
 
             btnChangeScore.setOnClickListener(v1 -> {
                 Intent intent = new Intent(_context, ChangeScore.class);
+                intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
                 intent.putExtra("college_year", _strCollegeYear);
                 intent.putExtra("nim", model.get_nim());
                 intent.putExtra("student_name", model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());

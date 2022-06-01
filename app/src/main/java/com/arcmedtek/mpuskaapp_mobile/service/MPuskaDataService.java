@@ -1,7 +1,5 @@
 package com.arcmedtek.mpuskaapp_mobile.service;
 
-import static com.android.volley.VolleyLog.TAG;
-
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,20 +27,21 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "100.100.1.15";
+    public static final String IPCONF = "100.100.1.8";
 
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/akun/";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
-    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
-    public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
-    public static final String QUERY_FOR_GET_ASSESSMENTS = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
-    public static final String QUERY_FOR_GET_CPL = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
-    public static final String QUERY_FOR_GET_CPMK = "http://"+IPCONF+"/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
+    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
+    public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/dosen/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun/";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
+    public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
+    public static final String QUERY_FOR_GET_CPL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
+    public static final String QUERY_FOR_GET_CPMK = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
+    public static final String QUERY_FOR_UPDATE_MHS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updatescoremhs/";
 
     Context context;
     SessionManager _sessionManager;
@@ -304,6 +303,7 @@ public class MPuskaDataService {
                         KhsModel khsModel = new KhsModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
+                        khsModel.set_idKrs(data.getInt("ID_krs"));
                         khsModel.set_nim(data.getString("nim"));
                         khsModel.set_studentFirstName(data.getString("nama_depan"));
                         khsModel.set_studentMiddleName(data.getString("nama_tengah"));
@@ -355,6 +355,7 @@ public class MPuskaDataService {
                         KhsModel khsModel = new KhsModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
+                        khsModel.set_idAsesmen(data.getInt("ID_asesmen"));
                         khsModel.set_assessment(data.getString("nama"));
                         khsModel.set_percent(data.getInt("bobot"));
                         khsModel.set_score(data.getInt("nilai"));
@@ -364,6 +365,8 @@ public class MPuskaDataService {
                     studentScoreListener.onResponse(models);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.w("ssss", e.getMessage());
                 }
             }
         }, new Response.ErrorListener() {
@@ -502,6 +505,39 @@ public class MPuskaDataService {
                 cpmkListener.onError("Terjadi kesalahan sistem");
             }
         });
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface UpdateScoreMhs {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void updateScoreMhs(String idKrs, String[] idAssessments, String[] score, UpdateScoreMhs updateScoreMhs) {
+        StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_MHS + idKrs, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                updateScoreMhs.onResponse("Data berhasil diupdate");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                updateScoreMhs.onError("Error");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                for (int i = 0; i < idAssessments.length; i++) {
+                    params.put("ID_asesmen["+i+"]", idAssessments[i]);
+                }
+                for (int j = 0; j < score.length; j++) {
+                    params.put("nilai["+j+"]", score[j]);
+                }
+                return params;
+            }
+        };
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

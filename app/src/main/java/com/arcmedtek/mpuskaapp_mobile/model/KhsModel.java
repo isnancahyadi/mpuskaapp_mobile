@@ -1,14 +1,16 @@
 package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class KhsModel {
-    String _idKhs, _nim, _studentFirstName, _studentMiddleName, _studentLastName, _courseCode, _courseName, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _semester, _department, _classRoom, _collegeYear, _assessment, _foto, _teamName, _cpl, _cpmk;
-    int _sks, _score, _percent;
+    String _nim, _studentFirstName, _studentMiddleName, _studentLastName, _courseCode, _courseName, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _semester, _department, _classRoom, _collegeYear, _assessment, _foto, _teamName, _cpl, _cpmk;
+    int _idKhs, _idKrs, _idAsesmen, _sks, _score, _percent;
 
     public KhsModel() {
     }
 
-    public KhsModel(String _idKhs, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, String _teamName, String _cpl, String _cpmk, int _sks, int _score, int _percent) {
+    public KhsModel(int _idKhs, int _idKrs, int _idAsesmen, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, String _teamName, String _cpl, String _cpmk, int _sks, int _score, int _percent) {
         this._idKhs = _idKhs;
+        this._idKrs = _idKrs;
+        this._idAsesmen = _idAsesmen;
         this._nim = _nim;
         this._studentFirstName = _studentFirstName;
         this._studentMiddleName = _studentMiddleName;
@@ -34,12 +36,28 @@ public class KhsModel {
         this._percent = _percent;
     }
 
-    public String get_idKhs() {
+    public int get_idKhs() {
         return _idKhs;
     }
 
-    public void set_idKhs(String _idKhs) {
+    public void set_idKhs(int _idKhs) {
         this._idKhs = _idKhs;
+    }
+
+    public int get_idKrs() {
+        return _idKrs;
+    }
+
+    public void set_idKrs(int _idKrs) {
+        this._idKrs = _idKrs;
+    }
+
+    public int get_idAsesmen() {
+        return _idAsesmen;
+    }
+
+    public void set_idAsesmen(int _idAsesmen) {
+        this._idAsesmen = _idAsesmen;
     }
 
     public String get_nim() {

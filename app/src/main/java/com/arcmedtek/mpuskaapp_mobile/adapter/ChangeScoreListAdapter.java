@@ -1,6 +1,9 @@
 package com.arcmedtek.mpuskaapp_mobile.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.ChangeScore;
+import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -20,10 +25,15 @@ public class ChangeScoreListAdapter extends RecyclerView.Adapter<ChangeScoreList
 
     ArrayList<KhsModel> _khsModels;
     Context _context;
+    OnEditTextChanged _onEditTextChanged;
 
-    public ChangeScoreListAdapter(ArrayList<KhsModel> _khsModels, Context _context) {
+    String _idKrs;
+
+    public ChangeScoreListAdapter(ArrayList<KhsModel> _khsModels, Context _context, String _idKrs, OnEditTextChanged _onEditTextChanged) {
         this._khsModels = _khsModels;
         this._context = _context;
+        this._idKrs = _idKrs;
+        this._onEditTextChanged = _onEditTextChanged;
     }
 
     @NonNull
@@ -35,10 +45,27 @@ public class ChangeScoreListAdapter extends RecyclerView.Adapter<ChangeScoreList
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChangeScoreHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChangeScoreHolder holder, @SuppressLint("RecyclerView") int position) {
         KhsModel model = _khsModels.get(position);
         holder._assessment.setText(model.get_assessment());
         holder._score.setText(String.valueOf(model.get_score()));
+
+        holder._score.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                _onEditTextChanged.beforeTextChanged(position, s.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                _onEditTextChanged.onTextChanged(position, s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
