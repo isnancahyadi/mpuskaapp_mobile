@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,31 +24,12 @@ public class InputValue extends AppCompatActivity {
 
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     ImageView _btnBack;
-    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, college_year, course_name, course_code, class_room;
+    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
 
     RecyclerView _studentRecycler;
     InputValueAdapter _inputValueAdapter;
     MPuskaDataService _mPuskaDataService;
 
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-//        savedInstanceState.putString("college_year", _strCollegeYear);
-//        savedInstanceState.putString("course_name", _strNameCourse);
-//        savedInstanceState.putString("course_code", _strCodeCourse);
-//        savedInstanceState.putString("classroom", _strClassroom);
-//        super.onSaveInstanceState(savedInstanceState);
-//    }
-
-//    @Override
-//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        college_year = savedInstanceState.getString("college_year");
-//        course_name = savedInstanceState.getString("course_name");
-//        course_code = savedInstanceState.getString("course_code");
-//        class_room = savedInstanceState.getString("classroom");
-//    }
-
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +40,6 @@ public class InputValue extends AppCompatActivity {
         _strCodeCourse = getIntent().getStringExtra("course_code");
         _strClassroom = getIntent().getStringExtra("classroom");
 
-        if (savedInstanceState != null) {
-            college_year = savedInstanceState.getString("college_year");
-            course_name = savedInstanceState.getString("course_name");
-            course_code = savedInstanceState.getString("course_code");
-            class_room = savedInstanceState.getString("classroom");
-        }
-
         _mPuskaDataService = new MPuskaDataService(InputValue.this);
 
         _collegeYear = findViewById(R.id.txt_college_year_input_value);
@@ -73,15 +49,20 @@ public class InputValue extends AppCompatActivity {
         _btnBack = findViewById(R.id.btn_back_input_value);
         _studentRecycler = findViewById(R.id.list_student);
 
-        _collegeYear.setText("TA. " + _strCollegeYear);
-        _nameCourse.setText(_strNameCourse);
-        _codeCourse.setText(_strCodeCourse);
-        _classroom.setText(_strClassroom);
+        main(_strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom);
+    }
 
-        _mPuskaDataService.getStudentList(_strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentListListener() {
+    @SuppressLint("SetTextI18n")
+    private void main(String collegeYear, String courseName, String courseCode, String classRoom) {
+        _collegeYear.setText("TA. " + collegeYear);
+        _nameCourse.setText(courseName);
+        _codeCourse.setText(courseCode);
+        _classroom.setText(classRoom);
+
+        _mPuskaDataService.getStudentList(courseCode, classRoom, collegeYear, new MPuskaDataService.StudentListListener() {
             @Override
             public void onResponse(ArrayList<KhsModel> khsModels) {
-                setStudentRecycler(khsModels);
+                setStudentRecycler(khsModels, courseCode, classRoom, collegeYear);
             }
 
             @Override
@@ -94,11 +75,17 @@ public class InputValue extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void setStudentRecycler(ArrayList<KhsModel> khsModels) {
-        _inputValueAdapter = new InputValueAdapter(khsModels, InputValue.this, _strCodeCourse, _strClassroom, _strCollegeYear);
+    private void setStudentRecycler(ArrayList<KhsModel> khsModels, String courseCode, String classRoom, String collegeYear) {
+        _inputValueAdapter = new InputValueAdapter(khsModels, InputValue.this, courseCode, classRoom, collegeYear);
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _studentRecycler.setAdapter(_inputValueAdapter);
         _inputValueAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        main(_strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom);
     }
 }

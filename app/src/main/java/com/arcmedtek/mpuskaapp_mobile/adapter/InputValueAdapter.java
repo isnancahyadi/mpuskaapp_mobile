@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.ChangeScore;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.arcmedtek.mpuskaapp_mobile.util.KhsDiffUtilCallback;
 
 import java.util.ArrayList;
 
@@ -147,6 +149,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
                 intent.putExtra("course_code", _strCodeCourse);
                 intent.putExtra("classroom", _strClassroom);
                 _context.startActivity(intent);
+                dialogInput.dismiss();
             });
 
             btnClose.setOnClickListener(v2 -> {

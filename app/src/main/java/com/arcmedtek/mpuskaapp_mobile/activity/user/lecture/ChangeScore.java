@@ -110,7 +110,6 @@ public class ChangeScore extends AppCompatActivity {
         _mPuskaDataService.updateScoreMhs(_strIdKrs, idAssessment, score, new MPuskaDataService.UpdateScoreMhs() {
             @Override
             public void onResponse(String message) {
-//                Toast.makeText(ChangeScore.this, message, Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChangeScore.this, R.style.AlertDialogStyle);
                 View doneDialog = LayoutInflater.from(ChangeScore.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
                 builder.setView(doneDialog);
@@ -121,13 +120,7 @@ public class ChangeScore extends AppCompatActivity {
                 final AlertDialog alertDialog = builder.create();
 
                 doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> {
-                    //Intent intent = new Intent(ChangeScore.this, InputValue.class);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //startActivity(intent);
-                    finish();
-                    overridePendingTransition(0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition(0, 0);
+                    onBackPressed();
                 });
 
                 if (alertDialog.getWindow() != null) {

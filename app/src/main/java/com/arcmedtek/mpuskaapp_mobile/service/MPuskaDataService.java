@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "100.100.1.8";
+    public static final String IPCONF = "100.100.1.53";
 
     public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
     public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
