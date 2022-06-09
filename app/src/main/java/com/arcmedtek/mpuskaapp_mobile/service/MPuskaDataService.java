@@ -42,6 +42,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_CPL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
     public static final String QUERY_FOR_GET_CPMK = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
     public static final String QUERY_FOR_UPDATE_MHS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updatescoremhs/";
+    public static final String QUERY_FOR_UPDATE_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updateassessments";
 
     Context context;
     SessionManager _sessionManager;
@@ -406,6 +407,7 @@ public class MPuskaDataService {
                         KhsModel khsModel = new KhsModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
+                        khsModel.set_idAsesmen(data.getInt("ID_asesmen"));
                         khsModel.set_assessment(data.getString("nama"));
                         khsModel.set_percent(data.getInt("bobot"));
 
@@ -534,6 +536,43 @@ public class MPuskaDataService {
                 }
                 for (int j = 0; j < score.length; j++) {
                     params.put("nilai["+j+"]", score[j]);
+                }
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface UpdateAssessments {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void updateAssessments(String[] idAssessments, String[] assessments, String[] percent, UpdateAssessments updateAssessments) {
+        StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_ASSESSMENTS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                updateAssessments.onResponse("Data berhasil diupdate");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                updateAssessments.onError("Error");
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                for (int i = 0; i < idAssessments.length; i++) {
+                    params.put("ID_asesmen["+i+"]", idAssessments[i]);
+                }
+                for (int j = 0; j < assessments.length; j++) {
+                    params.put("nama["+j+"]", assessments[j]);
+                }
+                for (int k = 0; k < percent.length; k++) {
+                    params.put("bobot["+k+"]", percent[k]);
                 }
                 return params;
             }

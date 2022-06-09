@@ -32,45 +32,70 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/btn_back_assessment"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_play_left"
-                    app:tint="#4F4F4F"
-                    tools:ignore="ContentDescription" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    tools:ignore="RelativeOverlap,UseCompoundDrawables">
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/btn_back_assessment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_play_left"
+                        app:tint="#4F4F4F"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/txt_college_year_assessment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/roboto_black"
                         android:gravity="center_vertical"
                         android:text="@string/ta_xxxx_xxxx"
                         android:textColor="#4F4F4F"
                         android:textSize="19sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_calendar_21"
-                        tools:ignore="ContentDescription" />
-
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/btn_setting_assessment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_gear"
+                    app:tint="#4F4F4F"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/btn_save_update_assessments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_checked"
+                    android:visibility="gone"
+                    app:tint="#4F4F4F"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/btn_cancel_update_assessments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@id/btn_save_update_assessments"
+                    android:src="@drawable/ic_cross"
+                    android:visibility="gone"
+                    app:tint="#4F4F4F"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -168,9 +193,9 @@
             <RelativeLayout
                 android:id="@+id/chart_score_percentage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="30dp"
                 android:paddingStart="20dp"
@@ -182,7 +207,26 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/score_percentage_pie_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="200dp"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/list_assessments_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rounded_white"
+                    android:orientation="vertical"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="30dp"
+                    android:visibility="gone">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_assessments"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -214,10 +258,10 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_rounded_white"
                     android:orientation="vertical"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="10dp"
                     android:paddingStart="30dp"
-                    android:paddingEnd="30dp">
+                    android:paddingTop="15dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="10dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_cpl"
@@ -232,10 +276,10 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_rounded_white"
                     android:orientation="vertical"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="10dp"
                     android:paddingStart="30dp"
-                    android:paddingEnd="30dp">
+                    android:paddingTop="15dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="10dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_cpmk"

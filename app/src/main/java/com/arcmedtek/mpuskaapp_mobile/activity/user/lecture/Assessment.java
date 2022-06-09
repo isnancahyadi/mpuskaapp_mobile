@@ -1,6 +1,10 @@
 package com.arcmedtek.mpuskaapp_mobile.activity.user.lecture;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,14 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.adapter.ChangeAssessmentsListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CplListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CpmkListAdapter;
+import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
+import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged2;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.github.mikephil.charting.charts.PieChart;
@@ -30,6 +45,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Assessment extends AppCompatActivity {
@@ -40,14 +56,22 @@ public class Assessment extends AppCompatActivity {
     ArrayList<PieEntry> _assessment;
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
-    RecyclerView _cplRecycler, _cpmkRecycler;
+    RecyclerView _cplRecycler, _cpmkRecycler, _percentRecycler;
+    ImageView _btnSetting, _btnSaveUpdateAssessments, _btnCancelUpdateAssessments;
+    LinearLayout _listAssessmentsContainer;
+    RelativeLayout _chartScoreContainer;
 
     MPuskaDataService _mPuskaDataService;
     Typeface _robotoBold, _roboto;
     CplListAdapter _cplListAdapter;
     CpmkListAdapter _cpmkListAdapter;
+    ChangeAssessmentsListAdapter _changeAssessmentsListAdapter;
+    
+    MenuBuilder _menuBuilder;
 
-    @SuppressLint({"NewApi", "SetTextI18n"})
+    String[] _idAssessments, _assessments, _percent;
+
+    @SuppressLint({"NewApi", "SetTextI18n", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +89,12 @@ public class Assessment extends AppCompatActivity {
         _classroom = findViewById(R.id.txt_classroom);
         _cplRecycler = findViewById(R.id.list_cpl);
         _cpmkRecycler = findViewById(R.id.list_cpmk);
+        _percentRecycler = findViewById(R.id.list_assessments);
+        _chartScoreContainer = findViewById(R.id.chart_score_percentage);
+        _btnSetting = findViewById(R.id.btn_setting_assessment);
+        _listAssessmentsContainer = findViewById(R.id.list_assessments_container);
+        _btnSaveUpdateAssessments = findViewById(R.id.btn_save_update_assessments);
+        _btnCancelUpdateAssessments = findViewById(R.id.btn_cancel_update_assessments);
 
         _collegeYear.setText("TA. " + _strCollegeYear);
         _nameCourse.setText(_strNameCourse);
@@ -75,6 +105,7 @@ public class Assessment extends AppCompatActivity {
         _roboto = ResourcesCompat.getFont(Assessment.this, R.font.roboto);
         _assessment = new ArrayList<>();
         _mPuskaDataService = new MPuskaDataService(Assessment.this);
+        _menuBuilder = new MenuBuilder(this);
 
         assessmentsChart();
 
@@ -101,6 +132,138 @@ public class Assessment extends AppCompatActivity {
 
             }
         });
+        
+        assessmentsSetting(_strCodeCourse, _strClassroom, _strCollegeYear);
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void assessmentsSetting(String strCodeCourse, String strClassroom, String strCollegeYear) {
+        MenuInflater inflater = new MenuInflater(this);
+        inflater.inflate(R.menu.popup_menu_setting_assessments, _menuBuilder);
+        
+        _btnSetting.setOnClickListener(v -> {
+            MenuPopupHelper optionMenu = new MenuPopupHelper(Assessment.this, _menuBuilder, v);
+            optionMenu.setForceShowIcon(true);
+            
+            _menuBuilder.setCallback(new MenuBuilder.Callback() {
+                @Override
+                public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
+                    if (item.getItemId() == R.id.assessment_setting) {
+                        editAssessments(strCodeCourse, strClassroom, strCollegeYear);
+                        return true;
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onMenuModeChange(@NonNull MenuBuilder menu) {
+
+                }
+            });
+            optionMenu.show();
+        });
+    }
+
+    private void editAssessments(String codeCourse, String classroom, String collegeYear) {
+
+
+        _mPuskaDataService.getAssessments(codeCourse, classroom, collegeYear, new MPuskaDataService.AssessmentsListener() {
+            @Override
+            public void onResponse(ArrayList<KhsModel> khsModels) {
+                setAssessmentsRecycler(khsModels);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
+
+    private void setAssessmentsRecycler(ArrayList<KhsModel> khsModels) {
+        _scorePercentagePieChart.setVisibility(View.GONE);
+        _listAssessmentsContainer.setVisibility(View.VISIBLE);
+        _btnSetting.setVisibility(View.GONE);
+        _btnSaveUpdateAssessments.setVisibility(View.VISIBLE);
+        _btnCancelUpdateAssessments.setVisibility(View.VISIBLE);
+
+        _idAssessments = new String[khsModels.size()];
+        _assessments = new String[khsModels.size()];
+        _percent = new String[khsModels.size()];
+
+        for (int i = 0; i < khsModels.size(); i++) {
+            _idAssessments[i] = String.valueOf(khsModels.get(i).get_idAsesmen());
+            _assessments[i] = String.valueOf(khsModels.get(i).get_assessment());
+            _percent[i] = String.valueOf(khsModels.get(i).get_percent());
+        }
+
+        _changeAssessmentsListAdapter = new ChangeAssessmentsListAdapter(khsModels, Assessment.this, new OnEditTextChanged() {
+            @Override
+            public void onTextChanged(int position, String charSeq) {
+                _assessments[position] = charSeq;
+            }
+
+            @Override
+            public void beforeTextChanged(int position, String charSeq) {
+                _assessments[position] = charSeq;
+            }
+        }, new OnEditTextChanged2() {
+            @Override
+            public void onTextChanged(int position, String charSeq) {
+                _percent[position] = charSeq;
+            }
+
+            @Override
+            public void beforeTextChanged(int position, String charSeq) {
+                _percent[position] = charSeq;
+            }
+        });
+        _percentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        _percentRecycler.setAdapter(_changeAssessmentsListAdapter);
+
+        _btnSaveUpdateAssessments.setOnClickListener(v -> {
+            updateAssessments(_percent, _assessments, _idAssessments);
+        });
+        _btnCancelUpdateAssessments.setOnClickListener(v -> refreshActivity());
+    }
+
+    private void updateAssessments(String[] percent, String[] assessments, String[] idAssessments) {
+        _mPuskaDataService.updateAssessments(idAssessments, assessments, percent, new MPuskaDataService.UpdateAssessments() {
+            @Override
+            public void onResponse(String message) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
+                View doneDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
+                builder.setView(doneDialog);
+
+                TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                txtMessage.setText(message);
+
+                final AlertDialog alertDialog = builder.create();
+
+                doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> refreshActivity());
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
+            }
+
+            @Override
+            public void onError(String message) {
+                refreshActivity();
+
+                Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void refreshActivity() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
     private void setCpmkRecycler(ArrayList<KhsModel> khsModels) {

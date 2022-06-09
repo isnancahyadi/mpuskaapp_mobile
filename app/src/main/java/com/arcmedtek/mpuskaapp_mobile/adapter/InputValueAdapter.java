@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +23,6 @@ import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.ChangeScore;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
-import com.arcmedtek.mpuskaapp_mobile.util.KhsDiffUtilCallback;
 
 import java.util.ArrayList;
 
