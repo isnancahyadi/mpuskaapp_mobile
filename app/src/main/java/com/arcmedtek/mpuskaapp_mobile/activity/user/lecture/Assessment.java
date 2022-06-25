@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -43,6 +44,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,9 +150,11 @@ public class Assessment extends AppCompatActivity {
             _menuBuilder.setCallback(new MenuBuilder.Callback() {
                 @Override
                 public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-                    if (item.getItemId() == R.id.assessment_setting) {
+                    if (item.getItemId() == R.id.edit_assessment) {
                         editAssessments(strCodeCourse, strClassroom, strCollegeYear);
                         return true;
+                    } else if (item.getItemId() == R.id.add_assessments) {
+                        addAssessments();
                     }
                     return false;
                 }
@@ -162,6 +166,18 @@ public class Assessment extends AppCompatActivity {
             });
             optionMenu.show();
         });
+    }
+
+    private void addAssessments() {
+        Dialog addAssessments = new Dialog(getApplicationContext());
+        addAssessments.setContentView(R.layout.add_assessments_dialog);
+
+        TextInputEditText assessment, percent;
+
+        assessment = addAssessments.findViewById(R.id.txt_inet_chage_assessments);
+        percent = addAssessments.findViewById(R.id.txt_inet_change_percent);
+
+
     }
 
     private void editAssessments(String codeCourse, String classroom, String collegeYear) {

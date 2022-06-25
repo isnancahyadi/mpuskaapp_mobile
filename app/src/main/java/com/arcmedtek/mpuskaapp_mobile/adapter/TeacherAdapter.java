@@ -14,18 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.Course;
+import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 
 import java.util.ArrayList;
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherHolder> {
 
-    ArrayList<KhsModel> _khsModels;
-    ArrayList<KhsModel> _filteredKhsModels;
+    ArrayList<CourseModel> _courseModels;
+    ArrayList<CourseModel> _filteredCourseModels;
     Context _context;
 
-    public TeacherAdapter(ArrayList<KhsModel> _khsModels, Context _context) {
-        this._khsModels = _khsModels;
-        this._filteredKhsModels = _khsModels;
+    public TeacherAdapter(ArrayList<CourseModel> _courseModels, Context _context) {
+        this._courseModels = _courseModels;
+        this._filteredCourseModels = _courseModels;
         this._context = _context;
     }
 
@@ -40,7 +41,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TeacherHolder holder, int position) {
-        KhsModel model = _khsModels.get(position);
+        CourseModel model = _courseModels.get(position);
         holder._courseCode.setText(model.get_courseCode() + " (Thn. " + model.get_collegeYear() + ")");
         holder._nameCourse.setText(model.get_courseName() + " (" + model.get_classRoom() + ")");
 
@@ -56,7 +57,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
 
     @Override
     public int getItemCount() {
-        return _filteredKhsModels.size();
+        return _filteredCourseModels.size();
     }
 
     public static class TeacherHolder extends RecyclerView.ViewHolder {
@@ -77,20 +78,20 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String key = charSequence.toString();
 
-                ArrayList<KhsModel> listFiltered = new ArrayList<>();
+                ArrayList<CourseModel> listFiltered = new ArrayList<>();
 
                 if (key.isEmpty()) {
-                    _filteredKhsModels = _khsModels;
+                    _filteredCourseModels = _courseModels;
                 } else {
-                    for (KhsModel row: _khsModels) {
+                    for (CourseModel row: _courseModels) {
                         if (row.get_collegeYear().toLowerCase().contains(key.toLowerCase())) {
                             listFiltered.add(row);
                         }
                     }
-                    _filteredKhsModels = listFiltered;
+                    _filteredCourseModels = listFiltered;
                 }
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = _filteredKhsModels;
+                filterResults.values = _filteredCourseModels;
                 filterResults.count = listFiltered.size();
 
                 return filterResults;
@@ -99,7 +100,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
             @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                _filteredKhsModels = (ArrayList<KhsModel>) filterResults.values;
+                _filteredCourseModels = (ArrayList<CourseModel>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.adapter.TeacherAdapter;
+import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.google.android.material.textfield.TextInputEditText;
@@ -53,8 +54,8 @@ public class ListMatkul extends AppCompatActivity {
 
         _mPuskaDataService.getTeacherListCourse(new MPuskaDataService.TeacherListCourseListener() {
             @Override
-            public void onResponse(ArrayList<KhsModel> khsModels) {
-                setCourseRecycler(khsModels);
+            public void onResponse(ArrayList<CourseModel> courseModels) {
+                setCourseRecycler(courseModels);
             }
 
             @Override
@@ -66,7 +67,7 @@ public class ListMatkul extends AppCompatActivity {
         _btnBack.setOnClickListener(v -> onBackPressed());
     }
 
-    private void setCourseRecycler(ArrayList<KhsModel> courseList) {
+    private void setCourseRecycler(ArrayList<CourseModel> courseList) {
         _teacherAdapter = new TeacherAdapter(courseList, ListMatkul.this);
         _courseRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

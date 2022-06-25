@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.config.SingletonReq;
+import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "100.100.1.53";
+    public static final String IPCONF = "100.100.1.4";
 
     public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
     public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
@@ -245,13 +246,13 @@ public class MPuskaDataService {
     }
 
     public interface TeacherListCourseListener {
-        void onResponse(ArrayList<KhsModel> khsModels);
+        void onResponse(ArrayList<CourseModel> courseModels);
 
         void onError(String message);
     }
 
     public void getTeacherListCourse(TeacherListCourseListener teacherListCourseListener) {
-        ArrayList<KhsModel> models = new ArrayList<>();
+        ArrayList<CourseModel> models = new ArrayList<>();
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_GET_TEACHER_LIST_COURSE + _userKey.get(SessionManager.USERNAME), null, new Response.Listener<JSONArray>() {
             @Override
@@ -259,16 +260,16 @@ public class MPuskaDataService {
 
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        KhsModel khsModel = new KhsModel();
+                        CourseModel courseModel = new CourseModel();
                         //JSONArray jsonArray = new JSONArray(response);
                         JSONObject data = response.getJSONObject(i);
 
-                        khsModel.set_courseName(data.getString("nama"));
-                        khsModel.set_courseCode(data.getString("kode_matkul"));
-                        khsModel.set_classRoom(data.getString("kelas"));
-                        khsModel.set_collegeYear(data.getString("thn_ajaran"));
+                        courseModel.set_courseName(data.getString("nama"));
+                        courseModel.set_courseCode(data.getString("kode_matkul"));
+                        courseModel.set_classRoom(data.getString("kelas"));
+                        courseModel.set_collegeYear(data.getString("thn_ajaran"));
 
-                        models.add(khsModel);
+                        models.add(courseModel);
 
                         teacherListCourseListener.onResponse(models);
                     } catch (JSONException e) {
@@ -579,4 +580,6 @@ public class MPuskaDataService {
         };
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
+
+
 }
