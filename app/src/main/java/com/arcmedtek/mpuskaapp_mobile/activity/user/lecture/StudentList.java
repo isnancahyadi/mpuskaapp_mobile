@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.adapter.StudentListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
+import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class StudentList extends AppCompatActivity {
 
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     ImageView _btnBack;
-    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
+    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, _strIdTeacher;
 
     RecyclerView _studentRecycler;
     StudentListAdapter _studentListAdapter;
@@ -38,6 +39,7 @@ public class StudentList extends AppCompatActivity {
         _strNameCourse = getIntent().getStringExtra("course_name");
         _strCodeCourse = getIntent().getStringExtra("course_code");
         _strClassroom = getIntent().getStringExtra("classroom");
+        _strIdTeacher = getIntent().getStringExtra("ID_teacher");
 
         _mPuskaDataService = new MPuskaDataService(StudentList.this);
 
@@ -53,10 +55,10 @@ public class StudentList extends AppCompatActivity {
         _codeCourse.setText(_strCodeCourse);
         _classroom.setText(_strClassroom);
 
-        _mPuskaDataService.getStudentList(_strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentListListener() {
+        _mPuskaDataService.getStudentList(_strIdTeacher, new MPuskaDataService.StudentListListener() {
             @Override
-            public void onResponse(ArrayList<KhsModel> khsModels) {
-                setStudentRecycler(khsModels);
+            public void onResponse(ArrayList<KrsModel> krsModels) {
+                setStudentRecycler(krsModels);
             }
 
             @Override
@@ -68,7 +70,7 @@ public class StudentList extends AppCompatActivity {
         _btnBack.setOnClickListener(v -> onBackPressed());
     }
 
-    private void setStudentRecycler(ArrayList<KhsModel> studentList) {
+    private void setStudentRecycler(ArrayList<KrsModel> studentList) {
         _studentListAdapter = new StudentListAdapter(studentList, StudentList.this);
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

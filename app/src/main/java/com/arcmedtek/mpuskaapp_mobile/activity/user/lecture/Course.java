@@ -16,7 +16,7 @@ public class Course extends AppCompatActivity {
 
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     ImageView _btnBack;
-    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
+    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, _strIdTeacher;
 
     CardView _btnStudentList, _btnInputValue, _btnAssessment;
 
@@ -30,6 +30,7 @@ public class Course extends AppCompatActivity {
         _strNameCourse = getIntent().getStringExtra("course_name");
         _strClassroom = getIntent().getStringExtra("classroom");
         _strCodeCourse = getIntent().getStringExtra("course_code");
+        _strIdTeacher = getIntent().getStringExtra("ID_teacher");
 
         _collegeYear = findViewById(R.id.txt_college_year_course);
         _nameCourse = findViewById(R.id.txt_name_course);
@@ -51,6 +52,7 @@ public class Course extends AppCompatActivity {
             intent.putExtra("course_name", _strNameCourse);
             intent.putExtra("classroom", _strClassroom);
             intent.putExtra("course_code", _strCodeCourse);
+            intent.putExtra("ID_teacher", _strIdTeacher);
             startActivity(intent);
         });
 
@@ -60,6 +62,7 @@ public class Course extends AppCompatActivity {
             intent.putExtra("course_name", _strNameCourse);
             intent.putExtra("classroom", _strClassroom);
             intent.putExtra("course_code", _strCodeCourse);
+            intent.putExtra("ID_teacher", _strIdTeacher);
             startActivity(intent);
         });
 

@@ -47,6 +47,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherH
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(_context, Course.class);
+            intent.putExtra("ID_teacher", model.get_idTeacher());
             intent.putExtra("course_code", model.get_courseCode());
             intent.putExtra("course_name", model.get_courseName());
             intent.putExtra("college_year", model.get_collegeYear());

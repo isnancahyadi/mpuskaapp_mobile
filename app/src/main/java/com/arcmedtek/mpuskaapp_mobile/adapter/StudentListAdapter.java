@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
+import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentListHolder> {
 
-    ArrayList<KhsModel> _khsModels;
+    ArrayList<KrsModel> _krsModels;
     Context _context;
 
-    public StudentListAdapter(ArrayList<KhsModel> _khsModels, Context _context) {
-        this._khsModels = _khsModels;
+    public StudentListAdapter(ArrayList<KrsModel> _krsModels, Context _context) {
+        this._krsModels = _krsModels;
         this._context = _context;
     }
 
@@ -37,14 +38,14 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull StudentListHolder holder, int position) {
-        KhsModel model = _khsModels.get(position);
+        KrsModel model = _krsModels.get(position);
         holder._nim.setText(model.get_nim());
         holder._studentName.setText(model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
     }
 
     @Override
     public int getItemCount() {
-        return _khsModels.size();
+        return _krsModels.size();
     }
 
     public static class StudentListHolder extends RecyclerView.ViewHolder {

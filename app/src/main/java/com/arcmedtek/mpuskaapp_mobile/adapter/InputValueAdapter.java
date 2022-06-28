@@ -22,19 +22,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.ChangeScore;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
+import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 
 import java.util.ArrayList;
 
 public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.InputValueHolder> {
 
-    ArrayList<KhsModel> _khsModels;
+    ArrayList<KrsModel> _krsModels;
     Context _context;
 
     String _strCodeCourse, _strClassroom, _strCollegeYear;
 
-    public InputValueAdapter(ArrayList<KhsModel> _khsModels, Context _context, String _strCodeCourse, String _strClassroom, String _strCollegeYear) {
-        this._khsModels = _khsModels;
+    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strCodeCourse, String _strClassroom, String _strCollegeYear) {
+        this._krsModels = _krsModels;
         this._context = _context;
         this._strCodeCourse = _strCodeCourse;
         this._strClassroom = _strClassroom;
@@ -52,7 +53,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull InputValueHolder holder, int position) {
-        KhsModel model = _khsModels.get(position);
+        KrsModel model = _krsModels.get(position);
         holder._nim.setText(model.get_nim());
         holder._studentName.setText(model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
 
@@ -161,7 +162,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
 
     @Override
     public int getItemCount() {
-        return _khsModels.size();
+        return _krsModels.size();
     }
 
     public static class InputValueHolder extends RecyclerView.ViewHolder {

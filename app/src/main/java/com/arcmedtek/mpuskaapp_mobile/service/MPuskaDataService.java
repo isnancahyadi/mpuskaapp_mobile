@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.config.SingletonReq;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
+import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 
@@ -37,7 +38,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/dosen/";
     public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun/";
     public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
-    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistmhs/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/krs/";
     public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
     public static final String QUERY_FOR_GET_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
     public static final String QUERY_FOR_GET_CPL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
@@ -264,6 +265,7 @@ public class MPuskaDataService {
                         //JSONArray jsonArray = new JSONArray(response);
                         JSONObject data = response.getJSONObject(i);
 
+                        courseModel.set_idTeacher(String.valueOf(data.getInt("ID_pengampu")));
                         courseModel.set_courseName(data.getString("nama"));
                         courseModel.set_courseCode(data.getString("kode_matkul"));
                         courseModel.set_classRoom(data.getString("kelas"));
@@ -287,33 +289,33 @@ public class MPuskaDataService {
     }
 
     public interface StudentListListener {
-        void onResponse(ArrayList<KhsModel> khsModels);
+        void onResponse(ArrayList<KrsModel> krsModels);
 
         void onError(String message);
     }
 
-    public void getStudentList(String courseCode, String classRoom, String collegeYear, StudentListListener studentListListener) {
-        ArrayList<KhsModel> models = new ArrayList<>();
+    public void getStudentList(String idTeacher, StudentListListener studentListListener) {
+        ArrayList<KrsModel> models = new ArrayList<>();
 
-        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_LIST + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_STUDENT_LIST + idTeacher, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
 
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        KhsModel khsModel = new KhsModel();
+                        KrsModel krsModel = new KrsModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
-                        khsModel.set_idKrs(data.getInt("ID_krs"));
-                        khsModel.set_nim(data.getString("nim"));
-                        khsModel.set_studentFirstName(data.getString("nama_depan"));
-                        khsModel.set_studentMiddleName(data.getString("nama_tengah"));
-                        khsModel.set_studentLastName(data.getString("nama_belakang"));
-                        khsModel.set_foto(data.getString("foto"));
-                        khsModel.set_teamName(data.getString("nama_tim"));
+                        krsModel.set_idKrs(data.getInt("ID_krs"));
+                        krsModel.set_nim(data.getString("nim"));
+                        krsModel.set_studentFirstName(data.getString("nama_depan_mahasiswa"));
+                        krsModel.set_studentMiddleName(data.getString("nama_tengah_mahasiswa"));
+                        krsModel.set_studentLastName(data.getString("nama_belakang_mahasiswa"));
+                        krsModel.set_photo(data.getString("foto"));
+                        krsModel.set_teamName(data.getString("nama_tim"));
 
-                        models.add(khsModel);
+                        models.add(krsModel);
                     }
                     studentListListener.onResponse(models);
                 } catch (Exception e) {
@@ -325,16 +327,7 @@ public class MPuskaDataService {
             public void onErrorResponse(VolleyError error) {
                 studentListListener.onError("Terjadi kesalahan sistem");
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("kode_matkul", courseCode);
-                params.put("kelas", classRoom);
-                params.put("thn_ajaran", collegeYear);
-                return params;
-            }
-        };
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 
