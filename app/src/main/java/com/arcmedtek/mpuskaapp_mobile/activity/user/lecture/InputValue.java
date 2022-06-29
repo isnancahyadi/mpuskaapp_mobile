@@ -64,7 +64,7 @@ public class InputValue extends AppCompatActivity {
         _mPuskaDataService.getStudentList(idTeacher, new MPuskaDataService.StudentListListener() {
             @Override
             public void onResponse(ArrayList<KrsModel> krsModels) {
-                setStudentRecycler(krsModels, courseCode, classRoom, collegeYear);
+                setStudentRecycler(krsModels, _strIdTeacher);
             }
 
             @Override
@@ -77,8 +77,8 @@ public class InputValue extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void setStudentRecycler(ArrayList<KrsModel> krsModels, String courseCode, String classRoom, String collegeYear) {
-        _inputValueAdapter = new InputValueAdapter(krsModels, InputValue.this, courseCode, classRoom, collegeYear);
+    private void setStudentRecycler(ArrayList<KrsModel> krsModels, String strIdTeacher) {
+        _inputValueAdapter = new InputValueAdapter(krsModels, InputValue.this, strIdTeacher);
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _studentRecycler.setAdapter(_inputValueAdapter);

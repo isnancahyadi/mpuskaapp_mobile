@@ -45,6 +45,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_CPMK = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
     public static final String QUERY_FOR_UPDATE_MHS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updatescoremhs/";
     public static final String QUERY_FOR_UPDATE_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updateassessments";
+    public static final String QUERY_FOR_GET_KRS_STUDENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistkhsmhs/";
 
     Context context;
     SessionManager _sessionManager;
@@ -574,5 +575,47 @@ public class MPuskaDataService {
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 
+    public interface GradeListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
 
+        void onError(String message);
+    }
+
+    public void getGradeStudent(String idTeacher, String nim, GradeListener gradeListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_KRS_STUDENT + idTeacher, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        KhsModel khsModel = new KhsModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        khsModel.set_grade(data.getString("grade"));
+
+                        models.add(khsModel);
+                    }
+                    gradeListener.onResponse(models);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                gradeListener.onError("Terjadi kesalahan sistem");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("nim", nim);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
 }

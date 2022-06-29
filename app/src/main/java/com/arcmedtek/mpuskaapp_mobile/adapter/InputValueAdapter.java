@@ -32,14 +32,12 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
     ArrayList<KrsModel> _krsModels;
     Context _context;
 
-    String _strCodeCourse, _strClassroom, _strCollegeYear;
+    String _strIdTeacher;
 
-    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strCodeCourse, String _strClassroom, String _strCollegeYear) {
+    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strIdTeacher) {
         this._krsModels = _krsModels;
         this._context = _context;
-        this._strCodeCourse = _strCodeCourse;
-        this._strClassroom = _strClassroom;
-        this._strCollegeYear = _strCollegeYear;
+        this._strIdTeacher = _strIdTeacher;
     }
 
     @NonNull
@@ -60,36 +58,48 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
         MPuskaDataService _mPuskaDataService;
         _mPuskaDataService = new MPuskaDataService(_context);
 
-        _mPuskaDataService.getStudentScore(model.get_nim(), _strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentScoreListener() {
+        _mPuskaDataService.getGradeStudent(_strIdTeacher, model.get_nim(), new MPuskaDataService.GradeListener() {
             @Override
             public void onResponse(ArrayList<KhsModel> khsModels) {
-                float score = 0;
+                String grade = "";
                 for (int i = 0; i < khsModels.size(); i++) {
-                    score = score + (khsModels.get(i).get_score() * ((float)khsModels.get(i).get_percent() / 100));
+                    grade = khsModels.get(i).get_grade();
                 }
 
-                if (score >= 0 && score < 40.00) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_e);
-                } else if (score >= 40.00 && score < 43.75) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_d);
-                } else if (score >= 43.75 && score < 51.25) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_d_plus);
-                } else if (score >= 51.25 && score < 55.00) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_c_min);
-                } else if (score >= 55.00 && score < 57.50) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_c);
-                } else if (score >= 57.50 && score < 62.50) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_c_plus);
-                } else if (score >= 62.50 && score < 65.00) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_b_min);
-                } else if (score >= 65.00 && score < 68.75) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_b);
-                } else if (score >= 68.75 && score < 76.25) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_b_plus);
-                } else if (score >= 76.25 && score < 80.00) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_a_min);
-                } else if (score >= 80.00 && score <= 100.00) {
-                    holder._grade.setImageResource(R.drawable.ic_grade_a);
+                switch (grade) {
+                    case "E":
+                        holder._grade.setImageResource(R.drawable.ic_grade_e);
+                        break;
+                    case "D":
+                        holder._grade.setImageResource(R.drawable.ic_grade_d);
+                        break;
+                    case "D+":
+                        holder._grade.setImageResource(R.drawable.ic_grade_d_plus);
+                        break;
+                    case "C-":
+                        holder._grade.setImageResource(R.drawable.ic_grade_c_min);
+                        break;
+                    case "C":
+                        holder._grade.setImageResource(R.drawable.ic_grade_c);
+                        break;
+                    case "C+":
+                        holder._grade.setImageResource(R.drawable.ic_grade_c_plus);
+                        break;
+                    case "B-":
+                        holder._grade.setImageResource(R.drawable.ic_grade_b_min);
+                        break;
+                    case "B":
+                        holder._grade.setImageResource(R.drawable.ic_grade_b);
+                        break;
+                    case "B+":
+                        holder._grade.setImageResource(R.drawable.ic_grade_b_plus);
+                        break;
+                    case "A-":
+                        holder._grade.setImageResource(R.drawable.ic_grade_a_min);
+                        break;
+                    case "A":
+                        holder._grade.setImageResource(R.drawable.ic_grade_a);
+                        break;
                 }
             }
 
@@ -122,34 +132,34 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
             name.setText(model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
             teamName.setText(model.get_teamName());
 
-            mPuskaDataService.getStudentScore(model.get_nim(), _strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentScoreListener() {
-                @Override
-                public void onResponse(ArrayList<KhsModel> khsModels) {
-                    AssessmentScoreListAdapter assessmentScoreListAdapter;
-                    assessmentScoreListAdapter = new AssessmentScoreListAdapter(khsModels, _context);
-                    assessmentScoreRecycler.setLayoutManager(new LinearLayoutManager(_context.getApplicationContext()));
-
-                    assessmentScoreRecycler.setAdapter(assessmentScoreListAdapter);
-                }
-
-                @Override
-                public void onError(String message) {
-
-                }
-            });
-
-            btnChangeScore.setOnClickListener(v1 -> {
-                Intent intent = new Intent(_context, ChangeScore.class);
-                intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
-                intent.putExtra("college_year", _strCollegeYear);
-                intent.putExtra("nim", model.get_nim());
-                intent.putExtra("student_name", model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
-                intent.putExtra("team_name", model.get_teamName());
-                intent.putExtra("course_code", _strCodeCourse);
-                intent.putExtra("classroom", _strClassroom);
-                _context.startActivity(intent);
-                dialogInput.dismiss();
-            });
+//            mPuskaDataService.getStudentScore(model.get_nim(), _strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentScoreListener() {
+//                @Override
+//                public void onResponse(ArrayList<KhsModel> khsModels) {
+//                    AssessmentScoreListAdapter assessmentScoreListAdapter;
+//                    assessmentScoreListAdapter = new AssessmentScoreListAdapter(khsModels, _context);
+//                    assessmentScoreRecycler.setLayoutManager(new LinearLayoutManager(_context.getApplicationContext()));
+//
+//                    assessmentScoreRecycler.setAdapter(assessmentScoreListAdapter);
+//                }
+//
+//                @Override
+//                public void onError(String message) {
+//
+//                }
+//            });
+//
+//            btnChangeScore.setOnClickListener(v1 -> {
+//                Intent intent = new Intent(_context, ChangeScore.class);
+//                intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
+//                intent.putExtra("college_year", _strCollegeYear);
+//                intent.putExtra("nim", model.get_nim());
+//                intent.putExtra("student_name", model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
+//                intent.putExtra("team_name", model.get_teamName());
+//                intent.putExtra("course_code", _strCodeCourse);
+//                intent.putExtra("classroom", _strClassroom);
+//                _context.startActivity(intent);
+//                dialogInput.dismiss();
+//            });
 
             btnClose.setOnClickListener(v2 -> {
                 dialogInput.dismiss();
