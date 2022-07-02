@@ -72,6 +72,7 @@ public class Course extends AppCompatActivity {
             intent.putExtra("course_name", _strNameCourse);
             intent.putExtra("classroom", _strClassroom);
             intent.putExtra("course_code", _strCodeCourse);
+            intent.putExtra("ID_teacher", _strIdTeacher);
             startActivity(intent);
         });
 

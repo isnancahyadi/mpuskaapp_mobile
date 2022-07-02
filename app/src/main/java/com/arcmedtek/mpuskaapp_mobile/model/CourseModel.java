@@ -2,12 +2,12 @@ package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class CourseModel {
     String _idTeacher, _courseCode, _courseName, _semester, _department, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _niyNip, _classRoom, _collegeYear, _assessments;
-    int _sks, _assessmentsPercentage;
+    int _sks, _assessmentsPercentage, _idAssessments;
 
     public CourseModel() {
     }
 
-    public CourseModel(String _idTeacher, String _courseCode, String _courseName, String _semester, String _department, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _niyNip, String _classRoom, String _collegeYear, String _assessments, int _sks, int _assessmentsPercentage) {
+    public CourseModel(String _idTeacher, String _courseCode, String _courseName, String _semester, String _department, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _niyNip, String _classRoom, String _collegeYear, String _assessments, int _sks, int _assessmentsPercentage, int _idAssessments) {
         this._idTeacher = _idTeacher;
         this._courseCode = _courseCode;
         this._courseName = _courseName;
@@ -24,6 +24,7 @@ public class CourseModel {
         this._assessments = _assessments;
         this._sks = _sks;
         this._assessmentsPercentage = _assessmentsPercentage;
+        this._idAssessments = _idAssessments;
     }
 
     public String get_idTeacher() {
@@ -152,5 +153,13 @@ public class CourseModel {
 
     public void set_assessmentsPercentage(int _assessmentsPercentage) {
         this._assessmentsPercentage = _assessmentsPercentage;
+    }
+
+    public int get_idAssessments() {
+        return _idAssessments;
+    }
+
+    public void set_idAssessments(int _idAssessments) {
+        this._idAssessments = _idAssessments;
     }
 }

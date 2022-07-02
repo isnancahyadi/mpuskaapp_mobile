@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "100.100.1.4";
+    public static final String IPCONF = "100.100.1.16";
 
     public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
     public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
@@ -384,29 +384,29 @@ public class MPuskaDataService {
     }
 
     public interface AssessmentsListener {
-        void onResponse(ArrayList<KhsModel> khsModels);
+        void onResponse(ArrayList<CourseModel> courseModels);
 
         void onError(String message);
     }
 
-    public void getAssessments(String courseCode, String classRoom, String collegeYear, AssessmentsListener assessmentsListener) {
-        ArrayList<KhsModel> models = new ArrayList<>();
+    public void getAssessments(String idTeacher, AssessmentsListener assessmentsListener) {
+        ArrayList<CourseModel> models = new ArrayList<>();
 
-        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_ASSESSMENTS + _userKey.get(SessionManager.USERNAME), new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_ASSESSMENTS + idTeacher, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONArray jsonArray = new JSONArray(response);
 
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        KhsModel khsModel = new KhsModel();
+                        CourseModel courseModel = new CourseModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
-                        khsModel.set_idAsesmen(data.getInt("ID_asesmen"));
-                        khsModel.set_assessment(data.getString("nama"));
-                        khsModel.set_percent(data.getInt("bobot"));
+                        courseModel.set_idAssessments(data.getInt("ID_asesmen"));
+                        courseModel.set_assessments(data.getString("nama"));
+                        courseModel.set_assessmentsPercentage(data.getInt("bobot"));
 
-                        models.add(khsModel);
+                        models.add(courseModel);
                     }
                     assessmentsListener.onResponse(models);
                 } catch (Exception e) {
@@ -418,16 +418,7 @@ public class MPuskaDataService {
             public void onErrorResponse(VolleyError error) {
                 assessmentsListener.onError("Terjadi kesalahan sistem");
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("kode_matkul", courseCode);
-                params.put("kelas", classRoom);
-                params.put("thn_ajaran", collegeYear);
-                return params;
-            }
-        };
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 

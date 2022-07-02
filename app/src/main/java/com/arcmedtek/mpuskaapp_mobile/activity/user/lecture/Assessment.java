@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,6 +34,7 @@ import com.arcmedtek.mpuskaapp_mobile.adapter.CplListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CpmkListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged2;
+import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.github.mikephil.charting.charts.PieChart;
@@ -44,8 +47,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.internal.TextScale;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +62,7 @@ public class Assessment extends AppCompatActivity {
 
     ArrayList<PieEntry> _assessment;
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
-    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom;
+    String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, _strIdTeacher;
     RecyclerView _cplRecycler, _cpmkRecycler, _percentRecycler;
     ImageView _btnSetting, _btnSaveUpdateAssessments, _btnCancelUpdateAssessments;
     LinearLayout _listAssessmentsContainer;
@@ -83,6 +88,7 @@ public class Assessment extends AppCompatActivity {
         _strNameCourse = getIntent().getStringExtra("course_name");
         _strClassroom = getIntent().getStringExtra("classroom");
         _strCodeCourse = getIntent().getStringExtra("course_code");
+        _strIdTeacher = getIntent().getStringExtra("ID_teacher");
 
         _scorePercentagePieChart = findViewById(R.id.score_percentage_pie_chart);
         _collegeYear = findViewById(R.id.txt_college_year_assessment);
@@ -151,7 +157,7 @@ public class Assessment extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                     if (item.getItemId() == R.id.edit_assessment) {
-                        editAssessments(strCodeCourse, strClassroom, strCollegeYear);
+//                        editAssessments(strCodeCourse, strClassroom, strCollegeYear);
                         return true;
                     } else if (item.getItemId() == R.id.add_assessments) {
                         addAssessments();
@@ -180,21 +186,21 @@ public class Assessment extends AppCompatActivity {
 
     }
 
-    private void editAssessments(String codeCourse, String classroom, String collegeYear) {
-
-
-        _mPuskaDataService.getAssessments(codeCourse, classroom, collegeYear, new MPuskaDataService.AssessmentsListener() {
-            @Override
-            public void onResponse(ArrayList<KhsModel> khsModels) {
-                setAssessmentsRecycler(khsModels);
-            }
-
-            @Override
-            public void onError(String message) {
-
-            }
-        });
-    }
+//    private void editAssessments(String codeCourse, String classroom, String collegeYear) {
+//
+//
+//        _mPuskaDataService.getAssessments(codeCourse, classroom, collegeYear, new MPuskaDataService.AssessmentsListener() {
+//            @Override
+//            public void onResponse(ArrayList<KhsModel> khsModels) {
+//                setAssessmentsRecycler(khsModels);
+//            }
+//
+//            @Override
+//            public void onError(String message) {
+//
+//            }
+//        });
+//    }
 
     private void setAssessmentsRecycler(ArrayList<KhsModel> khsModels) {
         _scorePercentagePieChart.setVisibility(View.GONE);
@@ -297,12 +303,13 @@ public class Assessment extends AppCompatActivity {
     }
 
     private void assessmentsChart() {
-        _mPuskaDataService.getAssessments(_strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.AssessmentsListener() {
+        _mPuskaDataService.getAssessments(_strIdTeacher, new MPuskaDataService.AssessmentsListener() {
             @Override
-            public void onResponse(ArrayList<KhsModel> khsModels) {
-                for (int i = 0; i < khsModels.size(); i++) {
-                    _assessment.add(new PieEntry(khsModels.get(i).get_percent(), khsModels.get(i).get_assessment()));
-                    totalPercent = totalPercent + khsModels.get(i).get_percent();
+            public void onResponse(ArrayList<CourseModel> courseModels) {
+                for (int i = 0; i < courseModels.size(); i++) {
+                    _assessment.add(new PieEntry(courseModels.get(i).get_assessmentsPercentage(), courseModels.get(i).get_assessments()));
+                    totalPercent = totalPercent + courseModels.get(i).get_assessmentsPercentage();
+                    Toast.makeText(Assessment.this, courseModels.get(i).get_assessmentsPercentage() + "->" + courseModels.get(i).get_assessments(), Toast.LENGTH_SHORT).show();
                 }
                 PieDataSet pieDataSet = new PieDataSet(_assessment, null);
                 pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -314,12 +321,13 @@ public class Assessment extends AppCompatActivity {
 
                 _scorePercentagePieChart.getDescription().setEnabled(false);
                 _scorePercentagePieChart.setCenterTextColor(Color.argb(255, 95, 126, 237));
-                _scorePercentagePieChart.setCenterTextSize(36);
+                _scorePercentagePieChart.setCenterTextSize(27);
                 _scorePercentagePieChart.setCenterText(totalPercent + "%");
                 _scorePercentagePieChart.setCenterTextTypeface(_robotoBold);
                 _scorePercentagePieChart.setDrawEntryLabels(false);
                 _scorePercentagePieChart.setTransparentCircleRadius(80);
                 _scorePercentagePieChart.setHoleRadius(70);
+                _scorePercentagePieChart.setExtraRightOffset(45);
                 _scorePercentagePieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
                     @Override
                     public void onValueSelected(Entry e, Highlight h) {
@@ -340,19 +348,20 @@ public class Assessment extends AppCompatActivity {
                 l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
                 l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
                 l.setOrientation(Legend.LegendOrientation.VERTICAL);
-                l.setFormSize(20);
-                l.setFormToTextSpace(10);
-                l.setYOffset(-40);
-                l.setXOffset(-30);
+                l.setFormSize(15);
+                l.setFormToTextSpace(5);
+                l.setWordWrapEnabled(true);
+//                l.setYOffset(-40);
+                l.setXOffset(70);
                 l.setTypeface(_roboto);
-                l.setTextSize(19);
+                l.setTextSize(14);
                 l.setYEntrySpace(10f);
                 l.setTextColor(Color.argb(255, 79, 79, 79));
             }
 
             @Override
             public void onError(String message) {
-
+                Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
