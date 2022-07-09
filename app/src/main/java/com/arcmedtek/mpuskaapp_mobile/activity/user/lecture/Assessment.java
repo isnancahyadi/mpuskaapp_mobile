@@ -22,6 +22,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -32,6 +35,7 @@ import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.adapter.ChangeAssessmentsListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CplListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CpmkListAdapter;
+import com.arcmedtek.mpuskaapp_mobile.adapter.ListAssessmentAdapter;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged2;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
@@ -73,6 +77,7 @@ public class Assessment extends AppCompatActivity {
     CplListAdapter _cplListAdapter;
     CpmkListAdapter _cpmkListAdapter;
     ChangeAssessmentsListAdapter _changeAssessmentsListAdapter;
+    ListAssessmentAdapter _listAssessmentAdapter;
     
     MenuBuilder _menuBuilder;
 
@@ -175,15 +180,31 @@ public class Assessment extends AppCompatActivity {
     }
 
     private void addAssessments() {
-        Dialog addAssessments = new Dialog(getApplicationContext());
+        Dialog addAssessments = new Dialog(this);
         addAssessments.setContentView(R.layout.add_assessments_dialog);
 
-        TextInputEditText assessment, percent;
+        AutoCompleteTextView chooseAssessments = addAssessments.findViewById(R.id.choose_assessments);
+        ImageView btnClose = addAssessments.findViewById(R.id.btn_close);
 
-        assessment = addAssessments.findViewById(R.id.txt_inet_chage_assessments);
-        percent = addAssessments.findViewById(R.id.txt_inet_change_percent);
+        _mPuskaDataService.getAllAssessments(new MPuskaDataService.AssessmentsListener() {
+            @Override
+            public void onResponse(ArrayList<CourseModel> courseModels) {
+                _listAssessmentAdapter = new ListAssessmentAdapter(Assessment.this, courseModels);
+                chooseAssessments.setAdapter(_listAssessmentAdapter);
+            }
 
+            @Override
+            public void onError(String message) {
 
+            }
+        });
+
+        btnClose.setOnClickListener(v -> {
+            addAssessments.dismiss();
+        });
+
+        addAssessments.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        addAssessments.show();
     }
 
 //    private void editAssessments(String codeCourse, String classroom, String collegeYear) {
@@ -309,7 +330,6 @@ public class Assessment extends AppCompatActivity {
                 for (int i = 0; i < courseModels.size(); i++) {
                     _assessment.add(new PieEntry(courseModels.get(i).get_assessmentsPercentage(), courseModels.get(i).get_assessments()));
                     totalPercent = totalPercent + courseModels.get(i).get_assessmentsPercentage();
-                    Toast.makeText(Assessment.this, courseModels.get(i).get_assessmentsPercentage() + "->" + courseModels.get(i).get_assessments(), Toast.LENGTH_SHORT).show();
                 }
                 PieDataSet pieDataSet = new PieDataSet(_assessment, null);
                 pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);

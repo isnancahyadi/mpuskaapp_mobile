@@ -37,8 +37,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:paddingTop="10dp"
@@ -48,54 +48,81 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/txt_inlay_change_assessments"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_black"
-                        android:theme="@style/cusTxtInLayTransparentWhite"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/txt_inlay_change_percent">
+                        android:layout_alignParentTop="true">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inet_chage_assessments"
+                        <AutoCompleteTextView
+                            android:id="@+id/choose_assessments"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:fontFamily="@font/roboto_black"
-                            android:inputType="text"
-                            android:hint="Asesmen"
-                            android:textColor="#00AAE4"
-                            android:textSize="14sp"/>
+                            android:inputType="none"
+                            android:hint="Asesmen" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txt_inlay_change_percent"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="105dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/roboto_black"
-                        android:theme="@style/cusTxtInLayTransparentWhite"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true">
+                        android:layout_below="@id/txt_inlay_change_assessments"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inet_change_percent"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txt_inlay_change_percent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/roboto_black"
+                            android:theme="@style/cusTxtInLayTransparentWhite"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textView"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inet_change_percent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/roboto_black"
+                                android:gravity="center"
+                                android:hint="Bobot"
+                                android:inputType="text"
+                                android:textAlignment="center"
+                                android:textColor="#00AAE4"
+                                android:textSize="14sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
                             android:fontFamily="@font/roboto_black"
-                            android:inputType="text"
-                            android:hint="Bobot"
-                            android:textColor="#00AAE4"
-                            android:textSize="14sp"/>
+                            android:text="%"
+                            android:textSize="32sp"
+                            android:textColor="#000000"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/txt_inlay_change_percent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/btn_change_score"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_save_add_assessments"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="#5DCEFF"
@@ -114,6 +141,42 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_save_add_assessments">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:layout_gravity="center"
+                        android:text="Tidak menekukan asesmen ?"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/btn_add_new_assessments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Tambah Asesmen Baru"
+                        android:textAlignment="center"
+                        android:textColor="#0500FF"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

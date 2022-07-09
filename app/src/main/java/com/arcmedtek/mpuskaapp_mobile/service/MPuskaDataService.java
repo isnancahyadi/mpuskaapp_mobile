@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "100.100.1.16";
+    public static final String IPCONF = "192.168.100.54";
 
     public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
     public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
@@ -46,6 +46,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_UPDATE_MHS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updatescoremhs/";
     public static final String QUERY_FOR_UPDATE_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updateassessments";
     public static final String QUERY_FOR_GET_KRS_STUDENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistkhsmhs/";
+    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getallassessment";
 
     Context context;
     SessionManager _sessionManager;
@@ -607,6 +608,44 @@ public class MPuskaDataService {
                 return params;
             }
         };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface AllAssessmentsListener {
+        void onResponse(ArrayList<CourseModel> courseModels);
+
+        void onError(String message);
+    }
+
+    public void getAllAssessments(AssessmentsListener assessmentsListener) {
+        ArrayList<CourseModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_ALL_ASSESSMENTS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        CourseModel courseModel = new CourseModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        courseModel.set_idAssessments(data.getInt("ID_asesmen"));
+                        courseModel.set_assessments(data.getString("nama"));
+
+                        models.add(courseModel);
+                    }
+                    assessmentsListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                assessmentsListener.onError("Terjadi kesalahan sistem");
+            }
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }
