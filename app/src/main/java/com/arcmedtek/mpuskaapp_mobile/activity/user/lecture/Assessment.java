@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.activity.Login;
+import com.arcmedtek.mpuskaapp_mobile.activity.SignUp;
 import com.arcmedtek.mpuskaapp_mobile.adapter.ChangeAssessmentsListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CplListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.CpmkListAdapter;
@@ -185,8 +188,9 @@ public class Assessment extends AppCompatActivity {
 
         AutoCompleteTextView chooseAssessments = addAssessments.findViewById(R.id.choose_assessments);
         ImageView btnClose = addAssessments.findViewById(R.id.btn_close);
+        TextView btnAddNewAssessments = addAssessments.findViewById(R.id.btn_add_new_assessments);
 
-        _mPuskaDataService.getAllAssessments(new MPuskaDataService.AssessmentsListener() {
+        _mPuskaDataService.getAllAssessments(new MPuskaDataService.AllAssessmentsListener() {
             @Override
             public void onResponse(ArrayList<CourseModel> courseModels) {
                 _listAssessmentAdapter = new ListAssessmentAdapter(Assessment.this, courseModels);
@@ -197,6 +201,55 @@ public class Assessment extends AppCompatActivity {
             public void onError(String message) {
 
             }
+        });
+
+        btnAddNewAssessments.setOnClickListener(v -> {
+            Dialog addNewAssessment = new Dialog(this);
+            addNewAssessment.setContentView(R.layout.add_new_assessments_dialog);
+
+            ImageView btnCloseAddNewAssessment = addNewAssessment.findViewById(R.id.btn_close);
+            TextInputEditText inputNameAssessment = addNewAssessment.findViewById(R.id.txt_inet_add_new_assessment);
+            Button btnAddNewAssessment = addNewAssessment.findViewById(R.id.btn_save_add_new_assessment);
+
+            btnAddNewAssessment.setOnClickListener(v1 -> {
+                Toast.makeText(this, inputNameAssessment.getText().toString(), Toast.LENGTH_SHORT).show();
+                _mPuskaDataService.createAssessments(inputNameAssessment.getText().toString(), new MPuskaDataService.CreateAssessmentsListener() {
+                    @Override
+                    public void onResponse(String message) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
+                        View doneDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
+                        builder.setView(doneDialog);
+
+                        TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                        txtMessage.setText(message);
+
+                        final AlertDialog alertDialog = builder.create();
+
+                        doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> {
+                            alertDialog.dismiss();
+                            refreshActivity();
+                        });
+
+                        if (alertDialog.getWindow() != null) {
+                            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                        }
+
+                        alertDialog.show();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+
+            btnCloseAddNewAssessment.setOnClickListener(v1 -> {
+                addNewAssessment.dismiss();
+            });
+
+            addNewAssessment.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            addNewAssessment.show();
         });
 
         btnClose.setOnClickListener(v -> {

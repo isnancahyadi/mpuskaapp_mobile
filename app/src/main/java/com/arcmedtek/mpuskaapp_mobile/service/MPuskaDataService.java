@@ -46,7 +46,8 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_UPDATE_MHS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updatescoremhs/";
     public static final String QUERY_FOR_UPDATE_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updateassessments";
     public static final String QUERY_FOR_GET_KRS_STUDENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistkhsmhs/";
-    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getallassessment";
+    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/asesmen";
+    public static final String QUERY_FOR_CREATE_ASSESSMENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/asesmen";
 
     Context context;
     SessionManager _sessionManager;
@@ -617,7 +618,7 @@ public class MPuskaDataService {
         void onError(String message);
     }
 
-    public void getAllAssessments(AssessmentsListener assessmentsListener) {
+    public void getAllAssessments(AllAssessmentsListener allAssessmentsListener) {
         ArrayList<CourseModel> models = new ArrayList<>();
 
         StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_ALL_ASSESSMENTS, new Response.Listener<String>() {
@@ -635,7 +636,7 @@ public class MPuskaDataService {
 
                         models.add(courseModel);
                     }
-                    assessmentsListener.onResponse(models);
+                    allAssessmentsListener.onResponse(models);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -643,9 +644,27 @@ public class MPuskaDataService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                assessmentsListener.onError("Terjadi kesalahan sistem");
+                allAssessmentsListener.onError("Terjadi kesalahan sistem");
             }
         });
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface CreateAssessmentsListener {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void createAssessments(String nameAssessment, CreateAssessmentsListener createAssessmentsListener) {
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_CREATE_ASSESSMENT, response -> createAssessmentsListener.onResponse("Asesmen berhasil ditambahkan"), error -> createAssessmentsListener.onError(String.valueOf(error.networkResponse.statusCode))) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("nama", nameAssessment);
+                return params;
+            }
+        };
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }
