@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "192.168.100.54";
+    public static final String IPCONF = "192.168.43.26";
 
     public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
     public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
@@ -48,6 +48,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_KRS_STUDENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistkhsmhs/";
     public static final String QUERY_FOR_GET_ALL_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/asesmen";
     public static final String QUERY_FOR_CREATE_ASSESSMENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/asesmen";
+    public static final String QUERY_FOR_ADD_ASSESSMENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/addassessment/";
 
     Context context;
     SessionManager _sessionManager;
@@ -662,6 +663,25 @@ public class MPuskaDataService {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("nama", nameAssessment);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface AddAssessmentsListener {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void addAssessments(String idTeacher, String idAssessment, String percent, AddAssessmentsListener addAssessmentsListener) {
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_ADD_ASSESSMENT + idTeacher, response -> addAssessmentsListener.onResponse("Asesmen berhasil ditambahkan"), error -> addAssessmentsListener.onError(String.valueOf(error.networkResponse.statusCode))) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID_asesmen", idAssessment);
+                params.put("bobot", percent);
                 return params;
             }
         };

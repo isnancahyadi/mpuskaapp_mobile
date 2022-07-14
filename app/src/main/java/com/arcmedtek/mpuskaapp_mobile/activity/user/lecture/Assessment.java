@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class Assessment extends AppCompatActivity {
 
     PieChart _scorePercentagePieChart;
     int totalPercent = 0;
+    String idAssessment;
 
     ArrayList<PieEntry> _assessment;
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
@@ -186,21 +188,68 @@ public class Assessment extends AppCompatActivity {
         Dialog addAssessments = new Dialog(this);
         addAssessments.setContentView(R.layout.add_assessments_dialog);
 
-        AutoCompleteTextView chooseAssessments = addAssessments.findViewById(R.id.choose_assessments);
+        Spinner chooseAssessments = addAssessments.findViewById(R.id.list_assessments_spinner);
         ImageView btnClose = addAssessments.findViewById(R.id.btn_close);
+        TextInputEditText percent = addAssessments.findViewById(R.id.txt_inet_change_percent);
         TextView btnAddNewAssessments = addAssessments.findViewById(R.id.btn_add_new_assessments);
+        Button btnSaveAddAssessments = addAssessments.findViewById(R.id.btn_save_add_assessments);
 
         _mPuskaDataService.getAllAssessments(new MPuskaDataService.AllAssessmentsListener() {
             @Override
             public void onResponse(ArrayList<CourseModel> courseModels) {
-                _listAssessmentAdapter = new ListAssessmentAdapter(Assessment.this, courseModels);
+                _listAssessmentAdapter = new ListAssessmentAdapter(courseModels, Assessment.this);
                 chooseAssessments.setAdapter(_listAssessmentAdapter);
+
+                chooseAssessments.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        CourseModel clickedItem = (CourseModel) parent.getItemAtPosition(position);
+                        idAssessment = String.valueOf(clickedItem.get_idAssessments());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
             public void onError(String message) {
 
             }
+        });
+
+        btnSaveAddAssessments.setOnClickListener(v -> {
+            _mPuskaDataService.addAssessments(_strIdTeacher, idAssessment, percent.getText().toString(), new MPuskaDataService.AddAssessmentsListener() {
+                @Override
+                public void onResponse(String message) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
+                    View doneDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
+                    builder.setView(doneDialog);
+
+                    TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                    txtMessage.setText(message);
+
+                    final AlertDialog alertDialog = builder.create();
+
+                    doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> {
+                        alertDialog.dismiss();
+                        refreshActivity();
+                    });
+
+                    if (alertDialog.getWindow() != null) {
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                    }
+
+                    alertDialog.show();
+                }
+
+                @Override
+                public void onError(String message) {
+
+                }
+            });
         });
 
         btnAddNewAssessments.setOnClickListener(v -> {
@@ -394,13 +443,13 @@ public class Assessment extends AppCompatActivity {
 
                 _scorePercentagePieChart.getDescription().setEnabled(false);
                 _scorePercentagePieChart.setCenterTextColor(Color.argb(255, 95, 126, 237));
-                _scorePercentagePieChart.setCenterTextSize(27);
+                _scorePercentagePieChart.setCenterTextSize(32);
                 _scorePercentagePieChart.setCenterText(totalPercent + "%");
                 _scorePercentagePieChart.setCenterTextTypeface(_robotoBold);
                 _scorePercentagePieChart.setDrawEntryLabels(false);
                 _scorePercentagePieChart.setTransparentCircleRadius(80);
                 _scorePercentagePieChart.setHoleRadius(70);
-                _scorePercentagePieChart.setExtraRightOffset(45);
+                //_scorePercentagePieChart.setExtraRightOffset(15);
                 _scorePercentagePieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
                     @Override
                     public void onValueSelected(Entry e, Highlight h) {
@@ -417,19 +466,19 @@ public class Assessment extends AppCompatActivity {
                 _scorePercentagePieChart.invalidate();
                 _scorePercentagePieChart.animate();
 
-                Legend l = _scorePercentagePieChart.getLegend();
-                l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
-                l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-                l.setOrientation(Legend.LegendOrientation.VERTICAL);
-                l.setFormSize(15);
-                l.setFormToTextSpace(5);
-                l.setWordWrapEnabled(true);
-//                l.setYOffset(-40);
-                l.setXOffset(70);
-                l.setTypeface(_roboto);
-                l.setTextSize(14);
-                l.setYEntrySpace(10f);
-                l.setTextColor(Color.argb(255, 79, 79, 79));
+//                Legend l = _scorePercentagePieChart.getLegend();
+//                l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+//                l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+//                l.setOrientation(Legend.LegendOrientation.VERTICAL);
+//                l.setFormSize(15);
+//                l.setFormToTextSpace(5);
+//                //l.setWordWrapEnabled(true);
+//                l.setYOffset(-30);
+//                l.setXOffset(-20);
+//                l.setTypeface(_roboto);
+//                l.setTextSize(14);
+//                l.setYEntrySpace(10f);
+//                l.setTextColor(Color.argb(255, 79, 79, 79));
             }
 
             @Override
