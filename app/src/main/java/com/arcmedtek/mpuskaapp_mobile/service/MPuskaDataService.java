@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,25 +29,30 @@ import java.util.Map;
 
 public class MPuskaDataService {
     public static final String IPCONF = "192.168.43.26";
+    public static final String BASE_URL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/";
 
-    public static final String QUERY_FOR_CREATE_ACCOUNT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun";
-    public static final String QUERY_FOR_LOGIN = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/auth/logoutProcess";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/dosen/";
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/akun/";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/pengampu/";
-    public static final String QUERY_FOR_GET_STUDENT_LIST = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/krs/";
-    public static final String QUERY_FOR_GET_STUDENT_SCORE = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getscoremhs/";
-    public static final String QUERY_FOR_GET_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getassessment/";
-    public static final String QUERY_FOR_GET_CPL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpl/";
-    public static final String QUERY_FOR_GET_CPMK = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getcpmk/";
-    public static final String QUERY_FOR_UPDATE_MHS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updatescoremhs/";
-    public static final String QUERY_FOR_UPDATE_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/updateassessments";
-    public static final String QUERY_FOR_GET_KRS_STUDENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/getlistkhsmhs/";
-    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/asesmen";
-    public static final String QUERY_FOR_CREATE_ASSESSMENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/asesmen";
-    public static final String QUERY_FOR_ADD_ASSESSMENT = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/khs/addassessment/";
+    public static final String QUERY_FOR_LOGIN                      = BASE_URL + "auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT                     = BASE_URL + "auth/logoutProcess";
+
+    public static final String QUERY_FOR_CREATE_ACCOUNT             = BASE_URL + "akun";
+    public static final String QUERY_FOR_CREATE_ASSESSMENT          = BASE_URL + "asesmen";
+
+    public static final String QUERY_FOR_GET_STUDENT_LIST           = BASE_URL + "krs/";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE        = BASE_URL + "dosen/";
+    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS        = BASE_URL + "asesmen";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE    = BASE_URL + "pengampu/";
+    public static final String QUERY_FOR_GET_CPL                    = BASE_URL + "khs/getcpl/";
+    public static final String QUERY_FOR_GET_CPMK                   = BASE_URL + "khs/getcpmk/";
+    public static final String QUERY_FOR_GET_STUDENT_SCORE          = BASE_URL + "khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_ASSESSMENTS            = BASE_URL + "khs/getassessment/";
+    public static final String QUERY_FOR_GET_KRS_STUDENT            = BASE_URL + "khs/getlistkhsmhs/";
+
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE        = BASE_URL + "akun/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE     = BASE_URL + "dosen/";
+    public static final String QUERY_FOR_UPDATE_MHS                 = BASE_URL + "khs/updatescoremhs/";
+    public static final String QUERY_FOR_UPDATE_ASSESSMENTS         = BASE_URL + "khs/updateassessments";
+
+    public static final String QUERY_FOR_ADD_ASSESSMENT             = BASE_URL + "khs/addassessment/";
 
     Context context;
     SessionManager _sessionManager;
