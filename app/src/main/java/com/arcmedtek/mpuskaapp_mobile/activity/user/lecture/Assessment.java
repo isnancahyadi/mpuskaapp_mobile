@@ -73,7 +73,8 @@ public class Assessment extends AppCompatActivity {
     TextView _collegeYear, _nameCourse, _codeCourse, _classroom;
     String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, _strIdTeacher;
     RecyclerView _cplRecycler, _cpmkRecycler, _percentRecycler;
-    ImageView _btnSetting, _btnSaveUpdateAssessments, _btnCancelUpdateAssessments;
+    ImageView _btnSetting;
+    Button _btnSaveUpdateAssessments, _btnCancelUpdateAssessments;
     LinearLayout _listAssessmentsContainer;
     RelativeLayout _chartScoreContainer;
 
@@ -167,7 +168,7 @@ public class Assessment extends AppCompatActivity {
                 @Override
                 public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                     if (item.getItemId() == R.id.edit_assessment) {
-//                        editAssessments(strCodeCourse, strClassroom, strCollegeYear);
+                        editAssessments(_strIdTeacher);
                         return true;
                     } else if (item.getItemId() == R.id.add_assessments) {
                         addAssessments();
@@ -309,50 +310,35 @@ public class Assessment extends AppCompatActivity {
         addAssessments.show();
     }
 
-//    private void editAssessments(String codeCourse, String classroom, String collegeYear) {
-//
-//
-//        _mPuskaDataService.getAssessments(codeCourse, classroom, collegeYear, new MPuskaDataService.AssessmentsListener() {
-//            @Override
-//            public void onResponse(ArrayList<KhsModel> khsModels) {
-//                setAssessmentsRecycler(khsModels);
-//            }
-//
-//            @Override
-//            public void onError(String message) {
-//
-//            }
-//        });
-//    }
+    private void editAssessments(String idTeacher) {
+        _mPuskaDataService.getAssessments(idTeacher, new MPuskaDataService.AssessmentsListener() {
+            @Override
+            public void onResponse(ArrayList<CourseModel> courseModels) {
+                setAssessmentsRecycler(courseModels);
+            }
 
-    private void setAssessmentsRecycler(ArrayList<KhsModel> khsModels) {
+            @Override
+            public void onError(String message) {
+
+            }
+        });
+    }
+
+    private void setAssessmentsRecycler(ArrayList<CourseModel> courseModels) {
         _scorePercentagePieChart.setVisibility(View.GONE);
         _listAssessmentsContainer.setVisibility(View.VISIBLE);
-        _btnSetting.setVisibility(View.GONE);
-        _btnSaveUpdateAssessments.setVisibility(View.VISIBLE);
-        _btnCancelUpdateAssessments.setVisibility(View.VISIBLE);
 
-        _idAssessments = new String[khsModels.size()];
-        _assessments = new String[khsModels.size()];
-        _percent = new String[khsModels.size()];
+        _idAssessments = new String[courseModels.size()];
+        _assessments = new String[courseModels.size()];
+        _percent = new String[courseModels.size()];
 
-        for (int i = 0; i < khsModels.size(); i++) {
-            _idAssessments[i] = String.valueOf(khsModels.get(i).get_idAsesmen());
-            _assessments[i] = String.valueOf(khsModels.get(i).get_assessment());
-            _percent[i] = String.valueOf(khsModels.get(i).get_percent());
+        for (int i = 0; i < courseModels.size(); i++) {
+            _idAssessments[i] = String.valueOf(courseModels.get(i).get_idAssessments());
+            _assessments[i] = String.valueOf(courseModels.get(i).get_assessments());
+            _percent[i] = String.valueOf(courseModels.get(i).get_assessmentsPercentage());
         }
 
-        _changeAssessmentsListAdapter = new ChangeAssessmentsListAdapter(khsModels, Assessment.this, new OnEditTextChanged() {
-            @Override
-            public void onTextChanged(int position, String charSeq) {
-                _assessments[position] = charSeq;
-            }
-
-            @Override
-            public void beforeTextChanged(int position, String charSeq) {
-                _assessments[position] = charSeq;
-            }
-        }, new OnEditTextChanged2() {
+        _changeAssessmentsListAdapter = new ChangeAssessmentsListAdapter(courseModels, Assessment.this, new OnEditTextChanged2() {
             @Override
             public void onTextChanged(int position, String charSeq) {
                 _percent[position] = charSeq;

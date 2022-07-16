@@ -7,7 +7,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,22 +18,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged2;
+import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
+import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
 public class ChangeAssessmentsListAdapter extends RecyclerView.Adapter<ChangeAssessmentsListAdapter.ChangeAssessmentsHolder> {
 
-    ArrayList<KhsModel> _khsModels;
+    ArrayList<CourseModel> _courseModels;
     Context _context;
-    OnEditTextChanged _onEditTextChanged;
     OnEditTextChanged2 _onEditTextChanged2;
+    ListAssessmentAdapter adapter;
 
-    public ChangeAssessmentsListAdapter(ArrayList<KhsModel> _khsModels, Context _context, OnEditTextChanged _onEditTextChanged, OnEditTextChanged2 _onEditTextChanged2) {
-        this._khsModels = _khsModels;
+    public ChangeAssessmentsListAdapter(ArrayList<CourseModel> _courseModels, Context _context, OnEditTextChanged2 _onEditTextChanged2) {
+        this._courseModels = _courseModels;
         this._context = _context;
-        this._onEditTextChanged = _onEditTextChanged;
         this._onEditTextChanged2 = _onEditTextChanged2;
     }
 
@@ -44,26 +48,31 @@ public class ChangeAssessmentsListAdapter extends RecyclerView.Adapter<ChangeAss
 
     @Override
     public void onBindViewHolder(@NonNull ChangeAssessmentsHolder holder, @SuppressLint("RecyclerView") int position) {
-        KhsModel model = _khsModels.get(position);
-        holder._assessment.setText(model.get_assessment());
-        holder._percent.setText(String.valueOf(model.get_percent()));
+        CourseModel model = _courseModels.get(position);
+        MPuskaDataService mPuskaDataService = new MPuskaDataService(_context);
 
-        holder._assessment.addTextChangedListener(new TextWatcher() {
+        mPuskaDataService.getAllAssessments(new MPuskaDataService.AllAssessmentsListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                _onEditTextChanged.beforeTextChanged(position, s.toString());
+            public void onResponse(ArrayList<CourseModel> courseModels) {
+                adapter = new ListAssessmentAdapter(courseModels, _context);
+                holder._assessment.setAdapter(adapter);
+
+                ListAssessmentAdapter adapter2 = new ListAssessmentAdapter(_courseModels, _context);
+
+                for (int i = 0; i < courseModels.size(); i++) {
+                    if (adapter2.getItem(position).get_idAssessments() == adapter.getItem(i).get_idAssessments()) {
+                        holder._assessment.setSelection(i);
+                    }
+                }
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                _onEditTextChanged.onTextChanged(position,s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onError(String message) {
 
             }
         });
+
+        holder._percent.setText(String.valueOf(model.get_assessmentsPercentage()));
 
         holder._percent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,7 +82,7 @@ public class ChangeAssessmentsListAdapter extends RecyclerView.Adapter<ChangeAss
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                _onEditTextChanged2.onTextChanged(position,s.toString());
+                _onEditTextChanged2.onTextChanged(position, s.toString());
             }
 
             @Override
@@ -85,17 +94,18 @@ public class ChangeAssessmentsListAdapter extends RecyclerView.Adapter<ChangeAss
 
     @Override
     public int getItemCount() {
-        return _khsModels.size();
+        return _courseModels.size();
     }
 
     public static class ChangeAssessmentsHolder extends RecyclerView.ViewHolder {
 
-        TextInputEditText _assessment, _percent;
+        Spinner _assessment;
+        TextInputEditText _percent;
 
         public ChangeAssessmentsHolder(@NonNull View itemView) {
             super(itemView);
 
-            _assessment = itemView.findViewById(R.id.txt_inet_chage_assessments);
+            _assessment = itemView.findViewById(R.id.list_assessments_spinner);
             _percent = itemView.findViewById(R.id.txt_inet_change_percent);
         }
     }

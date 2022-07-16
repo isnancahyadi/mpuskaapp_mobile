@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "192.168.43.26";
+    public static final String IPCONF = "192.168.100.54";
     public static final String BASE_URL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/";
 
     public static final String QUERY_FOR_LOGIN                      = BASE_URL + "auth/loginProcess";

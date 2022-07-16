@@ -73,30 +73,6 @@
                     app:tint="#4F4F4F"
                     tools:ignore="ContentDescription" />
 
-                <ImageView
-                    android:id="@+id/btn_save_update_assessments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_checked"
-                    android:visibility="gone"
-                    app:tint="#4F4F4F"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:id="@+id/btn_cancel_update_assessments"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="10dp"
-                    android:layout_toStartOf="@id/btn_save_update_assessments"
-                    android:src="@drawable/ic_cross"
-                    android:visibility="gone"
-                    app:tint="#4F4F4F"
-                    tools:ignore="ContentDescription" />
-
             </RelativeLayout>
 
             <LinearLayout
@@ -221,27 +197,58 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_assessments"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                    <Button
-                        android:id="@+id/btn_add_assessments"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:backgroundTint="#5DCEFF"
-                        android:fontFamily="@font/roboto_black"
-                        android:layout_marginTop="5dp"
-                        android:paddingStart="30dp"
-                        android:paddingTop="10dp"
-                        android:paddingEnd="30dp"
-                        android:paddingBottom="10dp"
-                        android:text="Tambah"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        app:cornerRadius="15dp"
-                        app:rippleColor="#00AAE4" />
+                        android:layout_marginTop="15dp">
+
+                        <Button
+                            android:id="@+id/btn_cancel_update_assessments"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="#FFFFFF"
+                            android:fontFamily="@font/roboto_bold"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="@string/batal"
+                            android:textAllCaps="false"
+                            android:textColor="#000000"
+                            android:textSize="17sp"
+                            app:cornerRadius="12dp"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_save_update_assessments"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:rippleColor="#039CE5"
+                            app:strokeColor="#039CE5"
+                            app:strokeWidth="1dp" />
+
+                        <Button
+                            android:id="@+id/btn_save_update_assessments"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:backgroundTint="#039CE5"
+                            android:fontFamily="@font/roboto_bold"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Simpan"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:textSize="17sp"
+                            app:cornerRadius="12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/btn_cancel_update_assessments"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:rippleColor="#027FBA" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
