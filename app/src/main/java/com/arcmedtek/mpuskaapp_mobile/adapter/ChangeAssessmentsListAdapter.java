@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged2;
+import com.arcmedtek.mpuskaapp_mobile.config.OnSpinnerChanged;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
@@ -30,12 +31,14 @@ public class ChangeAssessmentsListAdapter extends RecyclerView.Adapter<ChangeAss
     ArrayList<CourseModel> _courseModels;
     Context _context;
     OnEditTextChanged2 _onEditTextChanged2;
+    OnSpinnerChanged _onSpinnerChanged;
     ListAssessmentAdapter adapter;
 
-    public ChangeAssessmentsListAdapter(ArrayList<CourseModel> _courseModels, Context _context, OnEditTextChanged2 _onEditTextChanged2) {
+    public ChangeAssessmentsListAdapter(ArrayList<CourseModel> _courseModels, Context _context, OnEditTextChanged2 _onEditTextChanged2, OnSpinnerChanged _onSpinnerChanged) {
         this._courseModels = _courseModels;
         this._context = _context;
         this._onEditTextChanged2 = _onEditTextChanged2;
+        this._onSpinnerChanged = _onSpinnerChanged;
     }
 
     @NonNull
@@ -68,6 +71,22 @@ public class ChangeAssessmentsListAdapter extends RecyclerView.Adapter<ChangeAss
 
             @Override
             public void onError(String message) {
+
+            }
+        });
+
+        holder._assessment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                CourseModel itemSelected = (CourseModel) parent.getItemAtPosition(pos);
+                String selected = String.valueOf(itemSelected.get_idAssessments());
+
+                _onSpinnerChanged.onItemChanged(position, selected);
+                _onSpinnerChanged.beforeItemChanged(position, selected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });

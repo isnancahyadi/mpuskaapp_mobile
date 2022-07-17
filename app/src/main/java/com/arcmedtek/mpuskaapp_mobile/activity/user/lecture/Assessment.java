@@ -42,6 +42,7 @@ import com.arcmedtek.mpuskaapp_mobile.adapter.CpmkListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.ListAssessmentAdapter;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged2;
+import com.arcmedtek.mpuskaapp_mobile.config.OnSpinnerChanged;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
@@ -87,7 +88,7 @@ public class Assessment extends AppCompatActivity {
     
     MenuBuilder _menuBuilder;
 
-    String[] _idAssessments, _assessments, _percent;
+    String[] _idAssessments, _percent, _keyScore;
 
     @SuppressLint({"NewApi", "SetTextI18n", "RestrictedApi"})
     @Override
@@ -248,7 +249,7 @@ public class Assessment extends AppCompatActivity {
 
                 @Override
                 public void onError(String message) {
-
+                    Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -329,13 +330,13 @@ public class Assessment extends AppCompatActivity {
         _listAssessmentsContainer.setVisibility(View.VISIBLE);
 
         _idAssessments = new String[courseModels.size()];
-        _assessments = new String[courseModels.size()];
         _percent = new String[courseModels.size()];
+        _keyScore = new String[courseModels.size()];
 
         for (int i = 0; i < courseModels.size(); i++) {
             _idAssessments[i] = String.valueOf(courseModels.get(i).get_idAssessments());
-            _assessments[i] = String.valueOf(courseModels.get(i).get_assessments());
             _percent[i] = String.valueOf(courseModels.get(i).get_assessmentsPercentage());
+            _keyScore[i] = String.valueOf(courseModels.get(i).get_keyScore());
         }
 
         _changeAssessmentsListAdapter = new ChangeAssessmentsListAdapter(courseModels, Assessment.this, new OnEditTextChanged2() {
@@ -348,19 +349,30 @@ public class Assessment extends AppCompatActivity {
             public void beforeTextChanged(int position, String charSeq) {
                 _percent[position] = charSeq;
             }
+        }, new OnSpinnerChanged() {
+            @Override
+            public void onItemChanged(int position, String selectedItem) {
+                _idAssessments[position] = selectedItem;
+            }
+
+            @Override
+            public void beforeItemChanged(int position, String selectedItem) {
+                //_idAssessments[position] = selectedItem;
+            }
         });
         _percentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _percentRecycler.setAdapter(_changeAssessmentsListAdapter);
 
         _btnSaveUpdateAssessments.setOnClickListener(v -> {
-            updateAssessments(_percent, _assessments, _idAssessments);
+            updateAssessments(_keyScore, _percent, _idAssessments, _strIdTeacher);
+            //Toast.makeText(this, "ID Assessment -> "+ Arrays.toString(_idAssessments) +"\nBobot -> "+ Arrays.toString(_percent), Toast.LENGTH_SHORT).show();
         });
         _btnCancelUpdateAssessments.setOnClickListener(v -> refreshActivity());
     }
 
-    private void updateAssessments(String[] percent, String[] assessments, String[] idAssessments) {
-        _mPuskaDataService.updateAssessments(idAssessments, assessments, percent, new MPuskaDataService.UpdateAssessments() {
+    private void updateAssessments(String[] keyScore, String[] percent, String[] idAssessments, String idTeacher) {
+        _mPuskaDataService.updateAssessments(idTeacher, keyScore, idAssessments, percent, new MPuskaDataService.UpdateAssessments() {
             @Override
             public void onResponse(String message) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
@@ -383,9 +395,9 @@ public class Assessment extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
-                refreshActivity();
+                //refreshActivity();
 
-                Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Assessment.this, String.valueOf(message), Toast.LENGTH_SHORT).show();
             }
         });
     }

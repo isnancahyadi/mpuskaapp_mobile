@@ -50,7 +50,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_UPDATE_PASS_LECTURE        = BASE_URL + "akun/";
     public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE     = BASE_URL + "dosen/";
     public static final String QUERY_FOR_UPDATE_MHS                 = BASE_URL + "khs/updatescoremhs/";
-    public static final String QUERY_FOR_UPDATE_ASSESSMENTS         = BASE_URL + "khs/updateassessments";
+    public static final String QUERY_FOR_UPDATE_ASSESSMENTS         = BASE_URL + "khs/updateassessments/";
 
     public static final String QUERY_FOR_ADD_ASSESSMENT             = BASE_URL + "khs/addassessment/";
 
@@ -409,6 +409,7 @@ public class MPuskaDataService {
                         CourseModel courseModel = new CourseModel();
                         JSONObject data = jsonArray.getJSONObject(i);
 
+                        courseModel.set_keyScore(data.getInt("KEY_nilai"));
                         courseModel.set_idAssessments(data.getInt("ID_asesmen"));
                         courseModel.set_assessments(data.getString("nama"));
                         courseModel.set_assessmentsPercentage(data.getInt("bobot"));
@@ -542,8 +543,8 @@ public class MPuskaDataService {
         void onError(String message);
     }
 
-    public void updateAssessments(String[] idAssessments, String[] assessments, String[] percent, UpdateAssessments updateAssessments) {
-        StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_ASSESSMENTS, new Response.Listener<String>() {
+    public void updateAssessments(String idTeacher, String[] keyScore, String[] idAssessments, String[] percent, UpdateAssessments updateAssessments) {
+        StringRequest request = new StringRequest(Request.Method.PUT, QUERY_FOR_UPDATE_ASSESSMENTS + idTeacher, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 updateAssessments.onResponse("Data berhasil diupdate");
@@ -551,18 +552,18 @@ public class MPuskaDataService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                updateAssessments.onError("Error");
+                updateAssessments.onError(error.getMessage());
             }
         }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                for (int i = 0; i < idAssessments.length; i++) {
-                    params.put("ID_asesmen["+i+"]", idAssessments[i]);
+                for (int i = 0; i < keyScore.length; i++) {
+                    params.put("KEY_nilai["+i+"]", keyScore[i]);
                 }
-                for (int j = 0; j < assessments.length; j++) {
-                    params.put("nama["+j+"]", assessments[j]);
+                for (int j = 0; j < idAssessments.length; j++) {
+                    params.put("ID_asesmen["+j+"]", idAssessments[j]);
                 }
                 for (int k = 0; k < percent.length; k++) {
                     params.put("bobot["+k+"]", percent[k]);
