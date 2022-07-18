@@ -345,10 +345,10 @@ public class MPuskaDataService {
         void onError(String message);
     }
 
-    public void getStudentScore(String nim, String courseCode, String classRoom, String collegeYear, StudentScoreListener studentScoreListener) {
+    public void getStudentScore(String idKrs, StudentScoreListener studentScoreListener) {
         ArrayList<KhsModel> models = new ArrayList<>();
 
-        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_STUDENT_SCORE + nim, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_STUDENT_SCORE + idKrs, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -377,16 +377,7 @@ public class MPuskaDataService {
             public void onErrorResponse(VolleyError error) {
                 studentScoreListener.onError("Terjadi kesalahan sistem");
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("kode_matkul", courseCode);
-                params.put("kelas", classRoom);
-                params.put("thn_ajaran", collegeYear);
-                return params;
-            }
-        };
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 

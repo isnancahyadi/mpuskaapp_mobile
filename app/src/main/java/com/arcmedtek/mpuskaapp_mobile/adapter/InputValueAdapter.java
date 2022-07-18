@@ -132,23 +132,23 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
             name.setText(model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
             teamName.setText(model.get_teamName());
 
-//            mPuskaDataService.getStudentScore(model.get_nim(), _strCodeCourse, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentScoreListener() {
-//                @Override
-//                public void onResponse(ArrayList<KhsModel> khsModels) {
-//                    AssessmentScoreListAdapter assessmentScoreListAdapter;
-//                    assessmentScoreListAdapter = new AssessmentScoreListAdapter(khsModels, _context);
-//                    assessmentScoreRecycler.setLayoutManager(new LinearLayoutManager(_context.getApplicationContext()));
-//
-//                    assessmentScoreRecycler.setAdapter(assessmentScoreListAdapter);
-//                }
-//
-//                @Override
-//                public void onError(String message) {
-//
-//                }
-//            });
-//
-//            btnChangeScore.setOnClickListener(v1 -> {
+            mPuskaDataService.getStudentScore(String.valueOf(model.get_idKrs()), new MPuskaDataService.StudentScoreListener() {
+                @Override
+                public void onResponse(ArrayList<KhsModel> khsModels) {
+                    AssessmentScoreListAdapter assessmentScoreListAdapter;
+                    assessmentScoreListAdapter = new AssessmentScoreListAdapter(khsModels, _context);
+                    assessmentScoreRecycler.setLayoutManager(new LinearLayoutManager(_context.getApplicationContext()));
+
+                    assessmentScoreRecycler.setAdapter(assessmentScoreListAdapter);
+                }
+
+                @Override
+                public void onError(String message) {
+
+                }
+            });
+
+            btnChangeScore.setOnClickListener(v1 -> {
 //                Intent intent = new Intent(_context, ChangeScore.class);
 //                intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
 //                intent.putExtra("college_year", _strCollegeYear);
@@ -159,7 +159,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
 //                intent.putExtra("classroom", _strClassroom);
 //                _context.startActivity(intent);
 //                dialogInput.dismiss();
-//            });
+            });
 
             btnClose.setOnClickListener(v2 -> {
                 dialogInput.dismiss();
