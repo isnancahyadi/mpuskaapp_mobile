@@ -32,12 +32,13 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
     ArrayList<KrsModel> _krsModels;
     Context _context;
 
-    String _strIdTeacher;
+    String _strIdTeacher, _strCollegeYear;
 
-    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strIdTeacher) {
+    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strIdTeacher, String _strCollegeYear) {
         this._krsModels = _krsModels;
         this._context = _context;
         this._strIdTeacher = _strIdTeacher;
+        this._strCollegeYear = _strCollegeYear;
     }
 
     @NonNull
@@ -149,16 +150,14 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
             });
 
             btnChangeScore.setOnClickListener(v1 -> {
-//                Intent intent = new Intent(_context, ChangeScore.class);
-//                intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
-//                intent.putExtra("college_year", _strCollegeYear);
-//                intent.putExtra("nim", model.get_nim());
-//                intent.putExtra("student_name", model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
-//                intent.putExtra("team_name", model.get_teamName());
-//                intent.putExtra("course_code", _strCodeCourse);
-//                intent.putExtra("classroom", _strClassroom);
-//                _context.startActivity(intent);
-//                dialogInput.dismiss();
+                Intent intent = new Intent(_context, ChangeScore.class);
+                intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
+                intent.putExtra("college_year", _strCollegeYear);
+                intent.putExtra("nim", model.get_nim());
+                intent.putExtra("student_name", model.get_studentFirstName() + " " + model.get_studentMiddleName() + " " + model.get_studentLastName());
+                intent.putExtra("team_name", model.get_teamName());
+                _context.startActivity(intent);
+                dialogInput.dismiss();
             });
 
             btnClose.setOnClickListener(v2 -> {

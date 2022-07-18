@@ -28,7 +28,7 @@ public class ChangeScore extends AppCompatActivity {
 
     TextView _collegeYear, _nim, _studentName, _teamName;
     Button _btnChangeScore;
-    String _strCollegeYear, _strNim, _strStudentName, _strTeamName, _strCourseCode, _strClassroom, _strIdKrs;
+    String _strCollegeYear, _strNim, _strStudentName, _strTeamName, _strIdKrs;
 
     RecyclerView _changeScoreRecycler;
     ChangeScoreListAdapter _changeScoreListAdapter;
@@ -46,8 +46,6 @@ public class ChangeScore extends AppCompatActivity {
         _strNim = getIntent().getStringExtra("nim");
         _strStudentName = getIntent().getStringExtra("student_name");
         _strTeamName = getIntent().getStringExtra("team_name");
-        _strCourseCode = getIntent().getStringExtra("course_code");
-        _strClassroom = getIntent().getStringExtra("classroom");
         _strIdKrs = getIntent().getStringExtra("ID_krs");
 
         _collegeYear = findViewById(R.id.txt_college_year_change_score);
@@ -64,7 +62,7 @@ public class ChangeScore extends AppCompatActivity {
         _studentName.setText(_strStudentName);
         _teamName.setText(_strTeamName);
 
-        _mPuskaDataService.getStudentScore(_strNim, _strCourseCode, _strClassroom, _strCollegeYear, new MPuskaDataService.StudentScoreListener() {
+        _mPuskaDataService.getStudentScore(_strIdKrs, new MPuskaDataService.StudentScoreListener() {
             @Override
             public void onResponse(ArrayList<KhsModel> khsModels) {
                 setStudentScoreRecycler(khsModels);
