@@ -100,12 +100,12 @@ public class ChangeScore extends AppCompatActivity {
         _changeScoreRecycler.setAdapter(_changeScoreListAdapter);
 
         _btnChangeScore.setOnClickListener(v -> {
-            updateScore(_score, _idAssessment);
+            updateScore(_score, _idAssessment, _strIdKrs);
         });
     }
 
-    private void updateScore(String[] score, String[] idAssessment) {
-        _mPuskaDataService.updateScoreMhs(_strIdKrs, idAssessment, score, new MPuskaDataService.UpdateScoreMhs() {
+    private void updateScore(String[] score, String[] idAssessment, String idKrs) {
+        _mPuskaDataService.updateScoreMhs(idKrs, idAssessment, score, new MPuskaDataService.UpdateScoreMhs() {
             @Override
             public void onResponse(String message) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChangeScore.this, R.style.AlertDialogStyle);
