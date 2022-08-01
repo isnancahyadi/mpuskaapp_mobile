@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "192.168.100.54";
+    public static final String IPCONF = "192.168.1.107";
     public static final String BASE_URL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/";
 
     public static final String QUERY_FOR_LOGIN                      = BASE_URL + "auth/loginProcess";
@@ -44,6 +44,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_CPL                    = BASE_URL + "khs/getcpl/";
     public static final String QUERY_FOR_GET_CPMK                   = BASE_URL + "khs/getcpmk/";
     public static final String QUERY_FOR_GET_STUDENT_SCORE          = BASE_URL + "khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_CONVERSION             = BASE_URL + "khs/searchcourse/";
     public static final String QUERY_FOR_GET_ASSESSMENTS            = BASE_URL + "khs/getassessment/";
     public static final String QUERY_FOR_GET_KRS_STUDENT            = BASE_URL + "khs/getlistkhsmhs/";
 
@@ -681,6 +682,44 @@ public class MPuskaDataService {
                 return params;
             }
         };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface GetConversionListener {
+        void onResponse(ArrayList<CourseModel> courseModels);
+
+        void onError(String message);
+    }
+
+    public void getConversion(String courseCode, GetConversionListener getConversionListener) {
+        ArrayList<CourseModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_CONVERSION + courseCode, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        CourseModel courseModel = new CourseModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        courseModel.set_courseCode(data.getString("kode_matkul"));
+                        courseModel.set_codeCourseConversion(data.getString("kode_matkul_konv"));
+
+                        models.add(courseModel);
+                    }
+                    getConversionListener.onResponse(models);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getConversionListener.onError("Terjadi kesalahan sistem");
+            }
+        });
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

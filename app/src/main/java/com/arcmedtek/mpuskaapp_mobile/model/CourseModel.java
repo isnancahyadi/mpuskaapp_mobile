@@ -1,13 +1,13 @@
 package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class CourseModel {
-    String _idTeacher, _courseCode, _courseName, _semester, _department, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _niyNip, _classRoom, _collegeYear, _assessments;
+    String _idTeacher, _courseCode, _courseName, _semester, _department, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _niyNip, _classRoom, _collegeYear, _assessments, _codeCourseConversion;
     int _sks, _assessmentsPercentage, _idAssessments, _keyScore;
 
     public CourseModel() {
     }
 
-    public CourseModel(String _idTeacher, String _courseCode, String _courseName, String _semester, String _department, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _niyNip, String _classRoom, String _collegeYear, String _assessments, int _sks, int _assessmentsPercentage, int _idAssessments, int _keyScore) {
+    public CourseModel(String _idTeacher, String _courseCode, String _courseName, String _semester, String _department, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _niyNip, String _classRoom, String _collegeYear, String _assessments, String _codeCourseConversion, int _sks, int _assessmentsPercentage, int _idAssessments, int _keyScore) {
         this._idTeacher = _idTeacher;
         this._courseCode = _courseCode;
         this._courseName = _courseName;
@@ -22,6 +22,7 @@ public class CourseModel {
         this._classRoom = _classRoom;
         this._collegeYear = _collegeYear;
         this._assessments = _assessments;
+        this._codeCourseConversion = _codeCourseConversion;
         this._sks = _sks;
         this._assessmentsPercentage = _assessmentsPercentage;
         this._idAssessments = _idAssessments;
@@ -138,6 +139,14 @@ public class CourseModel {
 
     public void set_assessments(String _assessments) {
         this._assessments = _assessments;
+    }
+
+    public String get_codeCourseConversion() {
+        return _codeCourseConversion;
+    }
+
+    public void set_codeCourseConversion(String _codeCourseConversion) {
+        this._codeCourseConversion = _codeCourseConversion;
     }
 
     public int get_sks() {

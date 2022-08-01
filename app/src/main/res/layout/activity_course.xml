@@ -5,408 +5,482 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_color_blue"
-    android:fitsSystemWindows="true"
+    android:id="@+id/body"
     tools:context=".activity.user.lecture.Course">
 
-    <RelativeLayout
-        android:id="@+id/toolbar_container_course"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btn_back_course"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_play_left"
-            tools:ignore="ContentDescription" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            tools:ignore="RelativeOverlap,UseCompoundDrawables">
-
-            <TextView
-                android:id="@+id/txt_college_year_course"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/roboto_black"
-                android:gravity="center_vertical"
-                android:text="@string/ta_xxxx_xxxx"
-                android:textColor="#FFFFFF"
-                android:textSize="19sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_calendar_21"
-                tools:ignore="ContentDescription" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/header_container_course"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical"
-        android:paddingStart="25dp"
-        android:paddingEnd="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_container_course">
-
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/course_container"
+            <RelativeLayout
+                android:id="@+id/toolbar_container_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:layout_toStartOf="@id/classroom_container"
-                android:orientation="vertical">
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/txt_name_course"
+                <ImageView
+                    android:id="@+id/btn_back_course"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/nama_matkul"
-                    android:textColor="#FFFFFF"
-                    android:textSize="23sp" />
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_play_left"
+                    tools:ignore="ContentDescription" />
 
-                <TextView
-                    android:id="@+id/txt_code_course"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/kode_matkul"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="RelativeOverlap,UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/txt_college_year_course"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/roboto_black"
+                        android:gravity="center_vertical"
+                        android:text="@string/ta_xxxx_xxxx"
+                        android:textColor="#FFFFFF"
+                        android:textSize="19sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_calendar_21"
+                        tools:ignore="ContentDescription" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/header_container_course"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_container_course">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/course_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_toStartOf="@id/classroom_container"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_name_course"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="@string/nama_matkul"
+                            android:textColor="#FFFFFF"
+                            android:textSize="23sp" />
+
+                        <TextView
+                            android:id="@+id/txt_code_course"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="@string/kode_matkul"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/classroom_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_rounded_white_transparent"
+                        android:orientation="vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="7dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="7dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center"
+                            android:text="Kelas"
+                            android:textColor="#FFFFFF"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/txt_classroom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:text="X"
+                            android:textColor="#FFFFFF"
+                            android:textSize="29sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/bg_rounded_white_transparent"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="5dp"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="13dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center_vertical"
+                            android:text="@string/atur_jadwal"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_play_right"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/bg_rounded_white_transparent"
+                        android:orientation="horizontal"
+                        android:paddingStart="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="5dp"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="13dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center_vertical"
+                            android:text="@string/detail_matakuliah"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_play_right"
+                            tools:ignore="ContentDescription" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/classroom_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/bg_rounded_white_transparent"
+                android:id="@+id/container_action"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/bg_white_rounded_top"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical"
                 android:paddingStart="15dp"
-                android:paddingTop="7dp"
+                android:paddingTop="30dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="7dp">
+                android:paddingBottom="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header_container_course">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/content_action"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="center"
-                    android:text="Kelas"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:alignContent="space_between"
+                    app:flexWrap="wrap"
+                    app:justifyContent="space_around">
 
-                <TextView
-                    android:id="@+id/txt_classroom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center"
-                    android:text="X"
-                    android:textColor="#FFFFFF"
-                    android:textSize="29sp" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_conversion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        app:rippleColor="#4193D8EF"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="3dp"
+                        app:contentPaddingTop="10dp"
+                        app:contentPaddingBottom="10dp"
+                        app:contentPaddingLeft="20dp"
+                        app:contentPaddingRight="20dp"
+                        app:layout_flexBasisPercent="90%">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:src="@drawable/ic_data_transfer"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Konversi Nilai"
+                                android:textColor="#32A7F9"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_input_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        app:layout_wrapBefore="true"
+                        app:rippleColor="#4193D8EF"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="3dp"
+                        app:contentPadding="20dp"
+                        app:layout_flexBasisPercent="45%">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:src="@drawable/ic_pencil"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/input_nilai"
+                                android:textColor="#32A7F9"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_assessment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="3dp"
+                        app:contentPadding="20dp"
+                        app:layout_flexBasisPercent="45%">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:src="@drawable/ic_puzzle"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/komponen_nilai"
+                                android:textColor="#32A7F9"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_student_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        app:rippleColor="#4193D8EF"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="3dp"
+                        app:contentPadding="20dp"
+                        app:layout_flexBasisPercent="45%">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:src="@drawable/ic_list"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/list_mahasiswa"
+                                android:textColor="#32A7F9"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#FFFFFF"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="3dp"
+                        app:contentPadding="20dp"
+                        app:layout_flexBasisPercent="45%">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp"
+                                android:src="@drawable/ic_printer"
+                                tools:ignore="ContentDescription" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="@string/print_nilai"
+                                android:textColor="#32A7F9"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </com.google.android.flexbox.FlexboxLayout>
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:background="@drawable/bg_rounded_white_transparent"
-                android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="5dp"
-                tools:ignore="RelativeOverlap">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center_vertical"
-                    android:text="@string/atur_jadwal"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
-
-                <ImageView
-                    android:layout_width="11dp"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_play_right"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/bg_rounded_white_transparent"
-                android:orientation="horizontal"
-                android:paddingStart="15dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="5dp"
-                tools:ignore="RelativeOverlap">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center_vertical"
-                    android:text="@string/detail_matakuliah"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
-
-                <ImageView
-                    android:layout_width="11dp"
-                    android:layout_height="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_play_right"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="350dp"
-        android:background="@drawable/bg_white_rounded_top"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingStart="15dp"
-        android:paddingTop="50dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_container_course">
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            app:alignContent="stretch"
-            app:flexWrap="wrap"
-            app:justifyContent="space_around">
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_input_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:rippleColor="#4193D8EF"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="3dp"
-                app:contentPadding="20dp"
-                app:layout_flexBasisPercent="45%">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_pencil"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="@string/input_nilai"
-                        android:textColor="#32A7F9"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_assessment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="3dp"
-                app:contentPadding="20dp"
-                app:layout_flexBasisPercent="45%">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_puzzle"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="@string/komponen_nilai"
-                        android:textColor="#32A7F9"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btn_student_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:rippleColor="#4193D8EF"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="3dp"
-                app:contentPadding="20dp"
-                app:layout_flexBasisPercent="45%">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_list"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="@string/list_mahasiswa"
-                        android:textColor="#32A7F9"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="3dp"
-                app:contentPadding="20dp"
-                app:layout_flexBasisPercent="45%">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:src="@drawable/ic_printer"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="@string/print_nilai"
-                        android:textColor="#32A7F9"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-        </com.google.android.flexbox.FlexboxLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
