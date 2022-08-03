@@ -31,8 +31,7 @@ public class Course extends AppCompatActivity {
     String _strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, _strIdTeacher;
 
     CardView _btnConversion, _btnStudentList, _btnInputValue, _btnAssessment;
-    LinearLayout _containerAction, _tmp;
-    ConstraintLayout _body;
+    LinearLayout _containerAction;
     FlexboxLayout _contentAction;
 
     MPuskaDataService _mPuskaDataService;
@@ -62,7 +61,6 @@ public class Course extends AppCompatActivity {
         _btnConversion = findViewById(R.id.btn_conversion);
         _containerAction = findViewById(R.id.container_action);
         _contentAction = findViewById(R.id.content_action);
-        _body = findViewById(R.id.body);
 
         _collegeYear.setText("TA. " + _strCollegeYear);
         _nameCourse.setText(_strNameCourse);
@@ -79,34 +77,22 @@ public class Course extends AppCompatActivity {
             public void onError(String message) {
                 _btnConversion.setVisibility(View.GONE);
                 final float density = Course.this.getResources().getDisplayMetrics().density;
-                //_tmp = new LinearLayout(Course.this);
-                //ViewGroup.MarginLayoutParams layoutParams = (MarginLayoutParams)
                 ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
-                //LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) _containerAction.getLayoutParams();
                 layoutParams.setMargins(0, (int) (370 * density), 0, 0);
-                //layoutParams.weight = 1.0f;
                 _containerAction.setLayoutParams(layoutParams);
-                //_tmp.removeAllViews();
-
-                //_containerAction.addView(_tmp, layoutParams);
-                //((LinearLayout.LayoutParams) _containerAction.getLayoutParams()).topMargin = ((int)(Resources.getSystem().getDisplayMetrics().density * 350));
-
-//                _tmp = new LinearLayout(Course.this);
-//                Resources r = Course.this.getResources();
-//                int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 550, r.getDisplayMetrics());
-//
-//                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-//                layoutParams.setMargins(0, px, 0, 0);
-//                _tmp.setLayoutParams(layoutParams);
-//                _containerAction.addView(_tmp, layoutParams);
-
-                //ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) _body.getLayoutParams();
-                //params.topMargin = 550;
-                //params.setMargins(0, 550, 0, 0);
-                //_containerAction.setLayoutParams(params);
 
                 _contentAction.setAlignContent(AlignContent.SPACE_AROUND);
             }
+        });
+
+        _btnConversion.setOnClickListener(v -> {
+            Intent intent = new Intent(Course.this, CourseConversion.class);
+            intent.putExtra("college_year", _strCollegeYear);
+            intent.putExtra("course_name", _strNameCourse);
+            intent.putExtra("classroom", _strClassroom);
+            intent.putExtra("course_code", _strCodeCourse);
+            intent.putExtra("ID_teacher", _strIdTeacher);
+            startActivity(intent);
         });
 
         _btnStudentList.setOnClickListener(v -> {

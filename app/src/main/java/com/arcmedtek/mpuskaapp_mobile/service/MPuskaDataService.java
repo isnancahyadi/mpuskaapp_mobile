@@ -28,32 +28,34 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "192.168.1.107";
+    public static final String IPCONF = "192.168.1.104";
     public static final String BASE_URL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/";
 
-    public static final String QUERY_FOR_LOGIN                      = BASE_URL + "auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT                     = BASE_URL + "auth/logoutProcess";
+    public static final String QUERY_FOR_LOGIN                          = BASE_URL + "auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT                         = BASE_URL + "auth/logoutProcess";
 
-    public static final String QUERY_FOR_CREATE_ACCOUNT             = BASE_URL + "akun";
-    public static final String QUERY_FOR_CREATE_ASSESSMENT          = BASE_URL + "asesmen";
+    public static final String QUERY_FOR_CREATE_ACCOUNT                 = BASE_URL + "akun";
+    public static final String QUERY_FOR_CREATE_ASSESSMENT              = BASE_URL + "asesmen";
 
-    public static final String QUERY_FOR_GET_STUDENT_LIST           = BASE_URL + "krs/";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE        = BASE_URL + "dosen/";
-    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS        = BASE_URL + "asesmen";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE    = BASE_URL + "pengampu/";
-    public static final String QUERY_FOR_GET_CPL                    = BASE_URL + "khs/getcpl/";
-    public static final String QUERY_FOR_GET_CPMK                   = BASE_URL + "khs/getcpmk/";
-    public static final String QUERY_FOR_GET_STUDENT_SCORE          = BASE_URL + "khs/getscoremhs/";
-    public static final String QUERY_FOR_GET_CONVERSION             = BASE_URL + "khs/searchcourse/";
-    public static final String QUERY_FOR_GET_ASSESSMENTS            = BASE_URL + "khs/getassessment/";
-    public static final String QUERY_FOR_GET_KRS_STUDENT            = BASE_URL + "khs/getlistkhsmhs/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST               = BASE_URL + "krs/";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE            = BASE_URL + "dosen/";
+    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS            = BASE_URL + "asesmen";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE        = BASE_URL + "pengampu/";
+    public static final String QUERY_FOR_GET_CPL                        = BASE_URL + "khs/getcpl/";
+    public static final String QUERY_FOR_GET_CPMK                       = BASE_URL + "khs/getcpmk/";
+    public static final String QUERY_FOR_GET_STUDENT_SCORE              = BASE_URL + "khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_CONVERSION                 = BASE_URL + "khs/searchcourse/";
+    public static final String QUERY_FOR_GET_ASSESSMENTS                = BASE_URL + "khs/getassessment/";
+    public static final String QUERY_FOR_GET_KRS_STUDENT                = BASE_URL + "khs/getlistkhsmhs/";
 
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE        = BASE_URL + "akun/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE     = BASE_URL + "dosen/";
-    public static final String QUERY_FOR_UPDATE_MHS                 = BASE_URL + "khs/updatescoremhs/";
-    public static final String QUERY_FOR_UPDATE_ASSESSMENTS         = BASE_URL + "khs/updateassessments/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE            = BASE_URL + "akun/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE         = BASE_URL + "dosen/";
+    public static final String QUERY_FOR_UPDATE_MHS                     = BASE_URL + "khs/updatescoremhs/";
+    public static final String QUERY_FOR_UPDATE_ASSESSMENTS             = BASE_URL + "khs/updateassessments/";
 
-    public static final String QUERY_FOR_ADD_ASSESSMENT             = BASE_URL + "khs/addassessment/";
+    public static final String QUERY_FOR_ADD_ASSESSMENT                 = BASE_URL + "khs/addassessment/";
+
+    public static final String QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON    = BASE_URL + "khs/searchmhsincourseconv/";
 
     Context context;
     SessionManager _sessionManager;
@@ -718,6 +720,27 @@ public class MPuskaDataService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 getConversionListener.onError("Terjadi kesalahan sistem");
+            }
+        });
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface SearchStudentKhsCon {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void searchStudentKhsCon(String idKrs, SearchStudentKhsCon searchStudentKhsCon) {
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON + idKrs, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                searchStudentKhsCon.onResponse("Data ditemukan");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                searchStudentKhsCon.onError("Data tidak ditemukan");
             }
         });
         SingletonReq.getInstance(context).addToRequestQueue(request);

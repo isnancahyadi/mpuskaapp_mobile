@@ -60,8 +60,9 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/achievements_list_row_item.xml" value="0.234375" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_assessment.xml" value="0.234375" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_change_score.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_course.xml" value="0.16" />
-        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_input_value.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_course.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_course_conversion.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_input_value.xml" value="0.16" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_kampus_mengajar.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_kkn_tematik.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_lecture_dashboard.xml" value="0.27447916666666666" />
@@ -80,6 +81,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/change_assessment_row_item.xml" value="0.264" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/change_score_row_item.xml" value="0.234375" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/confirm_logout_dialog.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/course_conversion_row_item.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_404_dialog.xml" value="0.10092592592592593" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_done_dialog.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/custom_error_dialog.xml" value="0.27447916666666666" />
@@ -89,7 +91,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/dropdown_item_assessments.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/header_side_menu_lecture.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/input_score.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/input_value_row_item.xml" value="0.234375" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/input_value_row_item.xml" value="0.16" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/item_container_program.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/score_row_item.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/splash_screen.xml" value="0.23981481481481481" />
