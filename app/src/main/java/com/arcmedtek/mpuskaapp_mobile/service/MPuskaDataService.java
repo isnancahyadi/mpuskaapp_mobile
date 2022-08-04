@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -55,6 +56,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_UPDATE_ASSESSMENTS             = BASE_URL + "khs/updateassessments/";
 
     public static final String QUERY_FOR_ADD_ASSESSMENT                 = BASE_URL + "khs/addassessment/";
+    public static final String QUERY_FOR_ADD_KHS_CONVERSION             = BASE_URL + "khs/addkhsconv";
 
     public static final String QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON    = BASE_URL + "khs/searchmhsincourseconv/";
 
@@ -785,6 +787,25 @@ public class MPuskaDataService {
                 getCourseConversionListener.onError("Terjadi kesalahan sistem");
             }
         });
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface AddKhsConversionListener {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void addKhsConversion(String idKrs, String courseCodeConv, AddKhsConversionListener addKhsConversionListener) {
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_ADD_KHS_CONVERSION, response -> addKhsConversionListener.onResponse("Matakuliah berhasil dikonversi"), error -> addKhsConversionListener.onError(String.valueOf(error.networkResponse.statusCode))) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("ID_krs", idKrs);
+                params.put("kode_matkul_konv", courseCodeConv);
+                return params;
+            }
+        };
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 }

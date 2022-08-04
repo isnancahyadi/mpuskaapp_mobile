@@ -1,6 +1,7 @@
 package com.arcmedtek.mpuskaapp_mobile.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -18,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.activity.user.lecture.CourseConversion;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
@@ -28,8 +31,7 @@ public class CourseConversionAdapter extends RecyclerView.Adapter<CourseConversi
 
     ArrayList<KrsModel> _krsModels;
     Context _context;
-    String _courseCode;
-
+    String _courseCode, _itemSelected;
     ListCourseConversionAdapter adapter;
 
     public CourseConversionAdapter(ArrayList<KrsModel> _krsModels, String _courseCode, Context _context) {
@@ -46,7 +48,7 @@ public class CourseConversionAdapter extends RecyclerView.Adapter<CourseConversi
         return new CourseConversionHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(@NonNull CourseConversionHolder holder, int position) {
         KrsModel model = _krsModels.get(position);
@@ -65,9 +67,12 @@ public class CourseConversionAdapter extends RecyclerView.Adapter<CourseConversi
                 holder._btnConvert.setEnabled(false);
             }
 
+            @SuppressLint("UseCompatLoadingForColorStateLists")
             @Override
             public void onError(String message) {
-
+                holder._btnConvert.setBackgroundTintList(_context.getResources().getColorStateList(R.color.color_ff5d5d));
+                holder._btnConvert.setText("Convert");
+                holder._btnConvert.setEnabled(true);
             }
         });
 
@@ -97,6 +102,53 @@ public class CourseConversionAdapter extends RecyclerView.Adapter<CourseConversi
                 public void onError(String message) {
 
                 }
+            });
+
+            listCourseConversion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    CourseModel selected = (CourseModel) parent.getItemAtPosition(pos);
+                    _itemSelected = String.valueOf(selected.get_courseCode());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            btnSaveConversion.setOnClickListener(v1 -> {
+                mPuskaDataService.addKhsConversion(String.valueOf(model.get_idKrs()), _itemSelected, new MPuskaDataService.AddKhsConversionListener() {
+                    @Override
+                    public void onResponse(String message) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(_context, R.style.AlertDialogStyle);
+                        View doneDialog = LayoutInflater.from(_context).inflate(R.layout.custom_done_dialog, v1.findViewById(R.id.confirm_done_dialog));
+                        builder.setView(doneDialog);
+
+                        TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                        txtMessage.setText(message);
+
+                        final AlertDialog alertDialog = builder.create();
+
+                        doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v2 -> {
+                            alertDialog.dismiss();
+                        });
+
+                        if (alertDialog.getWindow() != null) {
+                            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                        }
+
+                        alertDialog.show();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+
+                    }
+                });
+
+                notifyDataSetChanged();
+                dialogConvert.dismiss();
             });
 
             btnClose.setOnClickListener(v1 -> dialogConvert.dismiss());
