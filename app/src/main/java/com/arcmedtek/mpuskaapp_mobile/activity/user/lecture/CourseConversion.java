@@ -57,7 +57,7 @@ public class CourseConversion extends AppCompatActivity {
         _mPuskaDataService.getStudentList(idTeacher, new MPuskaDataService.StudentListListener() {
             @Override
             public void onResponse(ArrayList<KrsModel> krsModels) {
-                setStudentRecycler(krsModels, idTeacher, collegeYear);
+                setStudentRecycler(krsModels, courseCode, collegeYear);
             }
 
             @Override
@@ -68,8 +68,8 @@ public class CourseConversion extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void setStudentRecycler(ArrayList<KrsModel> krsModels, String idTeacher, String collegeYear) {
-        _courseConversionAdapter = new CourseConversionAdapter(krsModels, CourseConversion.this);
+    private void setStudentRecycler(ArrayList<KrsModel> krsModels, String courseCode, String collegeYear) {
+        _courseConversionAdapter = new CourseConversionAdapter(krsModels, courseCode, CourseConversion.this);
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _studentRecycler.setAdapter(_courseConversionAdapter);

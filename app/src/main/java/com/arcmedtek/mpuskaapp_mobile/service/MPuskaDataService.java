@@ -47,6 +47,7 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_CONVERSION                 = BASE_URL + "khs/searchcourse/";
     public static final String QUERY_FOR_GET_ASSESSMENTS                = BASE_URL + "khs/getassessment/";
     public static final String QUERY_FOR_GET_KRS_STUDENT                = BASE_URL + "khs/getlistkhsmhs/";
+    public static final String QUERY_FOR_GET_COURSE_CONVERSION          = BASE_URL + "khs/getkonversion/";
 
     public static final String QUERY_FOR_UPDATE_PASS_LECTURE            = BASE_URL + "akun/";
     public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE         = BASE_URL + "dosen/";
@@ -725,13 +726,13 @@ public class MPuskaDataService {
         SingletonReq.getInstance(context).addToRequestQueue(request);
     }
 
-    public interface SearchStudentKhsCon {
+    public interface SearchStudentKhsConListener {
         void onResponse(String message);
 
         void onError(String message);
     }
 
-    public void searchStudentKhsCon(String idKrs, SearchStudentKhsCon searchStudentKhsCon) {
+    public void searchStudentKhsCon(String idKrs, SearchStudentKhsConListener searchStudentKhsCon) {
         StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON + idKrs, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -741,6 +742,47 @@ public class MPuskaDataService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 searchStudentKhsCon.onError("Data tidak ditemukan");
+            }
+        });
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface GetCourseConversionListener {
+        void onResponse(ArrayList<CourseModel> courseModels);
+
+        void onError(String message);
+    }
+
+    public void getCourseConversion(String courseCode, GetCourseConversionListener getCourseConversionListener) {
+        ArrayList<CourseModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_COURSE_CONVERSION + courseCode, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        CourseModel courseModel = new CourseModel();
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        courseModel.set_courseCode(data.getString("kode_matkul"));
+                        courseModel.set_courseName(data.getString("nama"));
+                        courseModel.set_semester(data.getString("semester"));
+                        courseModel.set_sks(data.getInt("sks"));
+                        courseModel.set_department(data.getString("prodi"));
+
+                        models.add(courseModel);
+                    }
+                    getCourseConversionListener.onResponse(models);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                getCourseConversionListener.onError("Terjadi kesalahan sistem");
             }
         });
         SingletonReq.getInstance(context).addToRequestQueue(request);
