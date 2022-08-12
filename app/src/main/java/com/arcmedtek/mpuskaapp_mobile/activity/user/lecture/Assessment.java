@@ -239,33 +239,72 @@ public class Assessment extends AppCompatActivity {
         });
 
         btnSaveAddAssessments.setOnClickListener(v -> {
-            _mPuskaDataService.addAssessments(_strIdTeacher, idAssessment, percent.getText().toString(), new MPuskaDataService.AddAssessmentsListener() {
+            _mPuskaDataService.getAssessments(_strIdTeacher, new MPuskaDataService.AssessmentsListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
-                public void onResponse(String message) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
-                    View doneDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
-                    builder.setView(doneDialog);
-
-                    TextView txtMessage = doneDialog.findViewById(R.id.done_message);
-                    txtMessage.setText(message);
-
-                    final AlertDialog alertDialog = builder.create();
-
-                    doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> {
-                        alertDialog.dismiss();
-                        refreshActivity();
-                    });
-
-                    if (alertDialog.getWindow() != null) {
-                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                public void onResponse(ArrayList<CourseModel> courseModels) {
+                    int _percentPercent = 0;
+                    for (int i = 0; i < courseModels.size(); i++) {
+                        _percentPercent = _percentPercent + courseModels.get(i).get_assessmentsPercentage();
                     }
 
-                    alertDialog.show();
+                    _percentPercent = _percentPercent + Integer.parseInt(percent.getText().toString());
+
+                    if (_percentPercent > 100) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
+                        View warningDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_warning_dialog, findViewById(R.id.confirm_warning_dialog));
+                        builder.setView(warningDialog);
+
+                        TextView txtMessage = warningDialog.findViewById(R.id.warning_message);
+                        txtMessage.setText("Bobot melebihi batas");
+
+                        final AlertDialog alertDialog = builder.create();
+
+                        warningDialog.findViewById(R.id.btn_confirm_warning).setOnClickListener(v -> {
+                            alertDialog.dismiss();
+                        });
+
+                        if (alertDialog.getWindow() != null) {
+                            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                        }
+
+                        alertDialog.show();
+                    } else {
+                        _mPuskaDataService.addAssessments(_strIdTeacher, idAssessment, percent.getText().toString(), new MPuskaDataService.AddAssessmentsListener() {
+                            @Override
+                            public void onResponse(String message) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
+                                View doneDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_done_dialog, findViewById(R.id.confirm_done_dialog));
+                                builder.setView(doneDialog);
+
+                                TextView txtMessage = doneDialog.findViewById(R.id.done_message);
+                                txtMessage.setText(message);
+
+                                final AlertDialog alertDialog = builder.create();
+
+                                doneDialog.findViewById(R.id.btn_confirm_done).setOnClickListener(v -> {
+                                    alertDialog.dismiss();
+                                    refreshActivity();
+                                });
+
+                                if (alertDialog.getWindow() != null) {
+                                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                                }
+
+                                alertDialog.show();
+                            }
+
+                            @Override
+                            public void onError(String message) {
+                                Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
 
                 @Override
                 public void onError(String message) {
-                    Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+
                 }
             });
         });
@@ -341,6 +380,7 @@ public class Assessment extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setAssessmentsRecycler(ArrayList<CourseModel> courseModels) {
         _scorePercentagePieChart.setVisibility(View.GONE);
         _listAssessmentsContainer.setVisibility(View.VISIBLE);
@@ -381,7 +421,33 @@ public class Assessment extends AppCompatActivity {
         _percentRecycler.setAdapter(_changeAssessmentsListAdapter);
 
         _btnSaveUpdateAssessments.setOnClickListener(v -> {
-            updateAssessments(_keyScore, _percent, _idAssessments, _strIdTeacher);
+            int _percentChecking = 0;
+            for (int i = 0; i < _percent.length; i++) {
+                _percentChecking = _percentChecking + Integer.parseInt(_percent[i]);
+            }
+
+            if (_percentChecking > 100) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this, R.style.AlertDialogStyle);
+                View warningDialog = LayoutInflater.from(Assessment.this).inflate(R.layout.custom_warning_dialog, findViewById(R.id.confirm_warning_dialog));
+                builder.setView(warningDialog);
+
+                TextView txtMessage = warningDialog.findViewById(R.id.warning_message);
+                txtMessage.setText("Bobot melebihi batas");
+
+                final AlertDialog alertDialog = builder.create();
+
+                warningDialog.findViewById(R.id.btn_confirm_warning).setOnClickListener(v2 -> {
+                    alertDialog.dismiss();
+                });
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
+            } else {
+                updateAssessments(_keyScore, _percent, _idAssessments, _strIdTeacher);
+            }
             //Toast.makeText(this, "ID Assessment -> "+ Arrays.toString(_idAssessments) +"\nBobot -> "+ Arrays.toString(_percent), Toast.LENGTH_SHORT).show();
         });
         _btnCancelUpdateAssessments.setOnClickListener(v -> refreshActivity());
