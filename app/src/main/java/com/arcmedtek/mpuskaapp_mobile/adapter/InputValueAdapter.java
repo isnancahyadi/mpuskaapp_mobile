@@ -70,36 +70,47 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
                 switch (grade) {
                     case "E":
                         holder._grade.setImageResource(R.drawable.ic_grade_e);
+                        holder._status.setImageResource(R.drawable.ic_notpassed);
                         break;
                     case "D":
                         holder._grade.setImageResource(R.drawable.ic_grade_d);
+                        holder._status.setImageResource(R.drawable.ic_notpassed);
                         break;
                     case "D+":
                         holder._grade.setImageResource(R.drawable.ic_grade_d_plus);
+                        holder._status.setImageResource(R.drawable.ic_notpassed);
                         break;
                     case "C-":
                         holder._grade.setImageResource(R.drawable.ic_grade_c_min);
+                        holder._status.setImageResource(R.drawable.ic_notpassed);
                         break;
                     case "C":
                         holder._grade.setImageResource(R.drawable.ic_grade_c);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                     case "C+":
                         holder._grade.setImageResource(R.drawable.ic_grade_c_plus);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                     case "B-":
                         holder._grade.setImageResource(R.drawable.ic_grade_b_min);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                     case "B":
                         holder._grade.setImageResource(R.drawable.ic_grade_b);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                     case "B+":
                         holder._grade.setImageResource(R.drawable.ic_grade_b_plus);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                     case "A-":
                         holder._grade.setImageResource(R.drawable.ic_grade_a_min);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                     case "A":
                         holder._grade.setImageResource(R.drawable.ic_grade_a);
+                        holder._status.setImageResource(R.drawable.ic_passed);
                         break;
                 }
             }
@@ -177,7 +188,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
     public static class InputValueHolder extends RecyclerView.ViewHolder {
 
         TextView _nim, _studentName;
-        ImageView _grade;
+        ImageView _grade, _status;
 
         public InputValueHolder(@NonNull View itemView) {
             super(itemView);
@@ -185,6 +196,7 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
             _nim = itemView.findViewById(R.id.txt_nim_list_student);
             _studentName = itemView.findViewById(R.id.txt_name_list_student);
             _grade = itemView.findViewById(R.id.grade);
+            _status = itemView.findViewById(R.id.status);
         }
     }
 }

@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/basic"
                     android:text="@string/xxxxx"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txt_name_list_student"
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/basic"
                     android:text="@string/xxxxxxxxxx"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -62,9 +62,19 @@
                 android:id="@+id/grade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/status"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_grade_e"/>
+
+            <ImageView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_notpassed"/>
 
         </RelativeLayout>
 
