@@ -37,8 +37,7 @@ public class CplListAdapter extends RecyclerView.Adapter<CplListAdapter.CplListH
     @Override
     public void onBindViewHolder(@NonNull CplListHolder holder, int position) {
         KhsModel model = _khsModels.get(position);
-        int num = position+1;
-        holder._cplCpmk.setText("CPL " + num);
+        holder._cplCpmk.setText("CPL " + model.get_idCpl());
         holder._achievements.setText(model.get_cpl());
     }
 

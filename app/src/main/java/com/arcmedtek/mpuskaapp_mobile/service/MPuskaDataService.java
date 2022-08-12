@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.config.SingletonReq;
@@ -29,36 +30,37 @@ import java.util.List;
 import java.util.Map;
 
 public class MPuskaDataService {
-    public static final String IPCONF = "192.168.1.104";
+    public static final String IPCONF = "192.168.1.103";
     public static final String BASE_URL = "http://" + IPCONF + "/mpuska-server-side/mpuska-server/public/restapi/";
 
-    public static final String QUERY_FOR_LOGIN                          = BASE_URL + "auth/loginProcess";
-    public static final String QUERY_FOR_LOGOUT                         = BASE_URL + "auth/logoutProcess";
+    public static final String QUERY_FOR_LOGIN = BASE_URL + "auth/loginProcess";
+    public static final String QUERY_FOR_LOGOUT = BASE_URL + "auth/logoutProcess";
 
-    public static final String QUERY_FOR_CREATE_ACCOUNT                 = BASE_URL + "akun";
-    public static final String QUERY_FOR_CREATE_ASSESSMENT              = BASE_URL + "asesmen";
+    public static final String QUERY_FOR_CREATE_ACCOUNT = BASE_URL + "akun";
+    public static final String QUERY_FOR_CREATE_ASSESSMENT = BASE_URL + "asesmen";
 
-    public static final String QUERY_FOR_GET_STUDENT_LIST               = BASE_URL + "krs/";
-    public static final String QUERY_FOR_GET_PROFILE_LECTURE            = BASE_URL + "dosen/";
-    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS            = BASE_URL + "asesmen";
-    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE        = BASE_URL + "pengampu/";
-    public static final String QUERY_FOR_GET_CPL                        = BASE_URL + "khs/getcpl/";
-    public static final String QUERY_FOR_GET_CPMK                       = BASE_URL + "khs/getcpmk/";
-    public static final String QUERY_FOR_GET_STUDENT_SCORE              = BASE_URL + "khs/getscoremhs/";
-    public static final String QUERY_FOR_GET_CONVERSION                 = BASE_URL + "khs/searchcourse/";
-    public static final String QUERY_FOR_GET_ASSESSMENTS                = BASE_URL + "khs/getassessment/";
-    public static final String QUERY_FOR_GET_KRS_STUDENT                = BASE_URL + "khs/getlistkhsmhs/";
-    public static final String QUERY_FOR_GET_COURSE_CONVERSION          = BASE_URL + "khs/getkonversion/";
+    public static final String QUERY_FOR_GET_STUDENT_LIST = BASE_URL + "krs/";
+    public static final String QUERY_FOR_GET_PROFILE_LECTURE = BASE_URL + "dosen/";
+    public static final String QUERY_FOR_GET_ALL_ASSESSMENTS = BASE_URL + "asesmen";
+    public static final String QUERY_FOR_GET_TEACHER_LIST_COURSE = BASE_URL + "pengampu/";
+    public static final String QUERY_FOR_GET_CPL = BASE_URL + "khs/getcpl/";
+    public static final String QUERY_FOR_GET_CPMK = BASE_URL + "khs/getcpmk/";
+    public static final String QUERY_FOR_GET_STUDENT_SCORE = BASE_URL + "khs/getscoremhs/";
+    public static final String QUERY_FOR_GET_CONVERSION = BASE_URL + "khs/searchcourse/";
+    public static final String QUERY_FOR_GET_ASSESSMENTS = BASE_URL + "khs/getassessment/";
+    public static final String QUERY_FOR_GET_KRS_STUDENT = BASE_URL + "khs/getlistkhsmhs/";
+    public static final String QUERY_FOR_GET_COURSE_CONVERSION = BASE_URL + "khs/getkonversion/";
+    public static final String QUERY_FOR_GET_CPL_CPMK = BASE_URL + "capaianmk/";
 
-    public static final String QUERY_FOR_UPDATE_PASS_LECTURE            = BASE_URL + "akun/";
-    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE         = BASE_URL + "dosen/";
-    public static final String QUERY_FOR_UPDATE_MHS                     = BASE_URL + "khs/updatescoremhs/";
-    public static final String QUERY_FOR_UPDATE_ASSESSMENTS             = BASE_URL + "khs/updateassessments/";
+    public static final String QUERY_FOR_UPDATE_PASS_LECTURE = BASE_URL + "akun/";
+    public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = BASE_URL + "dosen/";
+    public static final String QUERY_FOR_UPDATE_MHS = BASE_URL + "khs/updatescoremhs/";
+    public static final String QUERY_FOR_UPDATE_ASSESSMENTS = BASE_URL + "khs/updateassessments/";
 
-    public static final String QUERY_FOR_ADD_ASSESSMENT                 = BASE_URL + "khs/addassessment/";
-    public static final String QUERY_FOR_ADD_KHS_CONVERSION             = BASE_URL + "khs/addkhsconv";
+    public static final String QUERY_FOR_ADD_ASSESSMENT = BASE_URL + "khs/addassessment/";
+    public static final String QUERY_FOR_ADD_KHS_CONVERSION = BASE_URL + "khs/addkhsconv";
 
-    public static final String QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON    = BASE_URL + "khs/searchmhsincourseconv/";
+    public static final String QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON = BASE_URL + "khs/searchmhsincourseconv/";
 
     Context context;
     SessionManager _sessionManager;
@@ -436,29 +438,33 @@ public class MPuskaDataService {
     public void getCpl(String courseCode, CplListener cplListener) {
         ArrayList<KhsModel> models = new ArrayList<>();
 
-        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_CPL + courseCode, new Response.Listener<String>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_GET_CPL_CPMK + courseCode, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        KhsModel khsModel = new KhsModel();
-                        JSONObject data = jsonArray.getJSONObject(i);
+                        JSONArray cpl = jsonObject.getJSONArray("capaian_lulusan");
+                        for (int j = 0; j < cpl.length(); j++) {
+                            KhsModel khsModel = new KhsModel();
+                            JSONObject data = cpl.getJSONObject(j);
 
-                        khsModel.set_cpl(data.getString("cpl"));
+                            khsModel.set_idCpl(data.getInt("ID_cpl"));
+                            khsModel.set_cpl(data.getString("cpl"));
 
-                        models.add(khsModel);
+                            models.add(khsModel);
+                        }
+                        cplListener.onResponse(models);
+                    } catch (JSONException e) {
+                        cplListener.onError(e.getMessage());
                     }
-                    cplListener.onResponse(models);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                cplListener.onError("Terjadi kesalahan sistem");
+                cplListener.onError(error.getMessage());
             }
         });
         SingletonReq.getInstance(context).addToRequestQueue(request);
@@ -473,29 +479,32 @@ public class MPuskaDataService {
     public void getCpmk(String courseCode, CpmkListener cpmkListener) {
         ArrayList<KhsModel> models = new ArrayList<>();
 
-        StringRequest request = new StringRequest(Request.Method.GET, QUERY_FOR_GET_CPMK + courseCode, new Response.Listener<String>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_GET_CPL_CPMK + courseCode, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        KhsModel khsModel = new KhsModel();
-                        JSONObject data = jsonArray.getJSONObject(i);
+                        JSONArray cpmk = jsonObject.getJSONArray("capaian_matakuliah");
+                        for (int j = 0; j < cpmk.length(); j++) {
+                            KhsModel khsModel = new KhsModel();
+                            JSONObject data = cpmk.getJSONObject(j);
 
-                        khsModel.set_cpmk(data.getString("cpmk"));
+                            khsModel.set_cpmk(data.getString("cpmk"));
 
-                        models.add(khsModel);
+                            models.add(khsModel);
+                        }
+                        cpmkListener.onResponse(models);
+                    } catch (JSONException e) {
+                        cpmkListener.onError(e.getMessage());
                     }
-                    cpmkListener.onResponse(models);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                cpmkListener.onError("Terjadi kesalahan sistem");
+                cpmkListener.onError(error.getMessage());
             }
         });
         SingletonReq.getInstance(context).addToRequestQueue(request);
@@ -523,10 +532,10 @@ public class MPuskaDataService {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 for (int i = 0; i < idAssessments.length; i++) {
-                    params.put("ID_asesmen["+i+"]", idAssessments[i]);
+                    params.put("ID_asesmen[" + i + "]", idAssessments[i]);
                 }
                 for (int j = 0; j < score.length; j++) {
-                    params.put("nilai["+j+"]", score[j]);
+                    params.put("nilai[" + j + "]", score[j]);
                 }
                 return params;
             }
@@ -557,13 +566,13 @@ public class MPuskaDataService {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 for (int i = 0; i < keyScore.length; i++) {
-                    params.put("KEY_nilai["+i+"]", keyScore[i]);
+                    params.put("KEY_nilai[" + i + "]", keyScore[i]);
                 }
                 for (int j = 0; j < idAssessments.length; j++) {
-                    params.put("ID_asesmen["+j+"]", idAssessments[j]);
+                    params.put("ID_asesmen[" + j + "]", idAssessments[j]);
                 }
                 for (int k = 0; k < percent.length; k++) {
-                    params.put("bobot["+k+"]", percent[k]);
+                    params.put("bobot[" + k + "]", percent[k]);
                 }
                 return params;
             }

@@ -137,7 +137,15 @@ public class Assessment extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
+                //Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this);
 
+                builder.setMessage(message)
+                        .setTitle("Error");
+
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
             }
         });
         
@@ -149,7 +157,15 @@ public class Assessment extends AppCompatActivity {
 
             @Override
             public void onError(String message) {
+                //Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Assessment.this);
 
+                builder.setMessage(message)
+                        .setTitle("Error");
+
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
             }
         });
         
