@@ -193,7 +193,7 @@
                     android:paddingStart="30dp"
                     android:paddingEnd="30dp"
                     android:paddingBottom="15dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_assessments"

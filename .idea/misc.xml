@@ -49,6 +49,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_notpassed.xml" value="0.2185" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_passed.xml" value="0.2185" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_pencil.xml" value="0.1525" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_pencil2.xml" value="0.2185" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_phone.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_play_left.xml" value="0.1525" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/drawable/ic_play_right.xml" value="0.1525" />
@@ -75,6 +76,7 @@
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_magang.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_pertukaran_pelajar.xml" value="0.2604166666666667" />
+        <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_score_detail.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_setting_account_lecture.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_sign_up.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Asus/AndroidStudioProjects/mpuskaapp_mobile/app/src/main/res/layout/activity_student_list.xml" value="0.13055555555555556" />

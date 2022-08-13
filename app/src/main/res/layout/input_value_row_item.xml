@@ -34,10 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/grade"
-                android:layout_toEndOf="@id/photo_list_student"
                 android:layout_marginStart="7dp"
                 android:layout_marginEnd="7dp"
+                android:layout_toStartOf="@id/grade"
+                android:layout_toEndOf="@id/photo_list_student"
                 android:orientation="vertical">
 
                 <TextView
@@ -55,6 +55,14 @@
                     android:fontFamily="@font/basic"
                     android:text="@string/xxxxxxxxxx"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/basic"
+                    android:text="Lihat detail >>>"
+                    android:textColor="#62C8FF"
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
