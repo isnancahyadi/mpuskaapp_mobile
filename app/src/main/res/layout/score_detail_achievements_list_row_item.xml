@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,15 +30,23 @@
                 android:src="@drawable/ic_expand_more"/>
 
             <TextView
-                android:id="@+id/txt_cpl_cpmk"
+                android:id="@+id/txt_cpmk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="2dp"
                 android:fontFamily="@font/roboto_black"
-                android:text="CPL/CPMK"
+                android:text="CPMK"
                 android:textColor="#00AAE4"
                 android:textSize="19sp" />
 
+            <ImageView
+                android:id="@+id/achievements_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_medal"/>
 
         </LinearLayout>
 

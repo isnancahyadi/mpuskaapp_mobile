@@ -51,6 +51,8 @@ public class MPuskaDataService {
     public static final String QUERY_FOR_GET_KRS_STUDENT = BASE_URL + "khs/getlistkhsmhs/";
     public static final String QUERY_FOR_GET_COURSE_CONVERSION = BASE_URL + "khs/getkonversion/";
     public static final String QUERY_FOR_GET_CPL_CPMK = BASE_URL + "capaianmk/";
+    public static final String QUERY_FOR_GET_ACHIEVEMENTS = BASE_URL + "khs/getachievements/";
+    public static final String QUERY_FOR_GET_ACHIEVEMENTS_SCORE = BASE_URL + "khs/getachievementsscore/";
 
     public static final String QUERY_FOR_UPDATE_PASS_LECTURE = BASE_URL + "akun/";
     public static final String QUERY_FOR_UPDATE_PROFILE_LECTURE = BASE_URL + "dosen/";
@@ -491,6 +493,7 @@ public class MPuskaDataService {
                             KhsModel khsModel = new KhsModel();
                             JSONObject data = cpmk.getJSONObject(j);
 
+                            khsModel.set_idCpmk(data.getInt("ID_cpmk"));
                             khsModel.set_cpmk(data.getString("cpmk"));
 
                             models.add(khsModel);
@@ -812,6 +815,102 @@ public class MPuskaDataService {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("ID_krs", idKrs);
                 params.put("kode_matkul_konv", courseCodeConv);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface GetAchievementsListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getAchievements(String idTeacher, String idCpmk, GetAchievementsListener getAchievementsListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_ACHIEVEMENTS + idTeacher, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+
+                        //JSONArray achievements = jsonObject.getJSONArray("ketercapaian_cpmk");
+                        for (int j = 0; j < jsonArray.length(); j++) {
+                            KhsModel khsModel = new KhsModel();
+                            JSONObject data = jsonArray.getJSONObject(j);
+
+                            khsModel.set_assessment(data.getString("nama"));
+
+                            models.add(khsModel);
+                        }
+                        getAchievementsListener.onResponse(models);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID_cpmk", idCpmk);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface GetAchievementsScoreListener {
+        void onResponse(ArrayList<KhsModel> khsModels);
+
+        void onError(String message);
+    }
+
+    public void getAchievementsScore(String idKrs, String idCpmk, GetAchievementsScoreListener getAchievementsScoreListener) {
+        ArrayList<KhsModel> models = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_GET_ACHIEVEMENTS_SCORE + idKrs, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                for (int i = 0; i < response.length(); i++) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    //JSONArray achievements = jsonObject.getJSONArray("ketercapaian_cpmk");
+                    for (int j = 0; j < jsonArray.length(); j++) {
+                        KhsModel khsModel = new KhsModel();
+                        JSONObject data = jsonArray.getJSONObject(j);
+
+                        khsModel.set_assessment(data.getString("nama"));
+                        khsModel.set_percent(data.getInt("bobot"));
+                        khsModel.set_score(data.getInt("nilai"));
+
+                        models.add(khsModel);
+                    }
+                    getAchievementsScoreListener.onResponse(models);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID_cpmk", idCpmk);
                 return params;
             }
         };

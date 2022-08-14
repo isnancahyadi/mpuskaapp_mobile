@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,15 @@ public class CpmkListAdapter extends RecyclerView.Adapter<CpmkListAdapter.CpmkLi
         int num = position+1;
         holder._cplCpmk.setText("CPMK " + num);
         holder._achievements.setText(model.get_cpmk());
+
+        boolean isExpand = _khsModels.get(position).is_expand();
+        if (isExpand) {
+            holder._expandAchievements.setVisibility(View.VISIBLE);
+            holder._icExpand.setImageResource(R.drawable.ic_expand_less);
+        } else {
+            holder._expandAchievements.setVisibility(View.GONE);
+            holder._icExpand.setImageResource(R.drawable.ic_expand_more);
+        }
     }
 
     @Override
@@ -47,15 +58,26 @@ public class CpmkListAdapter extends RecyclerView.Adapter<CpmkListAdapter.CpmkLi
         return _khsModels.size();
     }
 
-    public static class CpmkListHolder extends RecyclerView.ViewHolder {
+    public class CpmkListHolder extends RecyclerView.ViewHolder {
 
         TextView _cplCpmk, _achievements;
+        ImageView _icExpand;
+        LinearLayout _achievementsTitle, _expandAchievements;
 
         public CpmkListHolder(@NonNull View itemView) {
             super(itemView);
 
             _cplCpmk = itemView.findViewById(R.id.txt_cpl_cpmk);
             _achievements = itemView.findViewById(R.id.txt_achievements);
+            _icExpand = itemView.findViewById(R.id.icon_expand);
+            _achievementsTitle = itemView.findViewById(R.id.achievements_content);
+            _expandAchievements = itemView.findViewById(R.id.expandable_achievements_content);
+
+            _achievementsTitle.setOnClickListener(v -> {
+                KhsModel model = _khsModels.get(getAdapterPosition());
+                model.set_expand(!model.is_expand());
+                notifyItemChanged(getAdapterPosition());
+            });
         }
     }
 }

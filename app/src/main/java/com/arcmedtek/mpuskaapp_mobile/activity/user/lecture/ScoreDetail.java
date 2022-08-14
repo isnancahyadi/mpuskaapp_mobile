@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.adapter.AchievementsAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.AssessmentScoreListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.adapter.ChangeScoreListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.config.OnEditTextChanged;
@@ -28,17 +29,18 @@ import java.util.ArrayList;
 public class ScoreDetail extends AppCompatActivity {
 
     TextView _collegeYear, _nim, _studentName, _teamName;
-    RecyclerView _assessmentScoreRecycler, _changeAssessmentScoreRecycler;
+    RecyclerView _assessmentScoreRecycler, _changeAssessmentScoreRecycler, _achievementsListRecycler;
     CardView _btnChangeScore;
     RelativeLayout _containerListScoreDetail, _containerChangeScoreDetail;
     Button _btnCancelUpdateScore, _btnSaveUpdateScore;
 
-    String _strCollegeYear, _strNim, _strFirstName, _strMiddleName, _strLastName, _strTeamName, _strIdKrs;
+    String _strCollegeYear, _strNim, _strFirstName, _strMiddleName, _strLastName, _strTeamName, _strIdKrs, _strCourseCode, _strIdTeacher;
     String[] _score, _idAssessment;
 
     MPuskaDataService _mPuskaDataService;
     AssessmentScoreListAdapter _assessmentScoreListAdapter;
     ChangeScoreListAdapter _changeScoreListAdapter;
+    AchievementsAdapter _achievementsAdapter;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -53,6 +55,8 @@ public class ScoreDetail extends AppCompatActivity {
         _strLastName = getIntent().getStringExtra("last_name");
         _strTeamName = getIntent().getStringExtra("team_name");
         _strIdKrs = getIntent().getStringExtra("ID_krs");
+        _strCourseCode = getIntent().getStringExtra("course_code");
+        _strIdTeacher = getIntent().getStringExtra("ID_teacher");
 
         _collegeYear = findViewById(R.id.txt_college_year_score_detail);
         _nim = findViewById(R.id.txt_nim_score_detail);
@@ -60,6 +64,7 @@ public class ScoreDetail extends AppCompatActivity {
         _teamName = findViewById(R.id.txt_team_name_score_detail);
         _assessmentScoreRecycler = findViewById(R.id.score_list);
         _changeAssessmentScoreRecycler = findViewById(R.id.change_score_list);
+        _achievementsListRecycler = findViewById(R.id.cpmk_status_list);
         _containerListScoreDetail = findViewById(R.id.container_list_score_detail);
         _containerChangeScoreDetail = findViewById(R.id.container_change_score_detail);
         _btnChangeScore = findViewById(R.id.btn_change_score);
@@ -78,6 +83,25 @@ public class ScoreDetail extends AppCompatActivity {
         _teamName.setText(_strTeamName);
 
         studentList(_strIdKrs);
+
+        achievementsList(_strCourseCode, _strIdTeacher, _strIdKrs);
+    }
+
+    private void achievementsList(String courseCode, String idTeacher, String idKrs) {
+        _mPuskaDataService.getCpmk(courseCode, new MPuskaDataService.CpmkListener() {
+            @Override
+            public void onResponse(ArrayList<KhsModel> khsModels) {
+                _achievementsAdapter = new AchievementsAdapter(khsModels, ScoreDetail.this, idTeacher, idKrs);
+                _achievementsListRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                _achievementsListRecycler.setAdapter(_achievementsAdapter);
+            }
+
+            @Override
+            public void onError(String message) {
+
+            }
+        });
     }
 
     private void studentList(String strIdKrs) {

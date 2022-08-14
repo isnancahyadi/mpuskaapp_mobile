@@ -33,13 +33,14 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
     ArrayList<KrsModel> _krsModels;
     Context _context;
 
-    String _strIdTeacher, _strCollegeYear;
+    String _strIdTeacher, _strCollegeYear, _strCourseCode;
 
-    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strIdTeacher, String _strCollegeYear) {
+    public InputValueAdapter(ArrayList<KrsModel> _krsModels, Context _context, String _strIdTeacher, String _strCollegeYear, String _strCourseCode) {
         this._krsModels = _krsModels;
         this._context = _context;
         this._strIdTeacher = _strIdTeacher;
         this._strCollegeYear = _strCollegeYear;
+        this._strCourseCode = _strCourseCode;
     }
 
     @NonNull
@@ -130,12 +131,14 @@ public class InputValueAdapter extends RecyclerView.Adapter<InputValueAdapter.In
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(_context, ScoreDetail.class);
             intent.putExtra("ID_krs", String.valueOf(model.get_idKrs()));
+            intent.putExtra("ID_teacher", _strIdTeacher);
             intent.putExtra("nim", String.valueOf(model.get_nim()));
             intent.putExtra("first_name", String.valueOf(model.get_studentFirstName()));
             intent.putExtra("middle_name", String.valueOf(model.get_studentMiddleName()));
             intent.putExtra("last_name", String.valueOf(model.get_studentLastName()));
             intent.putExtra("team_name", String.valueOf(model.get_teamName()));
             intent.putExtra("college_year", _strCollegeYear);
+            intent.putExtra("course_code", _strCourseCode);
             _context.startActivity(intent);
 //            Dialog dialogInput = new Dialog(v.getContext());
 //            dialogInput.setContentView(R.layout.input_score);

@@ -2,12 +2,13 @@ package com.arcmedtek.mpuskaapp_mobile.model;
 
 public class KhsModel {
     String _nim, _studentFirstName, _studentMiddleName, _studentLastName, _courseCode, _courseName, _lectureFrontDegree, _lectureFirstName, _lectureMiddleName, _lectureLastName, _lectureBackDegree, _semester, _department, _classRoom, _collegeYear, _assessment, _foto, _teamName, _cpl, _cpmk, _grade;
-    int _idKhs, _idKrs, _idAsesmen, _sks, _score, _percent, _idCpl;
+    int _idKhs, _idKrs, _idAsesmen, _sks, _score, _percent, _idCpl, _idCpmk;
+    boolean _expand;
 
     public KhsModel() {
     }
 
-    public KhsModel(int _idKhs, int _idKrs, int _idAsesmen, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, String _teamName, String _cpl, String _cpmk, String _grade, int _sks, int _score, int _percent, int _idCpl) {
+    public KhsModel(int _idKhs, int _idKrs, int _idAsesmen, String _nim, String _studentFirstName, String _studentMiddleName, String _studentLastName, String _courseCode, String _courseName, String _lectureFrontDegree, String _lectureFirstName, String _lectureMiddleName, String _lectureLastName, String _lectureBackDegree, String _semester, String _department, String _classRoom, String _collegeYear, String _assessment, String _foto, String _teamName, String _cpl, String _cpmk, String _grade, int _sks, int _score, int _percent, int _idCpl, int _idCpmk) {
         this._idKhs = _idKhs;
         this._idKrs = _idKrs;
         this._idAsesmen = _idAsesmen;
@@ -36,6 +37,8 @@ public class KhsModel {
         this._score = _score;
         this._percent = _percent;
         this._idCpl = _idCpl;
+        this._idCpmk = _idCpmk;
+        this._expand = false;
     }
 
     public int get_idKhs() {
@@ -260,5 +263,21 @@ public class KhsModel {
 
     public void set_idCpl(int _idCpl) {
         this._idCpl = _idCpl;
+    }
+
+    public int get_idCpmk() {
+        return _idCpmk;
+    }
+
+    public void set_idCpmk(int _idCpmk) {
+        this._idCpmk = _idCpmk;
+    }
+
+    public boolean is_expand() {
+        return _expand;
+    }
+
+    public void set_expand(boolean _expand) {
+        this._expand = _expand;
     }
 }
