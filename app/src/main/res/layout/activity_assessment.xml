@@ -268,15 +268,68 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chart_score_percentage">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/capaian_pembelajaran"
-                    android:textColor="#4F4F4F"
-                    android:textSize="19sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_title_achievements"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="@string/capaian_pembelajaran"
+                        android:textColor="#4F4F4F"
+                        android:textSize="19sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="#99DBFF"
+                        app:cardCornerRadius="7dp"
+                        app:contentPaddingBottom="5dp"
+                        app:contentPaddingLeft="10dp"
+                        app:contentPaddingRight="10dp"
+                        app:contentPaddingTop="5dp"
+                        app:rippleColor="#99BEFF">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="2dp"
+                                android:fontFamily="@font/roboto_black"
+                                android:text="Switch"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:textSize="11sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="2dp"
+                                android:src="@drawable/ic_switch"
+                                app:tint="#FFFFFF" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/list_cpl_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -295,6 +348,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/list_cpmk_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -310,6 +364,28 @@
                         android:id="@+id/list_cpmk"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/btn_add_achievements"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#5DCEFF"
+                        android:fontFamily="@font/roboto_black"
+                        android:paddingStart="45dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="45dp"
+                        android:paddingBottom="10dp"
+                        android:text="Tambah Komposisi"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        app:cornerRadius="10dp"
+                        app:rippleColor="#00AAE4"
+                        app:layout_constraintTop_toBottomOf="@id/container_score"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
                 </LinearLayout>
 

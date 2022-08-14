@@ -61,6 +61,7 @@ public class MPuskaDataService {
 
     public static final String QUERY_FOR_ADD_ASSESSMENT = BASE_URL + "khs/addassessment/";
     public static final String QUERY_FOR_ADD_KHS_CONVERSION = BASE_URL + "khs/addkhsconv";
+    public static final String QUERY_FOR_ADD_ACHIEVEMENTS = BASE_URL + "khs/addachievements";
 
     public static final String QUERY_FOR_SEARCH_STUDENT_FROM_KHS_CON = BASE_URL + "khs/searchmhsincourseconv/";
 
@@ -910,6 +911,26 @@ public class MPuskaDataService {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
+                params.put("ID_cpmk", idCpmk);
+                return params;
+            }
+        };
+        SingletonReq.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface AddAchievementsListener {
+        void onResponse(String message);
+
+        void onError(String message);
+    }
+
+    public void addAchievements(String idTeacher, String idAssessment, String idCpmk, AddAchievementsListener addAchievementsListener) {
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_ADD_ACHIEVEMENTS, response -> addAchievementsListener.onResponse("Komposisi Asesmen Berhasil Ditambahkan"), error -> addAchievementsListener.onError(String.valueOf(error.networkResponse.statusCode))) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("ID_pengampu", idTeacher);
+                params.put("ID_asesmen", idAssessment);
                 params.put("ID_cpmk", idCpmk);
                 return params;
             }

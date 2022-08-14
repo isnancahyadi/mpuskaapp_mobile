@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/add_achievements"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/ipnut_score_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="#E8F7FD"
+            app:cardElevation="10dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btn_close_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_close"/>
+
+                <LinearLayout
+                    android:id="@+id/input_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/btn_close_input">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Capaian Pembelajaran Matakuliah"
+                        android:fontFamily="@font/roboto_black"
+                        android:textColor="#000000"
+                        android:textSize="16sp"/>
+
+                    <Spinner
+                        android:id="@+id/choose_cpmk"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_spinner"
+                        android:dropDownVerticalOffset="60dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:text="Asesmen"
+                        android:fontFamily="@font/roboto_black"
+                        android:textColor="#000000"
+                        android:textSize="16sp"/>
+
+                    <Spinner
+                        android:id="@+id/choose_achievements"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_spinner"
+                        android:dropDownVerticalOffset="60dp"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_save_achievements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="90dp"
+                    android:backgroundTint="#5DCEFF"
+                    android:fontFamily="@font/roboto_black"
+                    android:paddingStart="45dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="45dp"
+                    android:paddingBottom="10dp"
+                    android:text="Simpan"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="21sp"
+                    app:cornerRadius="15dp"
+                    app:rippleColor="#00AAE4"
+                    app:layout_constraintTop_toBottomOf="@id/input_container"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,17 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
+import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CpmkListAdapter extends RecyclerView.Adapter<CpmkListAdapter.CpmkListHolder> {
 
     ArrayList<KhsModel> _khsModels;
     Context _context;
+    String _strIdTeacher;
+    boolean _isAchievementsActived;
 
-    public CpmkListAdapter(ArrayList<KhsModel> _khsModels, Context _context) {
+    MPuskaDataService _mPuskaDataService;
+
+    public CpmkListAdapter(ArrayList<KhsModel> _khsModels, Context _context, String _strIdTeacher, boolean _isAchievementsActived) {
         this._khsModels = _khsModels;
         this._context = _context;
+        this._strIdTeacher = _strIdTeacher;
+        this._isAchievementsActived = _isAchievementsActived;
     }
 
     @NonNull
@@ -41,7 +49,8 @@ public class CpmkListAdapter extends RecyclerView.Adapter<CpmkListAdapter.CpmkLi
         KhsModel model = _khsModels.get(position);
         int num = position+1;
         holder._cplCpmk.setText("CPMK " + num);
-        holder._achievements.setText(model.get_cpmk());
+
+        _mPuskaDataService = new MPuskaDataService(_context);
 
         boolean isExpand = _khsModels.get(position).is_expand();
         if (isExpand) {
@@ -50,6 +59,27 @@ public class CpmkListAdapter extends RecyclerView.Adapter<CpmkListAdapter.CpmkLi
         } else {
             holder._expandAchievements.setVisibility(View.GONE);
             holder._icExpand.setImageResource(R.drawable.ic_expand_more);
+        }
+
+        if (_isAchievementsActived) {
+            _mPuskaDataService.getAchievements(_strIdTeacher, String.valueOf(model.get_idCpmk()), new MPuskaDataService.GetAchievementsListener() {
+                @Override
+                public void onResponse(ArrayList<KhsModel> khsModels) {
+                    String achievement[] = new String[khsModels.size()];
+                    for (int i = 0; i < khsModels.size(); i++) {
+                        achievement[i] = khsModels.get(i).get_assessment();
+                    }
+                    //Toast.makeText(_context, Arrays.toString(achievement), Toast.LENGTH_SHORT).show();
+                    holder._achievements.setText(Arrays.toString(achievement));
+                }
+
+                @Override
+                public void onError(String message) {
+
+                }
+            });
+        } else {
+            holder._achievements.setText(model.get_cpmk());
         }
     }
 
