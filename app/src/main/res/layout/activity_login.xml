@@ -33,14 +33,56 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <ImageView
+                    android:id="@+id/logoUAD"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/logo_uad"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/logo_uad" />
+
+                <TextView
+                    android:id="@+id/appName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/mpuska"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="42sp"
+                    android:fontFamily="@font/maven_pro_bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias=".7" />
+
+                <TextView
+                    android:id="@+id/slogan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="65dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="M-Portal Kampus Merdeka Informatika UAD"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/maven_pro_bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/appName"
+                    app:layout_constraintVertical_bias="0" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:layout_gravity=""
                     android:fontFamily="@font/roboto_black"
                     android:text="@string/sign_in"
                     android:textColor="#FFFFFF"
-                    android:textSize="48sp" />
+                    android:textSize="31sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txt_inlay_login_username"
@@ -68,14 +110,14 @@
                         android:fontFamily="@font/roboto_black"
                         android:hint="@string/niy_nim"
                         android:inputType="textPersonName"
-                        android:paddingStart="26dp"
-                        android:paddingTop="21dp"
-                        android:paddingEnd="26dp"
-                        android:paddingBottom="21dp"
+                        android:paddingStart="18dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="14dp"
                         android:textColor="#000000"
                         android:textColorHighlight="#28C2F6"
                         android:textColorHint="#32000000"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,14 +147,14 @@
                         android:fontFamily="@font/roboto_black"
                         android:hint="@string/password"
                         android:inputType="textPassword"
-                        android:paddingStart="26dp"
-                        android:paddingTop="21dp"
-                        android:paddingEnd="26dp"
-                        android:paddingBottom="21dp"
+                        android:paddingStart="18dp"
+                        android:paddingTop="14dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="14dp"
                         android:textColor="#000000"
                         android:textColorHighlight="#28C2F6"
                         android:textColorHint="#32000000"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +177,7 @@
                         android:text="@string/masuk"
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         app:cornerRadius="29dp"
                         app:rippleColor="#605DFF" />
 
@@ -183,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="60dp"
                         android:orientation="horizontal">
 
                         <TextView
