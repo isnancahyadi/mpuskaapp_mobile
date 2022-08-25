@@ -1,14 +1,18 @@
 package com.arcmedtek.mpuskaapp_mobile.activity.user.lecture;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.IntentFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arcmedtek.mpuskaapp_mobile.R;
+import com.arcmedtek.mpuskaapp_mobile.activity.Login;
 import com.arcmedtek.mpuskaapp_mobile.adapter.TeacherAdapter;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
@@ -63,9 +68,27 @@ public class ListMatkul extends AppCompatActivity {
                 setCourseRecycler(courseModels);
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onError(String message) {
-                Toast.makeText(ListMatkul.this, message, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListMatkul.this, R.style.AlertDialogStyle);
+                View forbiddenDialog = LayoutInflater.from(ListMatkul.this).inflate(R.layout.custom_forbidden_dialog, findViewById(R.id.confirm_forbidden_dialog));
+
+                TextView txtMessage;
+
+                builder.setView(forbiddenDialog);
+                txtMessage = forbiddenDialog.findViewById(R.id.forbidden_message);
+                txtMessage.setText("Terjadi kesalahan sistem");
+
+                AlertDialog alertDialog = builder.create();
+
+                forbiddenDialog.findViewById(R.id.btn_confirm_forbidden).setOnClickListener(v -> finish());
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
             }
         });
 

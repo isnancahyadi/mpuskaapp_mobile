@@ -108,7 +108,24 @@ public class LectureDashboard extends AppCompatActivity implements NavigationVie
             }
             @Override
             public void onError(String message) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LectureDashboard.this, R.style.AlertDialogStyle);
+                View forbiddenDialog = LayoutInflater.from(LectureDashboard.this).inflate(R.layout.custom_forbidden_dialog, findViewById(R.id.confirm_forbidden_dialog));
 
+                TextView txtMessage;
+
+                builder.setView(forbiddenDialog);
+                txtMessage = forbiddenDialog.findViewById(R.id.forbidden_message);
+                txtMessage.setText("Terjadi kesalahan sistem");
+
+                AlertDialog alertDialog = builder.create();
+
+                forbiddenDialog.findViewById(R.id.btn_confirm_forbidden).setOnClickListener(v -> finish());
+
+                if (alertDialog.getWindow() != null) {
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                }
+
+                alertDialog.show();
             }
         });
 

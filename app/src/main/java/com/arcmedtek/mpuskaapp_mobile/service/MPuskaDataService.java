@@ -208,7 +208,7 @@ public class MPuskaDataService {
                     profileLectureListener.onResponse(models);
                 } catch (JSONException e) {
                     //e.printStackTrace();
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    profileLectureListener.onError("Terjadi kesalahan sistem");
                 }
             }
         }, new Response.ErrorListener() {
@@ -312,6 +312,7 @@ public class MPuskaDataService {
                         teacherListCourseListener.onResponse(models);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        teacherListCourseListener.onError("Terjadi kesalahan sistem");
                     }
                 }
             }
