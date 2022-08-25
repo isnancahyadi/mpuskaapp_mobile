@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -40,6 +42,7 @@ import com.arcmedtek.mpuskaapp_mobile.config.OnSpinnerChanged;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.arcmedtek.mpuskaapp_mobile.service.NetworkChangeListener;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -81,6 +84,8 @@ public class Assessment extends AppCompatActivity {
 
     String[] _idAssessments, _percent, _keyScore;
     boolean _isAchievementsActived = false;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @SuppressLint({"NewApi", "SetTextI18n", "RestrictedApi"})
     @Override
@@ -711,5 +716,18 @@ public class Assessment extends AppCompatActivity {
                 Toast.makeText(Assessment.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

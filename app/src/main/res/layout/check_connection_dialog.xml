@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@drawable/maskot_cat_no_internet"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oops!"
+            android:textSize="42sp"
+            android:fontFamily="@font/roboto_black"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidak ada koneksi internet"
+            android:textSize="24sp"
+            android:fontFamily="@font/roboto_black"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Periksa koneksi internet anda"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_black"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/btn_retry_connection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="#5DCEFF"
+            android:fontFamily="@font/roboto_black"
+            android:paddingStart="45dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="45dp"
+            android:paddingBottom="10dp"
+            android:text="Retry"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"
+            app:cornerRadius="15dp"
+            app:rippleColor="#00AAE4" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

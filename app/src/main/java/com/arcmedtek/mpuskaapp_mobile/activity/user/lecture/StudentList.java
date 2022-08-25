@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.arcmedtek.mpuskaapp_mobile.adapter.StudentListAdapter;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.arcmedtek.mpuskaapp_mobile.service.NetworkChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,8 @@ public class StudentList extends AppCompatActivity {
     RecyclerView _studentRecycler;
     StudentListAdapter _studentListAdapter;
     MPuskaDataService _mPuskaDataService;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -75,5 +80,18 @@ public class StudentList extends AppCompatActivity {
         _studentRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         _studentRecycler.setAdapter(_studentListAdapter);
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

@@ -9,7 +9,9 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -28,6 +30,7 @@ import com.arcmedtek.mpuskaapp_mobile.activity.Login;
 import com.arcmedtek.mpuskaapp_mobile.config.SessionManager;
 import com.arcmedtek.mpuskaapp_mobile.model.LectureProfileModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.arcmedtek.mpuskaapp_mobile.service.NetworkChangeListener;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -56,6 +59,8 @@ public class LectureProfile extends AppCompatActivity {
     TextInputEditText _inetFirstName, _inetMiddleName, _inetLastName, _inetPhoneNumber, _inetEmail;
 
     MenuBuilder _menuBuilder;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -313,5 +318,18 @@ public class LectureProfile extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.arcmedtek.mpuskaapp_mobile.adapter.InputValueAdapter;
 import com.arcmedtek.mpuskaapp_mobile.model.KhsModel;
 import com.arcmedtek.mpuskaapp_mobile.model.KrsModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.arcmedtek.mpuskaapp_mobile.service.NetworkChangeListener;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,8 @@ public class InputValue extends AppCompatActivity {
     RecyclerView _studentRecycler;
     InputValueAdapter _inputValueAdapter;
     MPuskaDataService _mPuskaDataService;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,5 +94,18 @@ public class InputValue extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         main(_strCollegeYear, _strNameCourse, _strCodeCourse, _strClassroom, _strIdTeacher);
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }

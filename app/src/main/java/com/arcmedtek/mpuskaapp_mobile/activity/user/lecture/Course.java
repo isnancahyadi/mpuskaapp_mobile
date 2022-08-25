@@ -6,7 +6,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.arcmedtek.mpuskaapp_mobile.R;
 import com.arcmedtek.mpuskaapp_mobile.model.CourseModel;
 import com.arcmedtek.mpuskaapp_mobile.service.MPuskaDataService;
+import com.arcmedtek.mpuskaapp_mobile.service.NetworkChangeListener;
 import com.google.android.flexbox.AlignContent;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -35,6 +38,8 @@ public class Course extends AppCompatActivity {
     FlexboxLayout _contentAction;
 
     MPuskaDataService _mPuskaDataService;
+
+    NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -126,5 +131,18 @@ public class Course extends AppCompatActivity {
         });
 
         _btnBack.setOnClickListener(v -> onBackPressed());
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, filter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 }
