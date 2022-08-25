@@ -97,7 +97,7 @@ public class SignUp extends AppCompatActivity {
                     case "403":
                         builder.setView(forbiddenDialog);
                         txtMessage = forbiddenDialog.findViewById(R.id.forbidden_message);
-                        txtMessage.setText("Status anda tidak aktif di MBKM. Silahkan hubungi admin.");
+                        txtMessage.setText("Status anda tidak aktif di MBKM. Silahkan hubungi admin");
                         break;
                     case "404":
                         builder.setView(notFoundDialog);
@@ -108,6 +108,11 @@ public class SignUp extends AppCompatActivity {
                         builder.setView(warningDialog);
                         txtMessage = warningDialog.findViewById(R.id.warning_message);
                         txtMessage.setText("Username telah digunakan");
+                        break;
+                    default:
+                        builder.setView(forbiddenDialog);
+                        txtMessage = forbiddenDialog.findViewById(R.id.forbidden_message);
+                        txtMessage.setText("Terjadi kesalahan sistem");
                         break;
                 }
 

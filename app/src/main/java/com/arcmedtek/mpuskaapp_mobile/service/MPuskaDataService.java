@@ -1,12 +1,16 @@
 package com.arcmedtek.mpuskaapp_mobile.service;
 
+import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -84,7 +88,16 @@ public class MPuskaDataService {
     }
 
     public void signUp(String username, String password, SignUpListener signUpListener) {
-        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_CREATE_ACCOUNT, response -> signUpListener.onResponse("Akun berhasil dibuat"), error -> signUpListener.onError(String.valueOf(error.networkResponse.statusCode))) {
+        StringRequest request = new StringRequest(Request.Method.POST, QUERY_FOR_CREATE_ACCOUNT, response -> signUpListener.onResponse("Akun berhasil dibuat"), new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                try {
+                    signUpListener.onError(String.valueOf(error.networkResponse.statusCode));
+                } catch (Exception e) {
+                    signUpListener.onError("Terjadi kesalahan sistem");
+                }
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
