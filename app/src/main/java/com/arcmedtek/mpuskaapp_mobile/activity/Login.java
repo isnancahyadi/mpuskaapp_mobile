@@ -102,6 +102,7 @@ public class Login extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Login.this, R.style.AlertDialogStyle);
                 View warningDialog = LayoutInflater.from(Login.this).inflate(R.layout.custom_warning_dialog, findViewById(R.id.confirm_warning_dialog));
                 View notFoundDialog = LayoutInflater.from(Login.this).inflate(R.layout.custom_404_dialog, findViewById(R.id.confirm_404_dialog));
+                View forbiddenDialog = LayoutInflater.from(Login.this).inflate(R.layout.custom_forbidden_dialog, findViewById(R.id.confirm_forbidden_dialog));
 
                 TextView txtMessage;
 
@@ -116,6 +117,11 @@ public class Login extends AppCompatActivity {
                         txtMessage = notFoundDialog.findViewById(R.id.notfound_message);
                         txtMessage.setText("NIY/NIP tidak ditemukan");
                         break;
+                    default:
+                        builder.setView(forbiddenDialog);
+                        txtMessage = forbiddenDialog.findViewById(R.id.forbidden_message);
+                        txtMessage.setText("Terjadi kesalahan sistem");
+                        break;
                 }
 
                 final AlertDialog alertDialog = builder.create();
@@ -123,6 +129,8 @@ public class Login extends AppCompatActivity {
                 warningDialog.findViewById(R.id.btn_confirm_warning).setOnClickListener(v -> alertDialog.dismiss());
 
                 notFoundDialog.findViewById(R.id.btn_confirm_404).setOnClickListener(v -> alertDialog.dismiss());
+
+                forbiddenDialog.findViewById(R.id.btn_confirm_forbidden).setOnClickListener(v -> alertDialog.dismiss());
 
                 if (alertDialog.getWindow() != null) {
                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));

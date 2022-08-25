@@ -134,7 +134,11 @@ public class MPuskaDataService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                loginListener.onError(String.valueOf(error.networkResponse.statusCode));
+                try {
+                    loginListener.onError(String.valueOf(error.networkResponse.statusCode));
+                } catch (Exception e) {
+                    loginListener.onError("Terjadi kesalahan sistem");
+                }
             }
         }) {
             @Override
