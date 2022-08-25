@@ -102,7 +102,7 @@ public class SignUp extends AppCompatActivity {
                     case "404":
                         builder.setView(notFoundDialog);
                         txtMessage = notFoundDialog.findViewById(R.id.notfound_message);
-                        txtMessage.setText("NIY/NIM tidak ditemukan");
+                        txtMessage.setText("NIY/NIP tidak ditemukan");
                         break;
                     case "409":
                         builder.setView(warningDialog);

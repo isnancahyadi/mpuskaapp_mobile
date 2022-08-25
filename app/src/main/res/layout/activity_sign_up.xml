@@ -80,7 +80,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/basic"
-                            android:hint="@string/niy_nim"
+                            android:hint="NIY/NIP"
                             android:inputType="textPersonName"
                             android:padding="10dp"
                             android:textColor="#000000"
