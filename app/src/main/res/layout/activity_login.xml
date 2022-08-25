@@ -108,7 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_black"
-                        android:hint="@string/niy_nim"
+                        android:hint="NIY/NIP"
                         android:inputType="textPersonName"
                         android:paddingStart="18dp"
                         android:paddingTop="14dp"

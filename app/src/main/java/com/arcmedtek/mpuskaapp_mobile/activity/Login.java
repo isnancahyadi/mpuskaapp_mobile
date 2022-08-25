@@ -64,11 +64,11 @@ public class Login extends AppCompatActivity {
                 isLogin(mUsername, mPassword);
             } else {
                 if (mUsername.isEmpty() && !mPassword.isEmpty()) {
-                    _username.setError("Masukkan NIY/NIM");
+                    _username.setError("Masukkan NIY/NIP");
                 } else if (!mUsername.isEmpty()) {
                     _password.setError("Masukkan password");
                 } else {
-                    _username.setError("Masukkan NIY/NIM");
+                    _username.setError("Masukkan NIY/NIP");
                     _password.setError("Masukkan password");
                 }
             }
@@ -109,12 +109,12 @@ public class Login extends AppCompatActivity {
                     case "400":
                         builder.setView(warningDialog);
                         txtMessage = warningDialog.findViewById(R.id.warning_message);
-                        txtMessage.setText("NIY/NIM atau password salah");
+                        txtMessage.setText("NIY/NIP atau password salah");
                         break;
                     case "404":
                         builder.setView(notFoundDialog);
                         txtMessage = notFoundDialog.findViewById(R.id.notfound_message);
-                        txtMessage.setText("NIY/NIM tidak ditemukan");
+                        txtMessage.setText("NIY/NIP tidak ditemukan");
                         break;
                 }
 
